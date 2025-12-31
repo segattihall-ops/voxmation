@@ -1,0 +1,53 @@
+import Fastify from "fastify";
+import jwt from "@fastify/jwt";
+import swagger from "@fastify/swagger";
+import swaggerUI from "@fastify/swagger-ui";
+import { PrismaClient } from "@prisma/client";
+import { config } from "./config";
+
+import { authPlugin } from "./plugins/auth";
+import { rbacPlugin } from "./plugins/rbac";
+import { auditPlugin } from "./plugins/audit";
+import { eventsPlugin } from "./plugins/events";
+
+import { crmRoutes } from "./modules/crm/crm.routes";
+import { voiceRoutes } from "./modules/voice/voice.routes";
+import { deliveryRoutes } from "./modules/delivery/delivery.routes";
+import { billingRoutes } from "./modules/billing/billing.routes";
+import { integrationsRoutes } from "./modules/integrations/integrations.routes";
+
+const app = Fastify({ logger: true });
+const prisma = new PrismaClient();
+
+app.decorate("prisma", prisma);
+
+app.register(jwt, { secret: config.jwtSecret });
+
+app.register(swagger, {
+  openapi: { info: { title: "Voxmation OS API", version: "v1" } }
+});
+app.register(swaggerUI, { routePrefix: "/docs" });
+
+app.register(authPlugin);
+app.register(rbacPlugin);
+app.register(auditPlugin);
+app.register(eventsPlugin);
+
+app.get("/health", async () => ({ ok: true }));
+
+app.register(crmRoutes, { prefix: "/v1" });
+app.register(voiceRoutes, { prefix: "/v1" });
+app.register(deliveryRoutes, { prefix: "/v1" });
+app.register(billingRoutes, { prefix: "/v1" });
+app.register(integrationsRoutes, { prefix: "/v1" });
+
+app.listen({ port: config.port, host: "0.0.0.0" }).catch((err) => {
+  app.log.error(err);
+  process.exit(1);
+});
+
+declare module "fastify" {
+  interface FastifyInstance {
+    prisma: PrismaClient;
+  }
+}

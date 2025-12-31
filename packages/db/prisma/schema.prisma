@@ -1,0 +1,297 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  SALES
+  DELIVERY
+  SUPPORT
+  FINANCE
+  READONLY
+}
+
+enum LeadStatus {
+  NEW
+  QUALIFYING
+  MEETING
+  PROPOSAL
+  NEGOTIATION
+  WON
+  LOST
+}
+
+enum ActivityType {
+  CALL
+  EMAIL
+  WHATSAPP
+  MEETING
+  NOTE
+}
+
+enum CallStatus {
+  STARTED
+  COMPLETED
+  MISSED
+  FAILED
+}
+
+enum InvoiceStatus {
+  DRAFT
+  PENDING
+  PAID
+  OVERDUE
+  VOID
+}
+
+enum TaskStatus {
+  TODO
+  DOING
+  DONE
+  BLOCKED
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  role      Role     @default(READONLY)
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  auditLogs AuditLog[]
+}
+
+model Account {
+  id        String   @id @default(cuid())
+  name      String
+  domain    String?
+  industry  String?
+  size      String?
+  notes     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  contacts      Contact[]
+  leads         Lead[]
+  opportunities Opportunity[]
+  cases         Case[]
+  projects      Project[]
+  calls         CallLog[]
+  invoices      Invoice[]
+  serviceInstances ServiceInstance[]
+}
+
+model Contact {
+  id        String   @id @default(cuid())
+  accountId String?
+  name      String
+  email     String?
+  phone     String?
+  whatsapp  String?
+  title     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  account Account? @relation(fields: [accountId], references: [id])
+}
+
+model Lead {
+  id          String     @id @default(cuid())
+  accountId   String?
+  contactId   String?
+  ownerId     String?
+  status      LeadStatus @default(NEW)
+  source      String?
+  channel     String?
+  tags        String[]   @default([])
+  nextAction  DateTime?
+  lastTouchAt DateTime?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  account   Account?  @relation(fields: [accountId], references: [id])
+  contact   Contact?  @relation(fields: [contactId], references: [id])
+  activities Activity[]
+  calls      CallLog[]
+}
+
+model Opportunity {
+  id          String     @id @default(cuid())
+  accountId   String
+  ownerId     String?
+  name        String
+  stage       LeadStatus @default(QUALIFYING)
+  amountCents Int        @default(0)
+  probability Int        @default(0)
+  nextAction  DateTime?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  account Account @relation(fields: [accountId], references: [id])
+  calls   CallLog[]
+}
+
+model Activity {
+  id            String       @id @default(cuid())
+  leadId        String?
+  opportunityId String?
+  type          ActivityType
+  summary       String
+  dueAt         DateTime?
+  createdAt     DateTime     @default(now())
+
+  lead        Lead?        @relation(fields: [leadId], references: [id])
+  opportunity Opportunity? @relation(fields: [opportunityId], references: [id])
+}
+
+model CallLog {
+  id            String     @id @default(cuid())
+  leadId        String?
+  opportunityId String?
+  accountId     String?
+  fromNumber    String
+  toNumber      String
+  status        CallStatus
+  durationSec   Int        @default(0)
+  recordingUrl  String?
+  transcript    String?
+  providerCallId String?   @unique
+  createdAt     DateTime   @default(now())
+
+  lead        Lead?        @relation(fields: [leadId], references: [id])
+  opportunity Opportunity? @relation(fields: [opportunityId], references: [id])
+  account     Account?     @relation(fields: [accountId], references: [id])
+}
+
+model ServiceCatalog {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  template    Json
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  instances ServiceInstance[]
+}
+
+model ServiceInstance {
+  id              String   @id @default(cuid())
+  accountId        String
+  serviceCatalogId String
+  status          String   @default("ACTIVE")
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  account   Account        @relation(fields: [accountId], references: [id])
+  catalog   ServiceCatalog @relation(fields: [serviceCatalogId], references: [id])
+  project   Project?
+}
+
+model Project {
+  id              String   @id @default(cuid())
+  accountId        String
+  serviceInstanceId String @unique
+  name            String
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  account  Account @relation(fields: [accountId], references: [id])
+  instance ServiceInstance @relation(fields: [serviceInstanceId], references: [id])
+  tasks    Task[]
+}
+
+model Task {
+  id        String     @id @default(cuid())
+  projectId String
+  title     String
+  status    TaskStatus @default(TODO)
+  assignee  String?
+  dueAt     DateTime?
+  evidence  String?
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  project Project @relation(fields: [projectId], references: [id])
+}
+
+model Case {
+  id        String   @id @default(cuid())
+  accountId String
+  title     String
+  priority  String   @default("P3")
+  status    String   @default("OPEN")
+  slaDueAt  DateTime?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  account Account @relation(fields: [accountId], references: [id])
+}
+
+model Plan {
+  id          String   @id @default(cuid())
+  name        String
+  priceCents  Int
+  interval    String
+  createdAt   DateTime @default(now())
+}
+
+model Invoice {
+  id          String        @id @default(cuid())
+  accountId   String
+  planId      String?
+  status      InvoiceStatus @default(DRAFT)
+  amountCents Int
+  dueAt       DateTime?
+  paidAt      DateTime?
+  createdAt   DateTime      @default(now())
+
+  account Account @relation(fields: [accountId], references: [id])
+  plan    Plan?   @relation(fields: [planId], references: [id])
+}
+
+model Event {
+  id        String   @id @default(cuid())
+  name      String
+  payload   Json
+  createdAt DateTime @default(now())
+}
+
+model WebhookSubscription {
+  id        String   @id @default(cuid())
+  name      String
+  url       String
+  secret    String
+  eventName String
+  isEnabled Boolean  @default(true)
+  createdAt DateTime @default(now())
+}
+
+model ExecutionLog {
+  id        String   @id @default(cuid())
+  target    String
+  status    String
+  requestId String
+  payload   Json
+  response  Json?
+  createdAt DateTime @default(now())
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  actorId   String?
+  action    String
+  entity    String
+  entityId  String?
+  before    Json?
+  after     Json?
+  createdAt DateTime @default(now())
+
+  actor User? @relation(fields: [actorId], references: [id])
+}

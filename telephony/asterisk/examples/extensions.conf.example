@@ -1,0 +1,17 @@
+; ===== Asterisk Dialplan Example (MVP) =====
+; This example demonstrates how to POST call events to Voxmation OS.
+; Replace VOXMATION_OS_URL with your public URL.
+
+[globals]
+VOXMATION_OS_URL=https://YOUR-REPL.repl.co/v1/webhooks/telephony/call-status
+
+[inbound]
+exten => _X.,1,NoOp(Inbound call)
+ same => n,Set(CALL_ID=${UNIQUEID})
+ same => n,System(curl -s -X POST ${VOXMATION_OS_URL} -H "content-type: application/json" -d '{"providerCallId":"'"${CALL_ID}"'","status":"STARTED","fromNumber":"'"${CALLERID(num)}"'","toNumber":"'"${EXTEN}"'"}')
+ same => n,Dial(PJSIP/${EXTEN}@TRUNK,30)
+ same => n,Set(DUR=${CDR(duration)})
+ same => n,System(curl -s -X POST ${VOXMATION_OS_URL} -H "content-type: application/json" -d '{"providerCallId":"'"${CALL_ID}"'","status":"COMPLETED","durationSec":'"${DUR}"',"fromNumber":"'"${CALLERID(num)}"'","toNumber":"'"${EXTEN}"'"}')
+ same => n,Hangup()
+
+; For missed calls you would branch based on DIALSTATUS and send MISSED
