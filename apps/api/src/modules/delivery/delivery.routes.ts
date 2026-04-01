@@ -6,10 +6,10 @@ export const deliveryRoutes: FastifyPluginAsync = async (app) => {
     const body = z.object({
       name: z.string().min(1),
       description: z.string().optional(),
-      template: z.any()
+      template: z.any().default({})
     }).parse(req.body);
 
-    const sc = await app.prisma.serviceCatalog.create({ data: body });
+    const sc = await app.prisma.serviceCatalog.create({ data: { ...body, template: body.template ?? {} } });
     await app.publishEvent("service_catalog.created", { id: sc.id });
     return sc;
   });
@@ -31,7 +31,7 @@ export const deliveryRoutes: FastifyPluginAsync = async (app) => {
     });
 
     const catalog = await app.prisma.serviceCatalog.findUnique({ where: { id: body.serviceCatalogId } });
-    const tasks = (catalog?.template?.tasks ?? []) as Array<{ title: string; dueDays?: number }>;
+    const tasks = ((catalog?.template as unknown as { tasks?: Array<{ title: string; dueDays?: number }> })?.tasks ?? []) as Array<{ title: string; dueDays?: number }>;
 
     if (instance.project) {
       for (const t of tasks) {

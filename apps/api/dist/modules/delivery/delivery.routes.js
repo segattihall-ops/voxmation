@@ -7,9 +7,9 @@ const deliveryRoutes = async (app) => {
         const body = zod_1.z.object({
             name: zod_1.z.string().min(1),
             description: zod_1.z.string().optional(),
-            template: zod_1.z.any()
+            template: zod_1.z.any().default({})
         }).parse(req.body);
-        const sc = await app.prisma.serviceCatalog.create({ data: body });
+        const sc = await app.prisma.serviceCatalog.create({ data: { ...body, template: body.template ?? {} } });
         await app.publishEvent("service_catalog.created", { id: sc.id });
         return sc;
     });
