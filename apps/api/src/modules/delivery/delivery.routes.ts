@@ -48,4 +48,20 @@ export const deliveryRoutes: FastifyPluginAsync = async (app) => {
     await app.publishEvent("delivery.started", { serviceInstanceId: instance.id, projectId: instance.project?.id });
     return instance;
   });
+
+  app.get("/service-catalog", { preHandler: app.requireRole(["ADMIN","DELIVERY","SALES","READONLY"]) }, async () => {
+    return app.prisma.serviceCatalog.findMany({ orderBy: { createdAt: "desc" } });
+  });
+
+  app.get("/service-instances", { preHandler: app.requireRole(["ADMIN","DELIVERY","READONLY"]) }, async () => {
+    return app.prisma.serviceInstance.findMany({
+      orderBy: { createdAt: "desc" },
+      take: 50,
+      include: {
+        account: { select: { name: true } },
+        catalog: { select: { name: true } },
+        project: { include: { tasks: { orderBy: { createdAt: "asc" } } } }
+      }
+    });
+  });
 };

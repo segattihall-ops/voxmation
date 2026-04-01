@@ -7,8 +7,10 @@ const fastify_1 = __importDefault(require("fastify"));
 const jwt_1 = __importDefault(require("@fastify/jwt"));
 const swagger_1 = __importDefault(require("@fastify/swagger"));
 const swagger_ui_1 = __importDefault(require("@fastify/swagger-ui"));
+const static_1 = __importDefault(require("@fastify/static"));
 const client_1 = require("@prisma/client");
 const config_1 = require("./config");
+const path_1 = __importDefault(require("path"));
 const auth_1 = require("./plugins/auth");
 const rbac_1 = require("./plugins/rbac");
 const audit_1 = require("./plugins/audit");
@@ -30,12 +32,26 @@ app.register(auth_1.authPlugin);
 app.register(rbac_1.rbacPlugin);
 app.register(audit_1.auditPlugin);
 app.register(events_1.eventsPlugin);
+app.get("/", async () => ({
+    name: "Voxmation OS API",
+    version: "v1",
+    status: "ok",
+    docs: "/docs"
+}));
 app.get("/health", async () => ({ ok: true }));
 app.register(crm_routes_1.crmRoutes, { prefix: "/v1" });
 app.register(voice_routes_1.voiceRoutes, { prefix: "/v1" });
 app.register(delivery_routes_1.deliveryRoutes, { prefix: "/v1" });
 app.register(billing_routes_1.billingRoutes, { prefix: "/v1" });
 app.register(integrations_routes_1.integrationsRoutes, { prefix: "/v1" });
+const staticRoot = path_1.default.resolve(__dirname, "../../web/dist");
+app.register(static_1.default, {
+    root: staticRoot,
+    prefix: "/"
+});
+app.setNotFoundHandler(async (_req, reply) => {
+    return reply.sendFile("index.html");
+});
 app.listen({ port: config_1.config.port, host: "0.0.0.0" }).catch((err) => {
     app.log.error(err);
     process.exit(1);

@@ -7,5 +7,18 @@ export default defineConfig({
     port: 5000,
     host: "0.0.0.0",
     allowedHosts: "all",
+    proxy: {
+      "/v1": {
+        target: "http://localhost:3001",
+        changeOrigin: true
+      },
+      "/auth": {
+        target: "http://localhost:3001",
+        changeOrigin: true
+      }
+    }
   },
+  build: {
+    outDir: "dist"
+  }
 });

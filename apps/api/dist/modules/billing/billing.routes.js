@@ -32,6 +32,16 @@ const billingRoutes = async (app) => {
         await app.publishEvent("invoice.created", { invoiceId: invoice.id, accountId: invoice.accountId });
         return invoice;
     });
+    app.get("/plans", { preHandler: app.requireRole(["ADMIN", "FINANCE", "SALES", "READONLY"]) }, async () => {
+        return app.prisma.plan.findMany({ orderBy: { createdAt: "desc" } });
+    });
+    app.get("/invoices", { preHandler: app.requireRole(["ADMIN", "FINANCE", "READONLY"]) }, async () => {
+        return app.prisma.invoice.findMany({
+            orderBy: { createdAt: "desc" },
+            take: 100,
+            include: { account: { select: { name: true } }, plan: { select: { name: true } } }
+        });
+    });
     app.post("/webhooks/payments", async (req) => {
         const body = zod_1.z.object({
             invoiceId: zod_1.z.string(),

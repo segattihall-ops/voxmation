@@ -17,6 +17,39 @@ An open-source Business Operating System starter kit built with Node.js/TypeScri
 - **Telephony Gateway**: `apps/telephony-gateway/` (separate service)
 - **Database**: PostgreSQL via Prisma ORM — `packages/db/`
 
+## Dashboard App (added in Task #3)
+React + Vite dashboard frontend for managing all Voxmation OS data.
+
+### Auth
+- `/login` — Login page (calls POST /auth/login, stores JWT in localStorage as "vox_token")
+- `/register` — Register page (calls POST /auth/register)
+- Protected routes at `/app/*` redirect to /login if no token
+
+### Dashboard Pages (`/app/*`)
+- `/app/dashboard` — Overview with stat cards (counts of accounts, leads, opportunities, invoices, calls)
+- `/app/crm/accounts` — List + create accounts
+- `/app/crm/contacts` — List + create contacts
+- `/app/crm/leads` — List + create leads with status filter
+- `/app/crm/opportunities` — List + create opportunities + stage update
+- `/app/billing/plans` — List subscription plans
+- `/app/billing/invoices` — List invoices with status badges
+- `/app/delivery/catalogs` — List service catalogs
+- `/app/delivery/instances` — List + create service instances (shows auto-generated project + tasks)
+- `/app/voice/calls` — List call logs with status badges
+
+### Dashboard Architecture
+- `apps/web/src/dashboard/api.ts` — Central API client (fetch with JWT, auth helpers)
+- `apps/web/src/dashboard/components/` — Shared: DashboardLayout, PageHeader, Table, Badge, Modal, FormField, ProtectedRoute, LoadingSpinner
+- `apps/web/src/dashboard/pages/` — Page components organized by module
+
+### Backend Changes (for dashboard)
+- Added GET /v1/accounts, /v1/contacts, /v1/opportunities, /v1/leads to CRM routes
+- Added GET /v1/plans, /v1/invoices to billing routes
+- Added GET /v1/service-catalog, /v1/service-instances to delivery routes
+- Added GET /v1/calls to voice routes
+- Added @fastify/static to serve apps/web/dist as static files (production mode)
+- SPA catch-all route in Fastify for client-side routing
+
 ## Marketing Website (`apps/web/`)
 SEO-optimized public marketing site targeting "self-hosted CRM telephony" and related keywords.
 

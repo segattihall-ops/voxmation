@@ -2,8 +2,10 @@ import Fastify from "fastify";
 import jwt from "@fastify/jwt";
 import swagger from "@fastify/swagger";
 import swaggerUI from "@fastify/swagger-ui";
+import fastifyStatic from "@fastify/static";
 import { PrismaClient } from "@prisma/client";
 import { config } from "./config";
+import path from "path";
 
 import { authPlugin } from "./plugins/auth";
 import { rbacPlugin } from "./plugins/rbac";
@@ -33,13 +35,6 @@ app.register(rbacPlugin);
 app.register(auditPlugin);
 app.register(eventsPlugin);
 
-app.get("/", async () => ({
-  name: "Voxmation OS API",
-  version: "v1",
-  status: "ok",
-  docs: "/docs"
-}));
-
 app.get("/health", async () => ({ ok: true }));
 
 app.register(crmRoutes, { prefix: "/v1" });
@@ -47,6 +42,21 @@ app.register(voiceRoutes, { prefix: "/v1" });
 app.register(deliveryRoutes, { prefix: "/v1" });
 app.register(billingRoutes, { prefix: "/v1" });
 app.register(integrationsRoutes, { prefix: "/v1" });
+
+const staticRoot = path.resolve(__dirname, "../../web/dist");
+app.register(fastifyStatic, {
+  root: staticRoot,
+  prefix: "/"
+});
+
+app.setNotFoundHandler(async (req, reply) => {
+  const url = req.raw.url || "";
+  const isApiPath = url.startsWith("/v1") || url.startsWith("/auth") || url.startsWith("/docs") || url.startsWith("/health");
+  if (isApiPath) {
+    return reply.code(404).send({ error: "Not found" });
+  }
+  return reply.sendFile("index.html");
+});
 
 app.listen({ port: config.port, host: "0.0.0.0" }).catch((err) => {
   app.log.error(err);

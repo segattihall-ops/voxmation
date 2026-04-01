@@ -10,6 +10,9 @@ function normalizePhone(s) {
     return s.replace(/[^0-9+]/g, "");
 }
 const voiceRoutes = async (app) => {
+    app.get("/calls", { preHandler: app.requireRole(["ADMIN", "SALES", "READONLY"]) }, async () => {
+        return app.prisma.callLog.findMany({ orderBy: { createdAt: "desc" }, take: 100 });
+    });
     // Outbound: OS pede para a camada de telefonia (Asterisk Gateway) originar uma chamada.
     // MVP: apenas cria CallLog e emite evento "call.outbound_requested".
     app.post("/calls/outbound", { preHandler: app.requireRole(["ADMIN", "SALES"]) }, async (req) => {

@@ -25,6 +25,22 @@ export const crmRoutes: FastifyPluginAsync = async (app) => {
     return app.prisma.account.findMany({ orderBy: { createdAt: "desc" }, take: 50 });
   });
 
+  app.get("/contacts", { preHandler: app.requireRole(["ADMIN","SALES","READONLY"]) }, async () => {
+    return app.prisma.contact.findMany({
+      orderBy: { createdAt: "desc" },
+      take: 50,
+      include: { account: { select: { name: true } } }
+    });
+  });
+
+  app.get("/opportunities", { preHandler: app.requireRole(["ADMIN","SALES","READONLY"]) }, async () => {
+    return app.prisma.opportunity.findMany({
+      orderBy: { createdAt: "desc" },
+      take: 50,
+      include: { account: { select: { name: true } } }
+    });
+  });
+
   // Contacts
   app.post("/contacts", { preHandler: app.requireRole(["ADMIN","SALES"]) }, async (req: any) => {
     const body = z.object({
@@ -81,6 +97,21 @@ export const crmRoutes: FastifyPluginAsync = async (app) => {
       orderBy: { createdAt: "desc" },
       take: 50
     });
+  });
+
+  app.put("/leads/:id/status", { preHandler: app.requireRole(["ADMIN","SALES"]) }, async (req: any, reply) => {
+    const id = req.params.id as string;
+    const body = z.object({ status: z.enum(["NEW","QUALIFYING","MEETING","PROPOSAL","NEGOTIATION","WON","LOST"]) }).parse(req.body);
+
+    const before = await app.prisma.lead.findUnique({ where: { id } });
+    if (!before) return reply.code(404).send({ error: "Not found" });
+
+    const after = await app.prisma.lead.update({ where: { id }, data: { status: body.status } });
+
+    await app.audit({ actorId: req.user.sub, action: "UPDATE_STATUS", entity: "Lead", entityId: id, before, after });
+    await app.publishEvent("lead.status_changed", { leadId: id, from: before.status, to: after.status });
+
+    return after;
   });
 
   // Opportunities (Deals)

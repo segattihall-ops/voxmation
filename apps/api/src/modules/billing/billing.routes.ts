@@ -36,6 +36,18 @@ export const billingRoutes: FastifyPluginAsync = async (app) => {
     return invoice;
   });
 
+  app.get("/plans", { preHandler: app.requireRole(["ADMIN","FINANCE","SALES","READONLY"]) }, async () => {
+    return app.prisma.plan.findMany({ orderBy: { createdAt: "desc" } });
+  });
+
+  app.get("/invoices", { preHandler: app.requireRole(["ADMIN","FINANCE","READONLY"]) }, async () => {
+    return app.prisma.invoice.findMany({
+      orderBy: { createdAt: "desc" },
+      take: 100,
+      include: { account: { select: { name: true } }, plan: { select: { name: true } } }
+    });
+  });
+
   app.post("/webhooks/payments", async (req: any) => {
     const body = z.object({
       invoiceId: z.string(),
