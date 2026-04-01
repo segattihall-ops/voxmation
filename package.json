@@ -14,5 +14,8 @@
     "db:generate": "npm --workspace packages/db run generate",
     "db:setup": "bash scripts/db-setup.sh",
     "smoke-test": "bash scripts/smoke-test.sh"
+  },
+  "dependencies": {
+    "@fastify/formbody": "^8.0.2"
   }
 }

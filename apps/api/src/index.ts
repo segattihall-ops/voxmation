@@ -1,5 +1,6 @@
 import Fastify from "fastify";
 import jwt from "@fastify/jwt";
+import formbody from "@fastify/formbody";
 import swagger from "@fastify/swagger";
 import swaggerUI from "@fastify/swagger-ui";
 import fastifyStatic from "@fastify/static";
@@ -20,6 +21,18 @@ import { integrationsRoutes } from "./modules/integrations/integrations.routes";
 
 const app = Fastify({ logger: true });
 const prisma = new PrismaClient();
+
+app.addContentTypeParser("application/json", { parseAs: "string" }, (req, body, done) => {
+  (req as FastifyRequestWithRawBody).rawBody = body as string;
+  try {
+    done(null, JSON.parse(body as string));
+  } catch (err: any) {
+    err.statusCode = 400;
+    done(err, undefined);
+  }
+});
+
+app.register(formbody);
 
 app.decorate("prisma", prisma);
 
@@ -67,4 +80,11 @@ declare module "fastify" {
   interface FastifyInstance {
     prisma: PrismaClient;
   }
+  interface FastifyRequest {
+    rawBody?: string;
+  }
+}
+
+interface FastifyRequestWithRawBody {
+  rawBody: string;
 }

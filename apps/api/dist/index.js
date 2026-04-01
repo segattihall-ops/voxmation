@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const fastify_1 = __importDefault(require("fastify"));
 const jwt_1 = __importDefault(require("@fastify/jwt"));
+const formbody_1 = __importDefault(require("@fastify/formbody"));
 const swagger_1 = __importDefault(require("@fastify/swagger"));
 const swagger_ui_1 = __importDefault(require("@fastify/swagger-ui"));
 const static_1 = __importDefault(require("@fastify/static"));
@@ -22,6 +23,17 @@ const billing_routes_1 = require("./modules/billing/billing.routes");
 const integrations_routes_1 = require("./modules/integrations/integrations.routes");
 const app = (0, fastify_1.default)({ logger: true });
 const prisma = new client_1.PrismaClient();
+app.addContentTypeParser("application/json", { parseAs: "string" }, (req, body, done) => {
+    req.rawBody = body;
+    try {
+        done(null, JSON.parse(body));
+    }
+    catch (err) {
+        err.statusCode = 400;
+        done(err, undefined);
+    }
+});
+app.register(formbody_1.default);
 app.decorate("prisma", prisma);
 app.register(jwt_1.default, { secret: config_1.config.jwtSecret });
 app.register(swagger_1.default, {

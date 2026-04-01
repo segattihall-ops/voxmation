@@ -16,6 +16,14 @@ enum Role {
   READONLY
 }
 
+enum LeadSource {
+  MANUAL
+  META_ADS
+  WHATSAPP
+  WEBSITE
+  REFERRAL
+}
+
 enum LeadStatus {
   NEW
   QUALIFYING
@@ -96,6 +104,7 @@ model Contact {
   phone     String?
   whatsapp  String?
   title     String?
+  archived  Boolean  @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -109,11 +118,12 @@ model Lead {
   contactId   String?
   ownerId     String?
   status      LeadStatus @default(NEW)
-  source      String?
+  source      LeadSource @default(MANUAL)
   channel     String?
   tags        String[]   @default([])
   nextAction  DateTime?
   lastTouchAt DateTime?
+  archived    Boolean    @default(false)
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
 
