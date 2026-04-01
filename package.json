@@ -6,8 +6,9 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "npm --workspace apps/api run dev",
-    "build": "npm --workspace apps/api run build",
+    "dev": "npm --workspace apps/web run dev",
+    "dev:api": "npm --workspace apps/api run dev",
+    "build": "npm --workspace apps/web run build && npm --workspace apps/api run build",
     "start": "npm --workspace apps/api run start",
     "db:migrate": "npm --workspace packages/db run migrate",
     "db:generate": "npm --workspace packages/db run generate"

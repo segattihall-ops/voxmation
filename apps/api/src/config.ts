@@ -1,5 +1,5 @@
 export const config = {
-  port: Number(process.env.PORT || 5000),
+  port: Number(process.env.PORT || 3001),
   jwtSecret: process.env.JWT_SECRET || "dev-secret",
   webhookSecret: process.env.WEBHOOK_SECRET || "dev-webhook-secret",
   twilio: {
