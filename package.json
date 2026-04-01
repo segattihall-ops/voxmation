@@ -11,6 +11,8 @@
     "build": "npm --workspace apps/web run build && npm --workspace apps/api run build",
     "start": "npm --workspace apps/api run start",
     "db:migrate": "npm --workspace packages/db run migrate",
-    "db:generate": "npm --workspace packages/db run generate"
+    "db:generate": "npm --workspace packages/db run generate",
+    "db:setup": "bash scripts/db-setup.sh",
+    "smoke-test": "bash scripts/smoke-test.sh"
   }
 }

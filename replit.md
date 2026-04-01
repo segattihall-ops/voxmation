@@ -71,8 +71,16 @@ Blog content lives in `apps/web/src/blog/posts.ts` as static TypeScript data.
 - `npm run db:migrate` — Run migrations
 
 ## Environment Variables
-- `DATABASE_URL` — PostgreSQL connection string (auto-set by Replit)
-- `JWT_SECRET` — JWT signing secret (defaults to "dev-secret")
-- `WEBHOOK_SECRET` — Webhook signing secret
+- `DATABASE_URL` — PostgreSQL connection string (auto-set by Replit DB)
+- `JWT_SECRET` — JWT signing secret (set as Replit secret)
+- `WEBHOOK_SECRET` — Webhook signing secret (set as Replit secret)
 - `TWILIO_ACCOUNT_SID` — Twilio Account SID (optional)
 - `TWILIO_AUTH_TOKEN` — Twilio Auth Token (optional)
+
+## Backend Status (Task 2 Complete)
+- PostgreSQL database provisioned via Replit built-in DB
+- All Prisma schema tables created with `prisma db push`
+- JWT_SECRET and WEBHOOK_SECRET configured as Replit secrets
+- Root `GET /` returns JSON info response (no more 404)
+- Swagger UI accessible at `/docs`
+- Smoke tested: register, login, create account, list accounts, create lead, list leads — all pass

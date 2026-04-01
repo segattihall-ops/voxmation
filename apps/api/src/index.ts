@@ -33,6 +33,13 @@ app.register(rbacPlugin);
 app.register(auditPlugin);
 app.register(eventsPlugin);
 
+app.get("/", async () => ({
+  name: "Voxmation OS API",
+  version: "v1",
+  status: "ok",
+  docs: "/docs"
+}));
+
 app.get("/health", async () => ({ ok: true }));
 
 app.register(crmRoutes, { prefix: "/v1" });
