@@ -1,6 +1,7 @@
 import type { FastifyPluginAsync } from "fastify";
+import fp from "fastify-plugin";
 
-export const auditPlugin: FastifyPluginAsync = async (app) => {
+const plugin: FastifyPluginAsync = async (app) => {
   app.decorate("audit", async (params: {
     actorId?: string;
     action: string;
@@ -21,6 +22,8 @@ export const auditPlugin: FastifyPluginAsync = async (app) => {
     });
   });
 };
+
+export const auditPlugin = fp(plugin);
 
 declare module "fastify" {
   interface FastifyInstance {

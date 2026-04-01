@@ -1,6 +1,7 @@
 import type { FastifyPluginAsync } from "fastify";
+import fp from "fastify-plugin";
 
-export const rbacPlugin: FastifyPluginAsync = async (app) => {
+const plugin: FastifyPluginAsync = async (app) => {
   app.decorate("requireRole", (roles: string[]) => {
     return async (req: any, reply: any) => {
       await app.requireAuth(req, reply);
@@ -11,6 +12,8 @@ export const rbacPlugin: FastifyPluginAsync = async (app) => {
     };
   });
 };
+
+export const rbacPlugin = fp(plugin);
 
 declare module "fastify" {
   interface FastifyInstance {

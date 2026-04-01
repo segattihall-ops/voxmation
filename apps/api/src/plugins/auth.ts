@@ -1,8 +1,9 @@
 import type { FastifyPluginAsync } from "fastify";
+import fp from "fastify-plugin";
 import bcrypt from "bcryptjs";
 import { z } from "zod";
 
-export const authPlugin: FastifyPluginAsync = async (app) => {
+const plugin: FastifyPluginAsync = async (app) => {
   app.post("/auth/register", async (req, reply) => {
     const body = z.object({
       email: z.string().email(),
@@ -40,6 +41,8 @@ export const authPlugin: FastifyPluginAsync = async (app) => {
     }
   });
 };
+
+export const authPlugin = fp(plugin);
 
 declare module "fastify" {
   interface FastifyInstance {

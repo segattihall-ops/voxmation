@@ -1,7 +1,8 @@
 import type { FastifyPluginAsync } from "fastify";
+import fp from "fastify-plugin";
 import crypto from "crypto";
 
-export const eventsPlugin: FastifyPluginAsync = async (app) => {
+const plugin: FastifyPluginAsync = async (app) => {
   app.decorate("publishEvent", async (name: string, payload: any) => {
     await app.prisma.event.create({ data: { name, payload } });
 
@@ -32,6 +33,8 @@ export const eventsPlugin: FastifyPluginAsync = async (app) => {
     }
   });
 };
+
+export const eventsPlugin = fp(plugin);
 
 declare module "fastify" {
   interface FastifyInstance {
