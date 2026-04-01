@@ -1,0 +1,8 @@
+.next
+out
+node_modules
+*.tsbuildinfo
+
+# next-sitemap generated files (generated at build time)
+public/sitemap*.xml
+public/robots.txt

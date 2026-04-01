@@ -78,6 +78,44 @@ SEO-optimized public marketing site targeting "self-hosted CRM telephony" and re
 
 Blog content lives in `apps/web/src/blog/posts.ts` as static TypeScript data.
 
+## Next.js Marketing Site (`apps/marketing/`) — Task #8
+
+A production-ready Next.js 14 (App Router) marketing site for Voxmation as a voice prompt automation business. Runs independently on port 3002 in development.
+
+### Pages
+- `/` — Homepage: hero (with phone number), features grid, how-it-works steps, use-case cards, CTA banner. JSON-LD Organization + SoftwareApplication.
+- `/features` — Full platform breakdown: prompt builder, IVR designer, outbound dialer, analytics, telephony integrations, AI transcription, RBAC.
+- `/pricing` — Three tiers: Self-Hosted (free), Cloud-Managed (waitlist), Enterprise (call sales). Feature comparison table, FAQ accordion.
+- `/use-cases` — 5 use cases: appointment reminders, inbound IVR, outbound campaigns, after-hours handling, survey collection.
+- `/blog` — Blog listing with 3 articles on voice automation.
+- `/blog/[slug]` — Individual blog posts with Article JSON-LD and custom markdown renderer.
+- `/contact` — Contact form (mailto), phone 1-844-687-7999 prominently displayed, contact methods, map placeholder.
+
+### SEO
+- Every page has `generateMetadata` with title, description, canonical URL, Open Graph, Twitter Card.
+- JSON-LD structured data on all pages (Organization, SoftwareApplication, BreadcrumbList, FAQPage, Article).
+- `next-sitemap` generates `/sitemap.xml` and `/robots.txt` at build time using `voxmation.com` domain.
+- Inter font via `next/font/google`.
+
+### Blog Posts (voice automation focus)
+1. "What Is Voice Prompt Automation?" (slug: `what-is-voice-prompt-automation`)
+2. "Asterisk vs Twilio for Outbound Campaigns" (slug: `asterisk-vs-twilio-outbound-campaigns`)
+3. "How to Build an IVR Menu in 2025" (slug: `how-to-build-an-ivr-menu`)
+
+### Key Files
+- `apps/marketing/src/app/layout.tsx` — Root layout with Navbar, Footer, Inter font, dark bg
+- `apps/marketing/src/components/Navbar.tsx` — Sticky nav with phone number tel: link + CTA
+- `apps/marketing/src/components/Footer.tsx` — Full footer with phone, links, copyright
+- `apps/marketing/src/data/posts.ts` — Blog post static data
+- `apps/marketing/src/lib/constants.ts` — SITE_URL, PHONE_NUMBER, PHONE_HREF, etc.
+- `apps/marketing/next.config.mjs` — Next.js config (standalone output, voxmation.com domain)
+- `apps/marketing/next-sitemap.config.js` — Sitemap config
+
+### Scripts
+- `npm run dev:marketing` — Start marketing site (port 3002)
+- `npm run build:marketing` — Build marketing site
+- `cd apps/marketing && npm run build` — Also runs `next-sitemap` postbuild
+
 ## Key Files
 - `apps/web/src/App.tsx` — React Router routes
 - `apps/web/src/components/Layout.tsx` — Shared header/footer
