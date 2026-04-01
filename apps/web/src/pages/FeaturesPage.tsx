@@ -147,8 +147,8 @@ export default function FeaturesPage() {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: "https://voxmation.io" },
-      { "@type": "ListItem", position: 2, name: "Features", item: "https://voxmation.io/features" },
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://voxmation.com" },
+      { "@type": "ListItem", position: 2, name: "Features", item: "https://voxmation.com/features" },
     ],
   };
 

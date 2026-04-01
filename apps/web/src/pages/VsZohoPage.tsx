@@ -32,8 +32,8 @@ export default function VsZohoPage() {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: "https://voxmation.io" },
-      { "@type": "ListItem", position: 2, name: "Voxmation OS vs Zoho", item: "https://voxmation.io/vs-zoho" },
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://voxmation.com" },
+      { "@type": "ListItem", position: 2, name: "Voxmation OS vs Zoho", item: "https://voxmation.com/vs-zoho" },
     ],
   };
 

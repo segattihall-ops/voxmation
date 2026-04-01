@@ -88,8 +88,8 @@ export default function FaqPage() {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: "https://voxmation.io" },
-      { "@type": "ListItem", position: 2, name: "FAQ", item: "https://voxmation.io/faq" },
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://voxmation.com" },
+      { "@type": "ListItem", position: 2, name: "FAQ", item: "https://voxmation.com/faq" },
     ],
   };
 

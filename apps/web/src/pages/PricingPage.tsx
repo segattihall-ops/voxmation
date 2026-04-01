@@ -94,8 +94,8 @@ export default function PricingPage() {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: "https://voxmation.io" },
-      { "@type": "ListItem", position: 2, name: "Pricing", item: "https://voxmation.io/pricing" },
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://voxmation.com" },
+      { "@type": "ListItem", position: 2, name: "Pricing", item: "https://voxmation.com/pricing" },
     ],
   };
 

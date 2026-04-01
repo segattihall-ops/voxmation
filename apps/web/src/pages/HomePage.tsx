@@ -136,7 +136,7 @@ export default function HomePage() {
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: "Voxmation OS",
-    url: "https://voxmation.io",
+    url: "https://voxmation.com",
     description:
       "Open-source, self-hosted CRM with built-in telephony. Free alternative to HubSpot and Salesforce.",
   };

@@ -32,8 +32,8 @@ export default function VsHubspotPage() {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: "https://voxmation.io" },
-      { "@type": "ListItem", position: 2, name: "Voxmation OS vs HubSpot", item: "https://voxmation.io/vs-hubspot" },
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://voxmation.com" },
+      { "@type": "ListItem", position: 2, name: "Voxmation OS vs HubSpot", item: "https://voxmation.com/vs-hubspot" },
     ],
   };
 

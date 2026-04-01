@@ -34,19 +34,19 @@ export default function BlogPostPage() {
       name: "Voxmation OS",
       logo: {
         "@type": "ImageObject",
-        url: "https://voxmation.io/logo.svg",
+        url: "https://voxmation.com/logo.svg",
       },
     },
-    url: `https://voxmation.io/blog/${post.slug}`,
+    url: `https://voxmation.com/blog/${post.slug}`,
   };
 
   const breadcrumb = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: "https://voxmation.io" },
-      { "@type": "ListItem", position: 2, name: "Blog", item: "https://voxmation.io/blog" },
-      { "@type": "ListItem", position: 3, name: post.title, item: `https://voxmation.io/blog/${post.slug}` },
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://voxmation.com" },
+      { "@type": "ListItem", position: 2, name: "Blog", item: "https://voxmation.com/blog" },
+      { "@type": "ListItem", position: 3, name: post.title, item: `https://voxmation.com/blog/${post.slug}` },
     ],
   };
 
