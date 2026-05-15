@@ -31,7 +31,7 @@ export default function Footer() {
               <span className="font-bold text-white">Voxmation</span>
             </Link>
             <p className="text-sm text-gray-500 leading-relaxed mb-4">
-              Voice prompt automation for businesses that need reliable, scalable phone interactions — without the complexity.
+              Managed AI receptionist and missed call recovery for service businesses that lose revenue to slow follow-up.
             </p>
             <a
               href={PHONE_HREF}
@@ -100,7 +100,7 @@ export default function Footer() {
             © {new Date().getFullYear()} Voxmation. All rights reserved.
           </p>
           <p className="text-sm text-gray-600">
-            Voice prompt automation built for scale.
+            Managed AI receptionist and missed call recovery.
           </p>
         </div>
       </div>

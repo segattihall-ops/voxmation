@@ -48,16 +48,28 @@ const crmRoutes = async (app) => {
     }, async () => {
         return app.prisma.account.findMany({ orderBy: { createdAt: "desc" }, take: 50 });
     });
+    app.get("/contacts", { preHandler: app.requireRole(["ADMIN", "SALES", "READONLY"]) }, async () => {
+        return app.prisma.contact.findMany({
+            orderBy: { createdAt: "desc" },
+            take: 50,
+            include: { account: { select: { name: true } } }
+        });
+    });
+    app.get("/opportunities", { preHandler: app.requireRole(["ADMIN", "SALES", "READONLY"]) }, async () => {
+        return app.prisma.opportunity.findMany({
+            orderBy: { createdAt: "desc" },
+            take: 50,
+            include: { account: { select: { name: true } } }
+        });
+    });
     /**
      * GET /v1/accounts/:id/360
-     * Customer 360: unified timeline of ALL interactions for an account —
-     * calls, activities, invoices, cases, leads, opportunities, contacts,
-     * serviceInstances, and tasks (via projects) — sorted by date desc.
+     * Customer 360: unified timeline of all interactions for an account
      */
     app.get("/accounts/:id/360", {
         schema: {
             tags: ["Accounts"],
-            summary: "Customer 360 — unified timeline for an account (all entity types)",
+            summary: "Customer 360 — unified timeline for an account",
             security: [{ bearerAuth: [] }],
             params: { type: "object", properties: { id: { type: "string" } }, required: ["id"] }
         },
@@ -67,7 +79,7 @@ const crmRoutes = async (app) => {
         const account = await app.prisma.account.findUnique({ where: { id } });
         if (!account)
             return reply.code(404).send({ error: "Account not found" });
-        const [leads, opportunities, contacts, calls, activities, invoices, cases, serviceInstances, projects] = await Promise.all([
+        const [leads, opportunities, contacts, calls, activities, invoices, cases, serviceInstances] = await Promise.all([
             app.prisma.lead.findMany({ where: { accountId: id }, orderBy: { createdAt: "desc" } }),
             app.prisma.opportunity.findMany({ where: { accountId: id }, orderBy: { createdAt: "desc" } }),
             app.prisma.contact.findMany({ where: { accountId: id }, orderBy: { createdAt: "desc" } }),
@@ -83,12 +95,7 @@ const crmRoutes = async (app) => {
             }),
             app.prisma.invoice.findMany({ where: { accountId: id }, orderBy: { createdAt: "desc" } }),
             app.prisma.case.findMany({ where: { accountId: id }, orderBy: { createdAt: "desc" } }),
-            app.prisma.serviceInstance.findMany({ where: { accountId: id }, orderBy: { createdAt: "desc" } }),
-            app.prisma.project.findMany({
-                where: { accountId: id },
-                include: { tasks: { orderBy: { createdAt: "desc" } } },
-                orderBy: { createdAt: "desc" }
-            })
+            app.prisma.serviceInstance.findMany({ where: { accountId: id }, orderBy: { createdAt: "desc" } })
         ]);
         const timeline = [];
         for (const l of leads) {
@@ -115,23 +122,17 @@ const crmRoutes = async (app) => {
         for (const si of serviceInstances) {
             timeline.push({ type: "ServiceInstance", date: si.createdAt, summary: `Service instance — status: ${si.status}`, entityId: si.id });
         }
-        for (const proj of projects) {
-            timeline.push({ type: "Project", date: proj.createdAt, summary: `Project: ${proj.name}`, entityId: proj.id });
-            for (const t of proj.tasks) {
-                timeline.push({ type: "Task", date: t.createdAt, summary: `Task: ${t.title} — ${t.status}`, entityId: t.id });
-            }
-        }
         timeline.sort((a, b) => b.date.getTime() - a.date.getTime());
         return { account, timeline };
     });
     /**
      * GET /v1/accounts/:id/timeline
-     * Reverse-chronological unified feed across ALL entity types for that account.
+     * Reverse-chronological unified feed across all entity types
      */
     app.get("/accounts/:id/timeline", {
         schema: {
             tags: ["Accounts"],
-            summary: "Unified reverse-chronological timeline for an account (all entity types)",
+            summary: "Unified reverse-chronological timeline for an account",
             security: [{ bearerAuth: [] }],
             params: { type: "object", properties: { id: { type: "string" } }, required: ["id"] }
         },
@@ -141,10 +142,7 @@ const crmRoutes = async (app) => {
         const account = await app.prisma.account.findUnique({ where: { id } });
         if (!account)
             return reply.code(404).send({ error: "Account not found" });
-        const [leads, opportunities, contacts, calls, activities, invoices, cases, serviceInstances, projects] = await Promise.all([
-            app.prisma.lead.findMany({ where: { accountId: id }, orderBy: { createdAt: "desc" }, take: 50 }),
-            app.prisma.opportunity.findMany({ where: { accountId: id }, orderBy: { createdAt: "desc" }, take: 50 }),
-            app.prisma.contact.findMany({ where: { accountId: id }, orderBy: { createdAt: "desc" }, take: 50 }),
+        const [calls, activities, invoices, cases, leads, opportunities] = await Promise.all([
             app.prisma.callLog.findMany({ where: { accountId: id }, orderBy: { createdAt: "desc" }, take: 100 }),
             app.prisma.activity.findMany({
                 where: {
@@ -158,24 +156,10 @@ const crmRoutes = async (app) => {
             }),
             app.prisma.invoice.findMany({ where: { accountId: id }, orderBy: { createdAt: "desc" }, take: 50 }),
             app.prisma.case.findMany({ where: { accountId: id }, orderBy: { createdAt: "desc" }, take: 50 }),
-            app.prisma.serviceInstance.findMany({ where: { accountId: id }, orderBy: { createdAt: "desc" }, take: 50 }),
-            app.prisma.project.findMany({
-                where: { accountId: id },
-                include: { tasks: { orderBy: { createdAt: "desc" }, take: 100 } },
-                orderBy: { createdAt: "desc" },
-                take: 20
-            })
+            app.prisma.lead.findMany({ where: { accountId: id }, orderBy: { createdAt: "desc" }, take: 50 }),
+            app.prisma.opportunity.findMany({ where: { accountId: id }, orderBy: { createdAt: "desc" }, take: 50 })
         ]);
         const feed = [];
-        for (const l of leads) {
-            feed.push({ type: "Lead", date: l.createdAt, summary: `Lead created — status: ${l.status}`, entityId: l.id });
-        }
-        for (const o of opportunities) {
-            feed.push({ type: "Opportunity", date: o.createdAt, summary: `Opportunity: ${o.name} — stage: ${o.stage}`, entityId: o.id });
-        }
-        for (const c of contacts) {
-            feed.push({ type: "Contact", date: c.createdAt, summary: `Contact: ${c.name}${c.email ? ` (${c.email})` : ""}`, entityId: c.id });
-        }
         for (const c of calls) {
             feed.push({ type: "CallLog", date: c.createdAt, summary: `Call ${c.status} from ${c.fromNumber} to ${c.toNumber}`, entityId: c.id });
         }
@@ -188,14 +172,11 @@ const crmRoutes = async (app) => {
         for (const cs of cases) {
             feed.push({ type: "Case", date: cs.createdAt, summary: `Case: ${cs.title} — ${cs.status} [${cs.priority}]`, entityId: cs.id });
         }
-        for (const si of serviceInstances) {
-            feed.push({ type: "ServiceInstance", date: si.createdAt, summary: `Service instance — status: ${si.status}`, entityId: si.id });
+        for (const l of leads) {
+            feed.push({ type: "Lead", date: l.createdAt, summary: `Lead created — status: ${l.status}`, entityId: l.id });
         }
-        for (const proj of projects) {
-            feed.push({ type: "Project", date: proj.createdAt, summary: `Project: ${proj.name}`, entityId: proj.id });
-            for (const t of proj.tasks) {
-                feed.push({ type: "Task", date: t.createdAt, summary: `Task: ${t.title} — ${t.status}`, entityId: t.id });
-            }
+        for (const o of opportunities) {
+            feed.push({ type: "Opportunity", date: o.createdAt, summary: `Opportunity: ${o.name} — stage: ${o.stage}`, entityId: o.id });
         }
         feed.sort((a, b) => b.date.getTime() - a.date.getTime());
         return { accountId: id, feed };
@@ -251,15 +232,8 @@ const crmRoutes = async (app) => {
         },
         preHandler: app.requireRole(["ADMIN"])
     }, async (req) => {
-        const body = zod_1.z.object({
-            contactIds: zod_1.z.array(zod_1.z.string()).optional()
-        }).optional().parse(req.body ?? {});
-        const scopeIds = body?.contactIds;
         const allContacts = await app.prisma.contact.findMany({
-            where: {
-                archived: false,
-                ...(scopeIds && scopeIds.length > 0 ? { id: { in: scopeIds } } : {})
-            },
+            where: { archived: false },
             orderBy: { createdAt: "asc" }
         });
         if (allContacts.length === 0) {
@@ -391,16 +365,25 @@ const crmRoutes = async (app) => {
             take: 50
         });
     });
+    app.put("/leads/:id/status", { preHandler: app.requireRole(["ADMIN", "SALES"]) }, async (req, reply) => {
+        const id = req.params.id;
+        const body = zod_1.z.object({ status: zod_1.z.enum(["NEW", "QUALIFYING", "MEETING", "PROPOSAL", "NEGOTIATION", "WON", "LOST"]) }).parse(req.body);
+        const before = await app.prisma.lead.findUnique({ where: { id } });
+        if (!before)
+            return reply.code(404).send({ error: "Not found" });
+        const after = await app.prisma.lead.update({ where: { id }, data: { status: body.status } });
+        await app.audit({ actorId: req.user.sub, action: "UPDATE_STATUS", entity: "Lead", entityId: id, before, after });
+        await app.publishEvent("lead.status_changed", { leadId: id, from: before.status, to: after.status });
+        return after;
+    });
     /**
      * GET /v1/leads/score
-     * Rule-based lead scoring (0–100).
-     * Weights: recency of last touch (max 30), activity count (max 20),
-     * call count (max 10), stage weight (max 40).
+     * Returns all leads with a computed 0–100 score based on weighted rules.
      */
     app.get("/leads/score", {
         schema: {
             tags: ["Leads"],
-            summary: "Rule-based lead scoring — returns all leads sorted by score descending (0–100)",
+            summary: "Rule-based lead scoring — returns leads sorted by score descending",
             security: [{ bearerAuth: [] }]
         },
         preHandler: app.requireRole(["ADMIN", "SALES", "READONLY"])
