@@ -12,11 +12,11 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Voxmation — Voice Prompt Automation Platform",
+    default: "Voxmation — AI Receptionist & Missed Call Recovery",
     template: "%s | Voxmation",
   },
   description:
-    "Voxmation automates inbound and outbound voice interactions with intelligent call flows, IVR menus, appointment reminders, and outbound campaigns — powered by Asterisk, FreeSWITCH, or Twilio.",
+    "VOXmatiON recovers missed calls, qualifies leads, follows up automatically, and books appointments with a managed AI receptionist system.",
   openGraph: {
     type: "website",
     locale: "en_US",

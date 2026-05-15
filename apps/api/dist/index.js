@@ -11,6 +11,7 @@ const swagger_ui_1 = __importDefault(require("@fastify/swagger-ui"));
 const static_1 = __importDefault(require("@fastify/static"));
 const client_1 = require("@prisma/client");
 const config_1 = require("./config");
+const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
 const auth_1 = require("./plugins/auth");
 const rbac_1 = require("./plugins/rbac");
@@ -45,10 +46,10 @@ app.register(rbac_1.rbacPlugin);
 app.register(audit_1.auditPlugin);
 app.register(events_1.eventsPlugin);
 app.get("/", async () => ({
-    name: "Voxmation OS API",
-    version: "v1",
-    status: "ok",
-    docs: "/docs"
+    ok: true,
+    service: "Voxmation API",
+    docs: "/docs",
+    health: "/health"
 }));
 app.get("/health", async () => ({ ok: true }));
 app.register(crm_routes_1.crmRoutes, { prefix: "/v1" });
@@ -57,11 +58,19 @@ app.register(delivery_routes_1.deliveryRoutes, { prefix: "/v1" });
 app.register(billing_routes_1.billingRoutes, { prefix: "/v1" });
 app.register(integrations_routes_1.integrationsRoutes, { prefix: "/v1" });
 const staticRoot = path_1.default.resolve(__dirname, "../../web/dist");
-app.register(static_1.default, {
-    root: staticRoot,
-    prefix: "/"
-});
-app.setNotFoundHandler(async (_req, reply) => {
+const hasStaticApp = fs_1.default.existsSync(path_1.default.join(staticRoot, "index.html"));
+if (hasStaticApp) {
+    app.register(static_1.default, {
+        root: staticRoot,
+        prefix: "/"
+    });
+}
+app.setNotFoundHandler(async (req, reply) => {
+    const url = req.raw.url || "";
+    const isApiPath = url.startsWith("/v1") || url.startsWith("/auth") || url.startsWith("/docs") || url.startsWith("/health");
+    if (isApiPath || !hasStaticApp) {
+        return reply.code(404).send({ error: "Not found" });
+    }
     return reply.sendFile("index.html");
 });
 app.listen({ port: config_1.config.port, host: "0.0.0.0" }).catch((err) => {
