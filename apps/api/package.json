@@ -8,6 +8,7 @@
     "start": "node dist/index.js"
   },
   "dependencies": {
+    "@fastify/formbody": "^8.0.2",
     "@fastify/jwt": "^9.0.0",
     "@fastify/static": "^9.0.0",
     "@fastify/swagger": "^9.0.0",
