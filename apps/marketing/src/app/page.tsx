@@ -1,16 +1,17 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import {
-  Phone, Mic, Zap, BarChart3, Globe, Shield,
-  ArrowRight, CheckCircle, Clock, Users, Activity,
-  Calendar, MessageSquare, PhoneCall, PhoneIncoming
-} from "lucide-react";
+import { ArrowRight, Calendar, Clock, Mic, Phone, PhoneCall, PhoneIncoming } from "lucide-react";
+import FAQSection from "@/components/FAQSection";
+import FoundersOfferSection from "@/components/FoundersOfferSection";
+import HeroSection from "@/components/HeroSection";
+import HomePricingSection from "@/components/HomePricingSection";
 import { SITE_URL, PHONE_NUMBER, PHONE_HREF, DEFAULT_OG_IMAGE } from "@/lib/constants";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const title = "Voxmation — Voice Prompt Automation Platform";
+  const title = "Voxmation — AI Receptionist & Missed Call Recovery";
   const description =
-    "Automate inbound and outbound voice interactions with intelligent call flows. IVR menus, appointment reminders, outbound campaigns, and after-hours handling — powered by Asterisk, FreeSWITCH, or Twilio.";
+    "VOXmatiON recovers missed calls, qualifies leads, follows up automatically, and books appointments with a managed AI receptionist system.";
+
   return {
     title,
     description,
@@ -33,88 +34,79 @@ export async function generateMetadata(): Promise<Metadata> {
 
 const FEATURES = [
   {
-    icon: Mic,
-    title: "Visual Prompt Builder",
-    description: "Build call flows with a drag-and-drop editor. Record prompts or use text-to-speech. No dialplan expertise required.",
-  },
-  {
     icon: PhoneIncoming,
-    title: "IVR Menu Designer",
-    description: "Create multi-level IVR menus with DTMF and speech recognition. Route callers to the right destination instantly.",
+    title: "Missed Call Recovery",
+    description:
+      "Instantly follows up with missed callers, captures intent, and alerts your team before the lead goes cold.",
   },
   {
     icon: PhoneCall,
-    title: "Outbound Campaign Dialer",
-    description: "Send appointment reminders, payment notices, and voice campaigns to thousands of contacts on a schedule.",
+    title: "24/7 AI Receptionist",
+    description:
+      "Answers routine calls, collects lead details, routes urgent requests, and keeps your business responsive after hours.",
   },
   {
-    icon: BarChart3,
-    title: "Real-Time Analytics",
-    description: "Track call completion rates, containment, drop-off points, and conversion — across every campaign and flow.",
+    icon: Calendar,
+    title: "Appointment Booking",
+    description:
+      "Qualifies prospects and moves them toward booked appointments using your preferred calendar and CRM workflow.",
   },
   {
-    icon: Globe,
-    title: "Multi-Platform Integration",
-    description: "Works with Asterisk, FreeSWITCH, and Twilio. Switch backends without rebuilding your call flows.",
-  },
-  {
-    icon: Shield,
-    title: "Enterprise Security",
-    description: "RBAC, audit logging, encrypted recordings, and HIPAA-ready compliance tooling built in.",
+    icon: Mic,
+    title: "Custom Voice Flows",
+    description:
+      "Built around your service categories, questions, locations, and follow-up rules so every call feels business-specific.",
   },
 ];
 
 const STEPS = [
   {
     step: "01",
-    title: "Design your call flow",
-    description: "Use the visual builder to map out your IVR menu, outbound script, or automated response flow. Add prompts, branches, and integrations.",
+    title: "Map your missed call flow",
+    description:
+      "We document your services, lead questions, routing logic, calendar rules, and follow-up expectations.",
   },
   {
     step: "02",
-    title: "Record or generate prompts",
-    description: "Upload professional recordings or use our AI text-to-speech to generate natural-sounding prompts in seconds.",
+    title: "Connect phone, CRM, and calendar",
+    description:
+      "VOXmatiON connects your call handling, lead capture, notifications, CRM, and booking workflow.",
   },
   {
     step: "03",
-    title: "Connect your telephony",
-    description: "Point your Asterisk/FreeSWITCH trunk or Twilio number to Voxmation. We handle the integration — you own the infrastructure.",
+    title: "Launch within 72 hours",
+    description:
+      "Your AI receptionist goes live, starts recovering missed calls, and sends qualified leads to your team.",
   },
   {
     step: "04",
-    title: "Launch and optimize",
-    description: "Go live in minutes. Monitor analytics in real time and refine your flows based on caller behavior data.",
+    title: "Optimize from real conversations",
+    description:
+      "We refine questions, scripts, lead scoring, and alerts based on actual caller behavior and conversion data.",
   },
 ];
 
 const USE_CASES = [
   {
-    icon: Calendar,
-    title: "Appointment Reminders",
-    description: "Reduce no-shows by 40% with automated voice reminders sent 24–48 hours before appointments.",
+    icon: Clock,
+    title: "After-hours lead capture",
+    description: "Catch leads that arrive when your team is offline and respond before competitors do.",
   },
   {
     icon: PhoneIncoming,
-    title: "Inbound IVR Menus",
-    description: "Route 80% of inbound calls without a live agent — qualifying, informing, and directing callers instantly.",
+    title: "High-intent missed calls",
+    description: "Recover customers who called with immediate need, pricing questions, or booking intent.",
   },
   {
     icon: PhoneCall,
-    title: "Outbound Campaigns",
-    description: "Reach your contact list with voice messages, lead qualifications, and survey prompts at scale.",
+    title: "Service business qualification",
+    description: "Capture service type, urgency, location, job value, and preferred appointment time automatically.",
   },
   {
-    icon: Clock,
-    title: "After-Hours Handling",
-    description: "Never miss a call. Capture after-hours inquiries with smart voicemail routing and callback scheduling.",
+    icon: Calendar,
+    title: "No-show reduction",
+    description: "Send reminders and follow-up flows that reduce empty appointment slots and lost revenue.",
   },
-];
-
-const STATS = [
-  { value: "80%", label: "Call containment rate" },
-  { value: "40%", label: "Reduction in no-shows" },
-  { value: "24/7", label: "Phone coverage" },
-  { value: "< 2min", label: "Average setup time" },
 ];
 
 const orgSchema = {
@@ -136,26 +128,27 @@ const softwareSchema = {
   "@type": "SoftwareApplication",
   name: "Voxmation",
   applicationCategory: "BusinessApplication",
-  operatingSystem: "Linux, Cloud",
+  operatingSystem: "Cloud, Web",
   description:
-    "Voice prompt automation platform for IVR menus, appointment reminders, outbound campaigns, and after-hours call handling.",
+    "Managed AI receptionist and missed call recovery platform for service businesses.",
   url: SITE_URL,
   offers: [
     {
       "@type": "Offer",
-      name: "Self-Hosted",
-      price: "0",
+      name: "Starter",
+      price: "347",
       priceCurrency: "USD",
     },
     {
       "@type": "Offer",
-      name: "Cloud-Managed",
-      description: "Coming soon",
+      name: "Pro",
+      price: "497",
+      priceCurrency: "USD",
     },
     {
       "@type": "Offer",
-      name: "Enterprise",
-      description: "Contact sales",
+      name: "Elite",
+      description: "Custom pricing",
     },
   ],
 };
@@ -168,87 +161,33 @@ export default function HomePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify([orgSchema, softwareSchema]) }}
       />
 
-      <section className="relative min-h-screen flex flex-col justify-center overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-gray-950 via-gray-950 to-violet-950/30" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(124,58,237,0.15),rgba(255,255,255,0))]" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-violet-600/5 rounded-full blur-3xl pointer-events-none" />
-
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-violet-500/10 border border-violet-500/20 text-violet-400 text-sm font-medium mb-8">
-            <Activity className="w-3.5 h-3.5" />
-            Voice Automation · IVR · Outbound Campaigns
-          </div>
-
-          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white mb-6 leading-[1.05]">
-            Automate every{" "}
-            <span className="bg-gradient-to-r from-violet-400 to-indigo-400 bg-clip-text text-transparent">
-              voice interaction
-            </span>
-          </h1>
-
-          <p className="text-xl text-gray-400 max-w-3xl mx-auto mb-10 leading-relaxed">
-            Voxmation turns your phone system into an intelligent automation engine. Build IVR menus, send appointment reminders, run outbound campaigns, and handle after-hours calls — without hiring more agents.
-          </p>
-
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
-            <Link
-              href="/contact"
-              className="flex items-center gap-2 px-6 py-3.5 bg-violet-600 hover:bg-violet-500 text-white font-semibold rounded-xl transition-all duration-200 shadow-xl shadow-violet-900/40 hover:shadow-violet-900/60 hover:-translate-y-0.5"
-            >
-              Get Started Free
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-            <Link
-              href="/features"
-              className="flex items-center gap-2 px-6 py-3.5 bg-gray-800/60 hover:bg-gray-800 text-gray-200 font-semibold rounded-xl border border-gray-700/60 hover:border-gray-600 transition-all duration-200 hover:-translate-y-0.5"
-            >
-              Explore Features
-            </Link>
-          </div>
-
-          <a
-            href={PHONE_HREF}
-            className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-violet-400 transition-colors"
-          >
-            <Phone className="w-4 h-4" />
-            Call us: {PHONE_NUMBER}
-          </a>
-
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 max-w-2xl mx-auto mt-16">
-            {STATS.map((s) => (
-              <div key={s.label} className="text-center">
-                <div className="text-3xl font-black text-white mb-1">{s.value}</div>
-                <div className="text-sm text-gray-500">{s.label}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <HeroSection />
 
       <section className="py-24 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-              Everything you need to automate voice
+              Built to recover revenue from calls you already receive
             </h2>
             <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-              From simple IVR menus to complex multi-step outbound campaigns — Voxmation handles it all on your infrastructure or ours.
+              VOXmatiON turns missed calls, after-hours inquiries, and slow follow-up into qualified leads and booked appointments.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {FEATURES.map((f) => {
-              const Icon = f.icon;
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {FEATURES.map((feature) => {
+              const Icon = feature.icon;
+
               return (
                 <div
-                  key={f.title}
+                  key={feature.title}
                   className="group p-6 bg-gray-900/50 border border-gray-800/60 rounded-2xl hover:border-violet-500/30 hover:bg-gray-900 transition-all duration-300"
                 >
                   <div className="w-10 h-10 rounded-xl bg-violet-500/10 border border-violet-500/20 flex items-center justify-center mb-4 group-hover:bg-violet-500/20 transition-colors">
                     <Icon className="w-5 h-5 text-violet-400" />
                   </div>
-                  <h3 className="font-semibold text-white mb-2">{f.title}</h3>
-                  <p className="text-sm text-gray-500 leading-relaxed">{f.description}</p>
+                  <h3 className="font-semibold text-white mb-2">{feature.title}</h3>
+                  <p className="text-sm text-gray-500 leading-relaxed">{feature.description}</p>
                 </div>
               );
             })}
@@ -260,19 +199,19 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-              Live in minutes, not months
+              Live in days, not months
             </h2>
             <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-              No PBX expertise required. Connect your number, build your flow, and go live.
+              A managed setup process built for speed, low friction, and measurable lead recovery.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {STEPS.map((s) => (
-              <div key={s.step} className="relative">
-                <div className="text-5xl font-black text-violet-500/20 mb-4">{s.step}</div>
-                <h3 className="text-lg font-semibold text-white mb-2">{s.title}</h3>
-                <p className="text-sm text-gray-500 leading-relaxed">{s.description}</p>
+            {STEPS.map((step) => (
+              <div key={step.step} className="relative">
+                <div className="text-5xl font-black text-violet-500/20 mb-4">{step.step}</div>
+                <h3 className="text-lg font-semibold text-white mb-2">{step.title}</h3>
+                <p className="text-sm text-gray-500 leading-relaxed">{step.description}</p>
               </div>
             ))}
           </div>
@@ -283,27 +222,28 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-              Built for every voice use case
+              Designed for high-intent service leads
             </h2>
             <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-              Whether you're automating inbound routing or running outbound campaigns, Voxmation has the tools.
+              Use VOXmatiON anywhere slow response time, missed calls, or no-shows create revenue leaks.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {USE_CASES.map((uc) => {
-              const Icon = uc.icon;
+            {USE_CASES.map((useCase) => {
+              const Icon = useCase.icon;
+
               return (
                 <div
-                  key={uc.title}
+                  key={useCase.title}
                   className="flex items-start gap-5 p-6 bg-gray-900/40 border border-gray-800/60 rounded-2xl"
                 >
                   <div className="w-12 h-12 rounded-xl bg-violet-500/10 border border-violet-500/20 flex items-center justify-center flex-shrink-0">
                     <Icon className="w-6 h-6 text-violet-400" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-white mb-1">{uc.title}</h3>
-                    <p className="text-sm text-gray-500 leading-relaxed">{uc.description}</p>
+                    <h3 className="font-semibold text-white mb-1">{useCase.title}</h3>
+                    <p className="text-sm text-gray-500 leading-relaxed">{useCase.description}</p>
                     <Link
                       href="/use-cases"
                       className="inline-flex items-center gap-1 mt-3 text-sm text-violet-400 hover:text-violet-300 transition-colors"
@@ -318,16 +258,20 @@ export default function HomePage() {
         </div>
       </section>
 
+      <HomePricingSection />
+      <FoundersOfferSection />
+      <FAQSection />
+
       <section className="py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
           <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-violet-900/50 to-indigo-900/30 border border-violet-500/20 p-10 text-center">
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(124,58,237,0.15),transparent)]" />
             <div className="relative">
               <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-                Ready to automate your phone system?
+                Ready to stop losing revenue to missed calls?
               </h2>
               <p className="text-gray-400 text-lg mb-2 max-w-xl mx-auto">
-                Talk to our team — or call us directly. We'll help you design the right call flow for your business.
+                Talk to our team or call us directly. We will help you calculate the missed call recovery opportunity for your business.
               </p>
               <a
                 href={PHONE_HREF}
@@ -341,14 +285,14 @@ export default function HomePage() {
                   href="/contact"
                   className="flex items-center gap-2 px-6 py-3.5 bg-violet-600 hover:bg-violet-500 text-white font-semibold rounded-xl transition-all duration-200 shadow-xl shadow-violet-900/40"
                 >
-                  Schedule a Demo
+                  Schedule a demo
                   <ArrowRight className="w-4 h-4" />
                 </Link>
                 <Link
                   href="/pricing"
                   className="px-6 py-3.5 bg-gray-800/60 hover:bg-gray-800 text-gray-200 font-semibold rounded-xl border border-gray-700/60 transition-colors"
                 >
-                  View Pricing
+                  View pricing
                 </Link>
               </div>
             </div>
