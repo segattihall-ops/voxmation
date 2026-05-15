@@ -33,6 +33,11 @@ function validateMetaSignature(appSecret, signature, rawBody) {
     }
 }
 const voiceRoutes = async (app) => {
+    app.get("/calls", {
+        preHandler: app.requireRole(["ADMIN", "SALES", "READONLY"])
+    }, async () => {
+        return app.prisma.callLog.findMany({ orderBy: { createdAt: "desc" }, take: 100 });
+    });
     app.post("/calls/outbound", {
         schema: {
             tags: ["Voice"],
@@ -166,9 +171,9 @@ const voiceRoutes = async (app) => {
      * Accepts Twilio (application/x-www-form-urlencoded, fields: From, Body, ProfileName)
      * or Meta Cloud API JSON (entry[].changes[].value.messages).
      *
-     * Signature validation:
-     * - Twilio: HMAC-SHA1 via X-Twilio-Signature. Required in production or when TWILIO_AUTH_TOKEN is set.
-     * - Meta:   HMAC-SHA256 via X-Hub-Signature-256. Required in production or when META_APP_SECRET is set.
+     * Signature validation — fail-closed:
+     * - Twilio: HMAC-SHA1 via X-Twilio-Signature. Returns 503 if TWILIO_AUTH_TOKEN not configured.
+     * - Meta:   HMAC-SHA256 via X-Hub-Signature-256. Returns 503 if META_APP_SECRET not configured.
      *
      * Finds or creates a Contact by phone number, creates an Activity of type WHATSAPP,
      * updates lead.lastTouchAt, and emits a whatsapp.received event.
