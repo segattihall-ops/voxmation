@@ -109,28 +109,28 @@ export const crmRoutes: FastifyPluginAsync = async (app) => {
 
     const timeline: Array<{ type: string; date: Date; summary: string; entityId: string }> = [];
 
-    for (const l of leads) {
+    for (const l of leads as any[]) {
       timeline.push({ type: "Lead", date: l.createdAt, summary: `Lead created — status: ${l.status}, source: ${l.source}`, entityId: l.id });
     }
-    for (const o of opportunities) {
+    for (const o of opportunities as any[]) {
       timeline.push({ type: "Opportunity", date: o.createdAt, summary: `Opportunity: ${o.name} — stage: ${o.stage}`, entityId: o.id });
     }
-    for (const c of contacts) {
+    for (const c of contacts as any[]) {
       timeline.push({ type: "Contact", date: c.createdAt, summary: `Contact: ${c.name}${c.email ? ` (${c.email})` : ""}`, entityId: c.id });
     }
-    for (const c of calls) {
+    for (const c of calls as any[]) {
       timeline.push({ type: "CallLog", date: c.createdAt, summary: `Call ${c.status} from ${c.fromNumber} to ${c.toNumber}`, entityId: c.id });
     }
-    for (const a of activities) {
+    for (const a of activities as any[]) {
       timeline.push({ type: "Activity", date: a.createdAt, summary: `[${a.type}] ${a.summary}`, entityId: a.id });
     }
-    for (const inv of invoices) {
+    for (const inv of invoices as any[]) {
       timeline.push({ type: "Invoice", date: inv.createdAt, summary: `Invoice ${inv.status} — $${(inv.amountCents / 100).toFixed(2)}`, entityId: inv.id });
     }
-    for (const cs of cases) {
+    for (const cs of cases as any[]) {
       timeline.push({ type: "Case", date: cs.createdAt, summary: `Case: ${cs.title} — ${cs.status} [${cs.priority}]`, entityId: cs.id });
     }
-    for (const si of serviceInstances) {
+    for (const si of serviceInstances as any[]) {
       timeline.push({ type: "ServiceInstance", date: si.createdAt, summary: `Service instance — status: ${si.status}`, entityId: si.id });
     }
 
@@ -177,22 +177,22 @@ export const crmRoutes: FastifyPluginAsync = async (app) => {
 
     const feed: Array<{ type: string; date: Date; summary: string; entityId: string }> = [];
 
-    for (const c of calls) {
+    for (const c of calls as any[]) {
       feed.push({ type: "CallLog", date: c.createdAt, summary: `Call ${c.status} from ${c.fromNumber} to ${c.toNumber}`, entityId: c.id });
     }
-    for (const a of activities) {
+    for (const a of activities as any[]) {
       feed.push({ type: "Activity", date: a.createdAt, summary: `[${a.type}] ${a.summary}`, entityId: a.id });
     }
-    for (const inv of invoices) {
+    for (const inv of invoices as any[]) {
       feed.push({ type: "Invoice", date: inv.createdAt, summary: `Invoice ${inv.status} — $${(inv.amountCents / 100).toFixed(2)}`, entityId: inv.id });
     }
-    for (const cs of cases) {
+    for (const cs of cases as any[]) {
       feed.push({ type: "Case", date: cs.createdAt, summary: `Case: ${cs.title} — ${cs.status} [${cs.priority}]`, entityId: cs.id });
     }
-    for (const l of leads) {
+    for (const l of leads as any[]) {
       feed.push({ type: "Lead", date: l.createdAt, summary: `Lead created — status: ${l.status}`, entityId: l.id });
     }
-    for (const o of opportunities) {
+    for (const o of opportunities as any[]) {
       feed.push({ type: "Opportunity", date: o.createdAt, summary: `Opportunity: ${o.name} — stage: ${o.stage}`, entityId: o.id });
     }
 
@@ -266,9 +266,9 @@ export const crmRoutes: FastifyPluginAsync = async (app) => {
     }
 
     const idToIndex = new Map<string, number>();
-    allContacts.forEach((c, i) => idToIndex.set(c.id, i));
+    allContacts.forEach((c: any, i: number) => idToIndex.set(c.id, i));
 
-    const parent = allContacts.map((_, i) => i);
+    const parent = allContacts.map((_: any, i: number) => i);
 
     function find(x: number): number {
       if (parent[x] !== x) parent[x] = find(parent[x]);
@@ -321,7 +321,7 @@ export const crmRoutes: FastifyPluginAsync = async (app) => {
     for (const cluster of clusters.values()) {
       if (cluster.length < 2) continue;
 
-      cluster.sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime());
+      cluster.sort((a: any, b: any) => a.createdAt.getTime() - b.createdAt.getTime());
       const canonical = cluster[0];
       const duplicates = cluster.slice(1);
       groupsProcessed++;
@@ -449,7 +449,7 @@ export const crmRoutes: FastifyPluginAsync = async (app) => {
 
     const now = Date.now();
 
-    const scored = leads.map((lead) => {
+    const scored = leads.map((lead: any) => {
       const stageWeight = STAGE_WEIGHTS[lead.status] ?? 0;
 
       const lastTouch = lead.lastTouchAt ?? lead.updatedAt ?? lead.createdAt;
@@ -487,7 +487,7 @@ export const crmRoutes: FastifyPluginAsync = async (app) => {
       };
     });
 
-    scored.sort((a, b) => b.score - a.score);
+    scored.sort((a: any, b: any) => b.score - a.score);
 
     return scored;
   });

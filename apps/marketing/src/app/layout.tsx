@@ -3,6 +3,8 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import FloatingCTA from "@/components/FloatingCTA";
+import ZohoSalesIQWidget from "@/components/ZohoSalesIQWidget";
 import { SITE_URL, DEFAULT_OG_IMAGE } from "@/lib/constants";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
@@ -37,9 +39,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={inter.variable}>
       <body className="font-sans bg-gray-950 text-gray-100 antialiased">
+        <ZohoSalesIQWidget />
         <Navbar />
         <main className="pt-16">{children}</main>
         <Footer />
+        <FloatingCTA />
       </body>
     </html>
   );
