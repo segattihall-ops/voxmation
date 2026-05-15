@@ -6,6 +6,7 @@ import swaggerUI from "@fastify/swagger-ui";
 import fastifyStatic from "@fastify/static";
 import { PrismaClient } from "@prisma/client";
 import { config } from "./config";
+import fs from "fs";
 import path from "path";
 
 import { authPlugin } from "./plugins/auth";
@@ -48,6 +49,13 @@ app.register(rbacPlugin);
 app.register(auditPlugin);
 app.register(eventsPlugin);
 
+app.get("/", async () => ({
+  ok: true,
+  service: "Voxmation API",
+  docs: "/docs",
+  health: "/health"
+}));
+
 app.get("/health", async () => ({ ok: true }));
 
 app.register(crmRoutes, { prefix: "/v1" });
@@ -57,17 +65,23 @@ app.register(billingRoutes, { prefix: "/v1" });
 app.register(integrationsRoutes, { prefix: "/v1" });
 
 const staticRoot = path.resolve(__dirname, "../../web/dist");
-app.register(fastifyStatic, {
-  root: staticRoot,
-  prefix: "/"
-});
+const hasStaticApp = fs.existsSync(path.join(staticRoot, "index.html"));
+
+if (hasStaticApp) {
+  app.register(fastifyStatic, {
+    root: staticRoot,
+    prefix: "/"
+  });
+}
 
 app.setNotFoundHandler(async (req, reply) => {
   const url = req.raw.url || "";
   const isApiPath = url.startsWith("/v1") || url.startsWith("/auth") || url.startsWith("/docs") || url.startsWith("/health");
-  if (isApiPath) {
+
+  if (isApiPath || !hasStaticApp) {
     return reply.code(404).send({ error: "Not found" });
   }
+
   return reply.sendFile("index.html");
 });
 
