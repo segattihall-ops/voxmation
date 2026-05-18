@@ -2,6 +2,6 @@
   "version": 2,
   "installCommand": "pnpm install --no-frozen-lockfile",
   "buildCommand": "pnpm --filter @voxmation/db run generate && pnpm --filter @voxmation/api run build",
-  "outputDirectory": "apps/api/dist",
+  "outputDirectory": ".",
   "framework": null
 }
