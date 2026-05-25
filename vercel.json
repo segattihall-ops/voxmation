@@ -1,7 +1,7 @@
 {
-  "version": 2,
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "nextjs",
   "installCommand": "pnpm install --no-frozen-lockfile",
-  "buildCommand": "pnpm --filter @voxmation/db run generate && pnpm --filter @voxmation/api run build",
-  "outputDirectory": ".",
-  "framework": null
+  "buildCommand": "pnpm --dir apps/marketing build",
+  "outputDirectory": "apps/marketing/.next"
 }
