@@ -1,0 +1,21 @@
+# Keep Vercel focused on the public marketing app.
+apps/api
+apps/web
+packages
+scripts
+
+# Never deploy committed/generated build artifacts.
+.next
+.vercel
+dist
+out
+apps/**/.next
+apps/**/.vercel
+apps/**/dist
+apps/**/out
+
+# Avoid package-manager ambiguity in Vercel. Install is forced through pnpm.
+package-lock.json
+npm-debug.log*
+yarn-error.log*
+pnpm-debug.log*
