@@ -1,4 +1,14 @@
 node_modules/
 dist/
+.next/
+out/
+.vercel/
 .env
+.env.*
 *.log
+apps/**/.next/
+apps/**/dist/
+apps/**/out/
+apps/**/.vercel/
+apps/**/public/sitemap.xml
+apps/**/public/robots.txt
