@@ -1,6 +1,11 @@
 {
   "name": "voxmation-os",
   "private": true,
+  "packageManager": "pnpm@10.13.1",
+  "engines": {
+    "node": "20.x",
+    "pnpm": "10.13.1"
+  },
   "workspaces": [
     "apps/*",
     "packages/*"
