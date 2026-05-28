@@ -1,23 +1,9 @@
 {
-  "name": "voxmation-os",
+  "name": "voxmation-marketing",
   "private": true,
-  "workspaces": [
-    "apps/*",
-    "packages/*"
-  ],
   "scripts": {
-    "dev": "npm --workspace apps/marketing run dev",
-    "dev:api": "npm --workspace apps/api run dev",
-    "dev:marketing": "npm --workspace apps/marketing run dev",
-    "build": "npm --workspace apps/marketing run build",
-    "build:marketing": "npm --workspace apps/marketing run build",
-    "start": "npm --workspace apps/api run start",
-    "db:migrate": "npm --workspace packages/db run migrate",
-    "db:generate": "npm --workspace packages/db run generate",
-    "db:setup": "bash scripts/db-setup.sh",
-    "smoke-test": "bash scripts/smoke-test.sh"
-  },
-  "dependencies": {
-    "@fastify/formbody": "^8.0.2"
+    "dev": "cd apps/marketing && next dev",
+    "build": "cd apps/marketing && next build",
+    "start": "cd apps/marketing && next start"
   }
 }
