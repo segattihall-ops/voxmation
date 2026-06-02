@@ -152,16 +152,25 @@ export default function HeroSection() {
               <span className="text-sm text-[#FFB347] font-medium">AI-Powered Voice Automation</span>
             </motion.div>
 
-            <motion.h1
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2, duration: 0.7 }}
-              className="text-5xl sm:text-6xl lg:text-7xl font-extrabold leading-[1.05] tracking-tight mb-6"
-            >
-              Never Miss<br />
-              <span className="text-gradient-orange">Another</span><br />
-              Customer Call
-            </motion.h1>
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extrabold leading-[1.05] tracking-tight mb-6">
+              {[
+                { text: "Never", orange: false },
+                { text: "Miss", orange: false },
+                { text: "Another", orange: true },
+                { text: "Customer", orange: false },
+                { text: "Call", orange: false },
+              ].map((word, i) => (
+                <motion.span
+                  key={i}
+                  initial={{ opacity: 0, y: 40, filter: "blur(8px)" }}
+                  animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                  transition={{ delay: 0.15 + i * 0.1, duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+                  className={`inline-block mr-[0.25em] ${word.orange ? "text-gradient-orange" : ""}`}
+                >
+                  {word.text}
+                </motion.span>
+              ))}
+            </h1>
 
             <motion.p
               initial={{ opacity: 0, y: 20 }}

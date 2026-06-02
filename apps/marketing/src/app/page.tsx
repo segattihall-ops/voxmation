@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
 import HeroSection from "@/components/HeroSection";
+import ProblemStrip from "@/components/ProblemStrip";
 import ServicesSection from "@/components/ServicesSection";
 import HowItWorksSection from "@/components/HowItWorksSection";
+import DemoCallWidget from "@/components/DemoCallWidget";
 import ROICalculator from "@/components/ROICalculator";
 import IndustriesSection from "@/components/IndustriesSection";
+import SocialProof from "@/components/SocialProof";
 import PricingSection from "@/components/PricingSection";
 import DemoSection from "@/components/DemoSection";
 import FAQSection from "@/components/FAQSection";
@@ -25,10 +28,13 @@ export default function HomePage() {
   return (
     <>
       <HeroSection />
+      <ProblemStrip />
       <ServicesSection />
       <HowItWorksSection />
+      <DemoCallWidget />
       <ROICalculator />
       <IndustriesSection />
+      <SocialProof />
       <PricingSection />
       <DemoSection />
       <FAQSection />
