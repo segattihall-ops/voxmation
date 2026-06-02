@@ -1,7 +1,7 @@
 {
   "version": 2,
   "framework": "nextjs",
-  "installCommand": "cd apps/marketing && npm install --legacy-peer-deps",
-  "buildCommand": "cd apps/marketing && npm run build",
-  "outputDirectory": "apps/marketing/.next"
+  "installCommand": "npm install --legacy-peer-deps",
+  "buildCommand": "npm run build",
+  "outputDirectory": ".next"
 }
