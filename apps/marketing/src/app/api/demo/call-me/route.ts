@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
-import twilio from "twilio";
 import { getSlugData } from "@/lib/demo-data";
 
-// Triggers an outbound Twilio call to the prospect so the AI receptionist
-// rings *them* — the "call-me-back" demo mode.
+// Places an outbound demo call via ElevenLabs' native Twilio integration.
+// ElevenLabs owns the Twilio number (imported under Conversational AI → Phone
+// Numbers) and runs the agent on the call. The per-slug persona is passed as
+// dynamic-variable overrides so the prospect hears their own company's script.
 export async function POST(req: NextRequest) {
   const { phone, slug } = await req.json();
   const data = getSlugData(slug ?? "");
@@ -15,10 +16,10 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const { TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, TWILIO_FROM_NUMBER, PUBLIC_BASE_URL } =
+  const { ELEVENLABS_API_KEY, ELEVENLABS_AGENT_ID, ELEVENLABS_AGENT_PHONE_NUMBER_ID } =
     process.env;
 
-  if (!TWILIO_ACCOUNT_SID || !TWILIO_AUTH_TOKEN || !TWILIO_FROM_NUMBER || !PUBLIC_BASE_URL) {
+  if (!ELEVENLABS_API_KEY || !ELEVENLABS_AGENT_ID || !ELEVENLABS_AGENT_PHONE_NUMBER_ID) {
     return NextResponse.json(
       { error: "Outbound calling is not configured." },
       { status: 503 }
@@ -26,19 +27,45 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    const client = twilio(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN);
+    const res = await fetch(
+      "https://api.elevenlabs.io/v1/convai/twilio/outbound-call",
+      {
+        method: "POST",
+        headers: {
+          "xi-api-key": ELEVENLABS_API_KEY,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          agent_id: ELEVENLABS_AGENT_ID,
+          agent_phone_number_id: ELEVENLABS_AGENT_PHONE_NUMBER_ID,
+          to_number: phone,
+          conversation_initiation_client_data: {
+            dynamic_variables: {
+              agent_script: data.agentScript,
+              company_name: data.companyName,
+            },
+          },
+        }),
+      }
+    );
 
-    const call = await client.calls.create({
-      to: phone,
-      from: TWILIO_FROM_NUMBER,
-      url: `${PUBLIC_BASE_URL}/api/demo/twilio/voice?slug=${encodeURIComponent(
-        data.slug
-      )}`,
+    if (!res.ok) {
+      const detail = await res.text().catch(() => "");
+      console.error("ElevenLabs outbound call failed:", res.status, detail);
+      return NextResponse.json(
+        { error: "Call could not be placed." },
+        { status: 502 }
+      );
+    }
+
+    const result = await res.json();
+    return NextResponse.json({
+      callSid: result.callSid ?? result.call_sid ?? null,
+      conversationId: result.conversation_id ?? null,
+      companyName: data.companyName,
     });
-
-    return NextResponse.json({ callSid: call.sid, companyName: data.companyName });
   } catch (err) {
-    console.error("Twilio call failed:", err);
+    console.error("Outbound call error:", err);
     return NextResponse.json({ error: "Call could not be placed." }, { status: 502 });
   }
 }

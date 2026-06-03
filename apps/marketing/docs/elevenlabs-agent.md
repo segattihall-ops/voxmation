@@ -104,9 +104,20 @@ Thanks for calling {{company_name}}, this is the virtual assistant — how can I
 - **Knowledge Base**: attach the documents in `elevenlabs-knowledge-base.md` and
   enable retrieval.
 
-## 6. Phone path (optional)
+## 6. Phone path (native Twilio integration)
 
-The "Have the AI call you" button uses Twilio. `api/demo/twilio/voice` bridges
-the call to `ELEVENLABS_TWILIO_STREAM_URL` (the agent's media-stream `wss://`
-URL). The phone path does **not** receive `{{agent_script}}`, so it relies on the
-agent defaults + Knowledge Base for company-specific answers.
+The "Have the AI call you" button uses ElevenLabs' **native Twilio integration**
+— no self-hosted media-stream bridge.
+
+1. In ElevenLabs: **Conversational AI → Phone Numbers → import a Twilio number**
+   (provide your Twilio Account SID, Auth Token, and the number). ElevenLabs then
+   owns the call media.
+2. Copy the resulting **Phone Number ID** → set as `ELEVENLABS_AGENT_PHONE_NUMBER_ID`.
+3. The `api/demo/call-me` route calls
+   `POST https://api.elevenlabs.io/v1/convai/twilio/outbound-call` with the agent
+   ID, phone-number ID, the prospect's `to_number`, and the per-slug persona as
+   dynamic-variable overrides — so the **phone path also gets `{{agent_script}}`
+   and `{{company_name}}`**, just like the browser path.
+
+No `ELEVENLABS_TWILIO_STREAM_URL`, Twilio SDK, or `PUBLIC_BASE_URL` is needed —
+ElevenLabs holds the Twilio credentials.
