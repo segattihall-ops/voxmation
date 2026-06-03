@@ -25,6 +25,11 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: { default: "VOXmatiON — AI That Answers Every Call, Books Every Job", template: "%s | VOXmatiON" },
   description: "AI voice automation that answers missed calls, qualifies leads, and books jobs 24/7. Built for HVAC, plumbing, electrical, and roofing companies.",
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/favicon.ico",
+  },
   openGraph: { type: "website", locale: "en_US", url: SITE_URL, siteName: "VOXmatiON", images: [{ url: DEFAULT_OG_IMAGE, width: 1200, height: 630 }] },
   twitter: { card: "summary_large_image", site: "@voxmation", images: [DEFAULT_OG_IMAGE] },
   robots: { index: true, follow: true },

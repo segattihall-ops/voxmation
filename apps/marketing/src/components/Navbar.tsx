@@ -71,13 +71,12 @@ export default function Navbar() {
         {/* Logo */}
         <Link href="/" className="flex items-center flex-shrink-0">
           <Image
-            src="https://2ywrmvccumupilj7.public.blob.vercel-storage.com/ChatGPT%20Image%20Mar%2011%2C%202026%2C%2008_00_29%20PM.png"
+            src="/Logo.PNG"
             alt="VOXmatiON"
             width={140}
             height={48}
             className="h-10 w-auto object-contain"
             priority
-            unoptimized
           />
         </Link>
 
