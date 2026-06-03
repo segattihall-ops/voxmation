@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence, useMotionValue, useTransform } from "framer-motion";
@@ -68,15 +69,16 @@ export default function Navbar() {
         scrolled ? "glass shadow-[0_1px_0_rgba(255,255,255,0.05)]" : "bg-transparent")}>
       <div className="max-w-7xl mx-auto px-5 sm:px-8 h-16 flex items-center justify-between gap-8">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2.5 flex-shrink-0">
-          <div className="w-7 h-7 rounded-lg bg-orange-grad flex items-center justify-center glow-orange-sm">
-            <svg viewBox="0 0 20 20" className="w-4 h-4" fill="none">
-              <path d="M3 14L6 5L10.5 11L14 3.5L17 14" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </div>
-          <span className="font-display text-lg font-bold tracking-tight leading-none">
-            <span className="text-[#F7F5F0]">VOXmati</span><span className="text-orange">ON</span>
-          </span>
+        <Link href="/" className="flex items-center flex-shrink-0">
+          <Image
+            src="https://2ywrmvccumupilj7.public.blob.vercel-storage.com/ChatGPT%20Image%20Mar%2011%2C%202026%2C%2008_00_29%20PM.png"
+            alt="VOXmatiON"
+            width={140}
+            height={48}
+            className="h-10 w-auto object-contain"
+            priority
+            unoptimized
+          />
         </Link>
 
         {/* Center links */}
