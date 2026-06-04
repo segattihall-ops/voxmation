@@ -1,26 +1,31 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
 import { ChevronDown } from "lucide-react";
 
 export default function HeroSection() {
   return (
     <section className="relative w-full overflow-hidden" style={{ height: "90vh", minHeight: "560px" }}>
-      {/* Video background */}
-      <video
-        autoPlay
-        muted
-        loop
-        playsInline
-        poster="https://2ywrmvccumupilj7.public.blob.vercel-storage.com/Header.png"
-        className="absolute inset-0 w-full h-full object-cover object-center"
-      >
-        <source src="https://2ywrmvccumupilj7.public.blob.vercel-storage.com/mp4.mp4" type="video/mp4" />
-      </video>
-
-      {/* Dark overlay for text readability */}
-      <div className="absolute inset-0 bg-[#060A10]/30 pointer-events-none" />
+      {/* Desktop banner */}
+      <Image
+        src="https://2ywrmvccumupilj7.public.blob.vercel-storage.com/Header.png"
+        alt="VOXmatiON AI Receptionist"
+        fill
+        className="hidden sm:block object-cover object-center"
+        priority
+        unoptimized
+      />
+      {/* Mobile banner */}
+      <Image
+        src="https://2ywrmvccumupilj7.public.blob.vercel-storage.com/header_mobile.png"
+        alt="VOXmatiON AI Receptionist"
+        fill
+        className="block sm:hidden object-cover object-top"
+        priority
+        unoptimized
+      />
 
       {/* Bottom fade into site background */}
       <div className="absolute bottom-0 inset-x-0 h-52 bg-gradient-to-t from-[#060A10] to-transparent pointer-events-none" />

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import HeroSection from "@/components/HeroSection";
 import ProblemStrip from "@/components/ProblemStrip";
+import VideoReel from "@/components/VideoReel";
 import ServicesSection from "@/components/ServicesSection";
 import HowItWorksSection from "@/components/HowItWorksSection";
 import DemoCallWidget from "@/components/DemoCallWidget";
@@ -29,6 +30,7 @@ export default function HomePage() {
     <>
       <HeroSection />
       <ProblemStrip />
+      <VideoReel />
       <ServicesSection />
       <HowItWorksSection />
       <DemoCallWidget />

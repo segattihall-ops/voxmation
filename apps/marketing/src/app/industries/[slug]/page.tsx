@@ -269,19 +269,19 @@ export default function IndustryPage({ params }: { params: { slug: string } }) {
             <div className="absolute inset-0 bg-[#060A10]/20 pointer-events-none" />
             <div className="absolute bottom-0 inset-x-0 h-52 bg-gradient-to-t from-[#060A10] to-transparent pointer-events-none" />
 
-            {/* Hero CTA overlay */}
-            <div className="absolute bottom-20 left-6 sm:left-16 z-10">
-              <span className="inline-block px-4 py-1.5 rounded-full text-xs font-semibold text-[#FF8A1F] bg-[rgba(255,138,31,0.15)] border border-[rgba(255,138,31,0.3)] uppercase tracking-widest mb-4 font-body">
-                {industry.name} · AI Receptionist
-              </span>
-              <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-4 max-w-2xl drop-shadow-lg">
-                {industry.subheadline}
-              </h1>
+            {/* CTAs only — no text overlay */}
+            <div className="absolute bottom-20 left-6 sm:left-16 z-10 flex flex-col sm:flex-row gap-3">
               <Link
                 href="/demo"
-                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-[#FF8A1F] text-white font-bold font-body text-sm hover:bg-[#FFB347] transition-all shadow-[0_8px_30px_rgba(255,138,31,0.5)]"
+                className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-[#FF8A1F] text-white font-bold font-body text-sm hover:bg-[#FFB347] transition-all shadow-[0_8px_30px_rgba(255,138,31,0.5)]"
               >
                 Book {industry.name} Demo <ArrowRight className="w-4 h-4" />
+              </Link>
+              <Link
+                href="/pricing"
+                className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 text-white font-semibold font-body text-sm hover:bg-white/20 transition-all"
+              >
+                See Pricing
               </Link>
             </div>
           </>
