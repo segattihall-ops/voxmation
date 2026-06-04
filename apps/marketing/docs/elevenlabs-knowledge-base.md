@@ -4,10 +4,10 @@ Documents to attach to the demo agent (Agent → Knowledge Base → Add document
 one document per section. After adding them, enable Knowledge Base retrieval in
 the agent settings.
 
-Because one agent serves multiple companies via `{{company_name}}`, the KB is how
-the agent answers company-specific questions on the **phone path** (which doesn't
-receive the `{{agent_script}}` dynamic variable). On the browser path the dynamic
-variable specializes the persona and the KB adds the factual detail.
+Both the browser-mic and phone paths inject the per-company persona via the
+`{{agent_script}}` / `{{company_name}}` dynamic variables, so the KB's job is to
+supply the **factual detail** (hours, pricing approach, service area, FAQs) the
+agent retrieves while it talks — consistent across every company.
 
 > The hours, fees, and service-area details below are reasonable demo
 > placeholders. Replace them with real business data before going live.
