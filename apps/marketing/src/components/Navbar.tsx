@@ -18,6 +18,7 @@ const NAV = [
       { href: "/industries/roofing-ai-receptionist", label: "Roofing" },
       { href: "/industries/electrical-ai-receptionist", label: "Electrical" },
       { href: "/industries/cleaning-ai-receptionist", label: "Cleaning" },
+      { href: "/industries/landscaping-ai-receptionist", label: "Landscaping" },
       { href: "/industries/medical-spa-ai-receptionist", label: "Med Spa" },
       { href: "/industries/legal-intake-ai-receptionist", label: "Legal" },
     ],
@@ -75,7 +76,7 @@ export default function Navbar() {
             alt="VOXmatiON"
             width={140}
             height={48}
-            className="h-10 w-auto object-contain"
+            className="h-14 w-auto object-contain"
             style={{ mixBlendMode: "screen" }}
             priority
             unoptimized

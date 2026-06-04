@@ -16,7 +16,7 @@ export default function ZohoSalesIQWidget() {
     const script = document.createElement("script");
     script.id = "zsiqscript";
     script.src =
-      "https://salesiq.zohopublic.com/widget?wc=siqb3e5dbe64f33ac1e79a765dcef0f51c0bb5f48dc2cdf5efa0e6c5d25fc90ddf8";
+      "https://salesiq.zohopublic.com/widget?wc=siq1713844660d5d8f0aa23fe45b5492bc8c9f31e4445e51522218544f108fdcf6a";
     script.defer = true;
     document.body.appendChild(script);
 
