@@ -10,7 +10,7 @@ export default function HeroSection() {
     <section className="relative w-full overflow-hidden" style={{ height: "82vh", minHeight: "520px" }}>
       {/* Desktop banner */}
       <Image
-        src="https://2ywrmvccumupilj7.public.blob.vercel-storage.com/Header.PNG"
+        src="https://2ywrmvccumupilj7.public.blob.vercel-storage.com/Header.png"
         alt="VOXmatiON AI Receptionist"
         fill
         className="hidden sm:block object-cover object-center"
@@ -19,7 +19,7 @@ export default function HeroSection() {
       />
       {/* Mobile banner */}
       <Image
-        src="https://2ywrmvccumupilj7.public.blob.vercel-storage.com/Header-Mobile%20.PNG"
+        src="https://2ywrmvccumupilj7.public.blob.vercel-storage.com/header_mobile.png"
         alt="VOXmatiON AI Receptionist"
         fill
         className="block sm:hidden object-cover object-top"
