@@ -9,7 +9,8 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const data = getSlugData(params.slug);
   return {
-    title: `Live AI Demo for ${data.companyName} | VOXmatiON`,
+    // The root layout applies the "%s | VOXmatiON" template, so omit it here.
+    title: `Live AI Demo for ${data.companyName}`,
     description: `Hear exactly how VOXmatiON handles inbound calls for ${data.companyName}. Try the live AI voice demo now.`,
     // noindex — these are sales assets, not SEO pages
     robots: { index: false, follow: false },
