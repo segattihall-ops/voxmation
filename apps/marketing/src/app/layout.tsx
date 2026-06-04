@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Syne, Space_Grotesk } from "next/font/google";
+import { Plus_Jakarta_Sans, DM_Sans } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -10,14 +10,14 @@ import { SITE_URL, DEFAULT_OG_IMAGE } from "@/lib/constants";
 
 const VoiceAgent = dynamic(() => import("@/components/VoiceAgent"), { ssr: false });
 
-const syne = Syne({
+const plusJakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
   variable: "--font-syne",
   weight: ["400", "500", "600", "700", "800"],
   display: "swap",
 });
 
-const spaceGrotesk = Space_Grotesk({
+const dmSans = DM_Sans({
   subsets: ["latin"],
   variable: "--font-space",
   weight: ["300", "400", "500", "600", "700"],
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${syne.variable} ${spaceGrotesk.variable}`}>
+    <html lang="en" className={`${plusJakarta.variable} ${dmSans.variable}`}>
       <body className="font-body antialiased bg-[#060A10] text-[#F7F5F0]">
         <ZohoSalesIQWidget />
         <Navbar />

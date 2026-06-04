@@ -71,13 +71,14 @@ export default function Navbar() {
         {/* Logo */}
         <Link href="/" className="flex items-center flex-shrink-0">
           <Image
-            src="/Logo.PNG"
+            src="https://2ywrmvccumupilj7.public.blob.vercel-storage.com/logo.png"
             alt="VOXmatiON"
             width={140}
             height={48}
             className="h-10 w-auto object-contain"
             style={{ mixBlendMode: "screen" }}
             priority
+            unoptimized
           />
         </Link>
 
