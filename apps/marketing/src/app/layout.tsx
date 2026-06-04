@@ -5,7 +5,10 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import FloatingCTA from "@/components/FloatingCTA";
 import ZohoSalesIQWidget from "@/components/ZohoSalesIQWidget";
+import dynamic from "next/dynamic";
 import { SITE_URL, DEFAULT_OG_IMAGE } from "@/lib/constants";
+
+const VoiceAgent = dynamic(() => import("@/components/VoiceAgent"), { ssr: false });
 
 const syne = Syne({
   subsets: ["latin"],
@@ -44,6 +47,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main>{children}</main>
         <Footer />
         <FloatingCTA />
+        <VoiceAgent />
       </body>
     </html>
   );
