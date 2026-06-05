@@ -9,6 +9,8 @@ import BlogPostPage from "./pages/BlogPostPage";
 import VsHubspotPage from "./pages/VsHubspotPage";
 import VsSalesforcePage from "./pages/VsSalesforcePage";
 import VsZohoPage from "./pages/VsZohoPage";
+import CareersAssistantPage from "./pages/CareersAssistantPage";
+import CareersConfirmPage from "./pages/CareersConfirmPage";
 import NotFoundPage from "./pages/NotFoundPage";
 
 import LoginPage from "./dashboard/pages/LoginPage";
@@ -64,6 +66,9 @@ export default function App() {
           <Route path="vs-hubspot" element={<VsHubspotPage />} />
           <Route path="vs-salesforce" element={<VsSalesforcePage />} />
           <Route path="vs-zoho" element={<VsZohoPage />} />
+          <Route path="carreiras/assistente-remoto" element={<CareersAssistantPage />} />
+          <Route path="carreiras/confirmar" element={<CareersConfirmPage />} />
+          <Route path="vaga" element={<Navigate to="/carreiras/assistente-remoto" replace />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>

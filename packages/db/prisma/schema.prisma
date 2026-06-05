@@ -64,6 +64,14 @@ enum TaskStatus {
   BLOCKED
 }
 
+enum ApplicationStatus {
+  PENDING_CONFIRMATION
+  CONFIRMED
+  REVIEWING
+  REJECTED
+  HIRED
+}
+
 model User {
   id        String   @id @default(cuid())
   email     String   @unique
@@ -308,4 +316,30 @@ model AuditLog {
   createdAt DateTime @default(now())
 
   actor User? @relation(fields: [actorId], references: [id])
+}
+
+/// Job applications submitted through the public careers page (xrmg via Voxmation).
+model JobApplication {
+  id             String            @id @default(cuid())
+  position       String            @default("assistente-remoto-xrmg")
+  fullName       String
+  email          String
+  phone          String?
+  city           String?
+  state          String?
+  linkedin       String?
+  portfolio      String?
+  resumeFilename String?
+  resumeMimeType String?
+  resumeBase64   String? // raw resume bytes stored as base64 (no external storage needed)
+  answers        Json // structured answers from the screening test
+  status         ApplicationStatus @default(PENDING_CONFIRMATION)
+  confirmToken   String            @unique
+  confirmedAt    DateTime?
+  consentLgpd    Boolean           @default(false)
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime          @updatedAt
+
+  @@index([email])
+  @@index([status])
 }
