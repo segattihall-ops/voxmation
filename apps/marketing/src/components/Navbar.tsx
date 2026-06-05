@@ -74,10 +74,10 @@ export default function Navbar() {
           <Image
             src="https://2ywrmvccumupilj7.public.blob.vercel-storage.com/logo.png"
             alt="VOXmatiON"
-            width={140}
-            height={48}
-            className="h-14 w-auto object-contain"
-            style={{ mixBlendMode: "screen" }}
+            width={220}
+            height={60}
+            className="h-12 w-auto object-contain"
+            style={{ mixBlendMode: "screen", maxWidth: "220px" }}
             priority
             unoptimized
           />

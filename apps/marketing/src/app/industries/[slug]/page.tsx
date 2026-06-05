@@ -243,7 +243,7 @@ export default function IndustryPage({ params }: { params: { slug: string } }) {
   return (
     <>
       {/* ─── Hero ─── */}
-      <section className="relative overflow-hidden" style={{ height: hasHero ? "82vh" : "auto", minHeight: hasHero ? "520px" : "0" }}>
+      <section className="relative overflow-hidden" style={{ height: hasHero ? "calc(82vh - 64px)" : "auto", minHeight: hasHero ? "480px" : "0", marginTop: hasHero ? "64px" : "0" }}>
         {hasHero ? (
           <>
             {industry.desktopHero && (
@@ -269,8 +269,8 @@ export default function IndustryPage({ params }: { params: { slug: string } }) {
             <div className="absolute inset-0 bg-[#060A10]/20 pointer-events-none" />
             <div className="absolute bottom-0 inset-x-0 h-52 bg-gradient-to-t from-[#060A10] to-transparent pointer-events-none" />
 
-            {/* CTAs only — no text overlay */}
-            <div className="absolute bottom-20 left-6 sm:left-16 z-10 flex flex-col sm:flex-row gap-3">
+            {/* CTAs only — right center */}
+            <div className="absolute top-1/2 -translate-y-1/2 right-6 sm:right-14 z-10 flex flex-col gap-3">
               <Link
                 href="/demo"
                 className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-[#FF8A1F] text-white font-bold font-body text-sm hover:bg-[#FFB347] transition-all shadow-[0_8px_30px_rgba(255,138,31,0.5)]"
