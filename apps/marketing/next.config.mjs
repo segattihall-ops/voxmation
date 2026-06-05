@@ -4,6 +4,8 @@ const nextConfig = {
     SITE_URL: "https://voxmation.com",
   },
   images: {
+    formats: ["image/avif", "image/webp"],
+    minimumCacheTTL: 2678400, // 31 days
     remotePatterns: [
       {
         protocol: "https",

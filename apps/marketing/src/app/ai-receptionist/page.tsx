@@ -11,8 +11,8 @@ const PAGE_URL = `${SITE_URL}/ai-receptionist`;
 export const metadata: Metadata = {
   alternates: { canonical: PAGE_URL },
   openGraph: { url: PAGE_URL },
-  title: "AI Receptionist — Answer Every Call 24/7",
-  description: "VOXmatiON's AI Receptionist answers calls instantly, qualifies leads, and routes every opportunity automatically. Never miss another customer call.",
+  title: "AI Receptionist for Home-Service Pros — Answer Every Call 24/7",
+  description: "VOXmatiON's AI receptionist answers HVAC, plumbing, electrical & roofing calls in under 2 seconds, 24/7, across Dallas–Fort Worth, Houston & Austin — qualifying leads and booking jobs automatically.",
 };
 
 const BENEFITS = [

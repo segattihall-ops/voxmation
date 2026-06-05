@@ -20,7 +20,7 @@ export default function HeroSection() {
         fill
         className="hidden sm:block object-cover object-top"
         priority
-        unoptimized
+        sizes="100vw"
       />
       {/* Mobile banner */}
       <Image
@@ -29,7 +29,7 @@ export default function HeroSection() {
         fill
         className="block sm:hidden object-cover object-top"
         priority
-        unoptimized
+        sizes="100vw"
       />
 
       {/* Bottom fade */}

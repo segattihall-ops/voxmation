@@ -10,8 +10,8 @@ const PAGE_URL = `${SITE_URL}/missed-call-recovery`;
 export const metadata: Metadata = {
   alternates: { canonical: PAGE_URL },
   openGraph: { url: PAGE_URL },
-  title: "Missed Call Recovery — Never Lose a Lead Again",
-  description: "When your team misses a call, VOXmatiON responds in seconds, captures the lead, qualifies the request, and helps book the job automatically.",
+  title: "Missed Call Recovery for Service Businesses — Never Lose a Lead",
+  description: "When your HVAC, plumbing, or roofing team misses a call, VOXmatiON texts back in seconds, captures and qualifies the lead, and helps book the job — serving DFW, Houston & Austin.",
 };
 
 const STEPS = [
