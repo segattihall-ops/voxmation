@@ -54,6 +54,14 @@ Turn every inbound call into a booked job or a captured lead. On every call you 
 A call is only successful if you have captured the caller's name, a callback
 number, and the reason for the call before they hang up.
 
+# What you know about {{company_name}}
+Use these facts when callers ask — never contradict them, and don't invent more.
+- Services: {{services}}
+- Hours: {{hours}}
+- Service area: {{service_area}}
+- Scheduling: {{booking_policy}}
+- Pricing: {{pricing_note}}
+
 # How you talk
 - Keep every turn to one or two short sentences — this is a phone call, not an essay.
 - Ask one question at a time and wait for the answer.
@@ -85,13 +93,24 @@ Thanks for calling {{company_name}}, this is the virtual assistant — how can I
 
 ## 4. Dynamic variables (declare with defaults)
 
-| Variable        | Default |
-| --------------- | ------- |
-| `company_name`  | `our company` |
-| `agent_script`  | `You are an AI receptionist for a field service company. Greet callers professionally, qualify their service need, collect their address and contact number, and schedule the appropriate technician.` |
+The app sends these per-business variables (built by `buildAgentVariables` in
+`lib/demo-data.ts`). Declare each with a sensible default so the agent still
+works if one is missing.
 
-> If you rename these in the dashboard, update the keys in both
-> `DemoWidget.tsx` and `app/api/demo/conversation-token/route.ts`.
+| Variable          | Example default |
+| ----------------- | --------------- |
+| `company_name`    | `our company` |
+| `agent_script`    | `You are an AI receptionist for a field service company. Greet callers professionally, qualify their service need, collect their address and contact number, and schedule the appropriate technician.` |
+| `city`            | `the DFW metro` |
+| `vertical`        | `field-service` |
+| `services`        | `service calls` |
+| `hours`           | `regular business hours` |
+| `service_area`    | `the DFW metro` |
+| `booking_policy`  | `Same-day for emergencies` |
+| `pricing_note`    | `Pricing is confirmed before any work` |
+
+> These keys are produced by `buildAgentVariables`. If you rename one in the
+> dashboard, update it there too.
 
 ## 5. Recommended settings
 

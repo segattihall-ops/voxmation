@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getSlugData } from "@/lib/demo-data";
+import { getSlugData, buildAgentVariables } from "@/lib/demo-data";
 
 // Places an outbound demo call via ElevenLabs' native Twilio integration.
 // ElevenLabs owns the Twilio number (imported under Conversational AI → Phone
@@ -40,10 +40,7 @@ export async function POST(req: NextRequest) {
           agent_phone_number_id: ELEVENLABS_AGENT_PHONE_NUMBER_ID,
           to_number: phone,
           conversation_initiation_client_data: {
-            dynamic_variables: {
-              agent_script: data.agentScript,
-              company_name: data.companyName,
-            },
+            dynamic_variables: buildAgentVariables(data),
           },
         }),
       }
