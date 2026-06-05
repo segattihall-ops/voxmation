@@ -19,6 +19,7 @@ import { voiceRoutes } from "./modules/voice/voice.routes";
 import { deliveryRoutes } from "./modules/delivery/delivery.routes";
 import { billingRoutes } from "./modules/billing/billing.routes";
 import { integrationsRoutes } from "./modules/integrations/integrations.routes";
+import { careersRoutes } from "./modules/careers/careers.routes";
 
 const app = Fastify({ logger: true });
 const prisma = new PrismaClient();
@@ -63,6 +64,7 @@ app.register(voiceRoutes, { prefix: "/v1" });
 app.register(deliveryRoutes, { prefix: "/v1" });
 app.register(billingRoutes, { prefix: "/v1" });
 app.register(integrationsRoutes, { prefix: "/v1" });
+app.register(careersRoutes, { prefix: "/v1" });
 
 const staticRoot = path.resolve(__dirname, "../../web/dist");
 const hasStaticApp = fs.existsSync(path.join(staticRoot, "index.html"));

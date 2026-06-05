@@ -200,6 +200,7 @@ export default function Layout() {
                   { to: "/pricing", label: "Pricing" },
                   { to: "/blog", label: "Blog" },
                   { to: "/faq", label: "FAQ" },
+                  { to: "/carreiras/assistente-remoto", label: "Carreiras" },
                 ].map((l) => (
                   <li key={l.to}>
                     <Link to={l.to} className="text-sm text-gray-500 hover:text-gray-300 transition-colors">{l.label}</Link>

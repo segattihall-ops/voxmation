@@ -25,5 +25,12 @@ export const config = {
   twilio: {
     accountSid: process.env.TWILIO_ACCOUNT_SID || "",
     authToken: process.env.TWILIO_AUTH_TOKEN || ""
+  },
+  careers: {
+    // Absolute base URL used to build the e-mail confirmation link when the
+    // request does not provide one (e.g. server-to-server). Optional.
+    publicUrl: process.env.PUBLIC_BASE_URL || process.env.APP_URL || "",
+    // Optional inbox that receives a notification for every new application.
+    notifyEmail: process.env.CAREERS_NOTIFY_EMAIL || ""
   }
 };
