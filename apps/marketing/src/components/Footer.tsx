@@ -16,9 +16,12 @@ const INDUSTRIES = [
   { href: "/industries/plumbing-ai-receptionist", label: "Plumbing" },
   { href: "/industries/roofing-ai-receptionist", label: "Roofing" },
   { href: "/industries/electrical-ai-receptionist", label: "Electrical" },
+  { href: "/industries/landscaping-ai-receptionist", label: "Landscaping" },
   { href: "/industries/cleaning-ai-receptionist", label: "Cleaning" },
+  { href: "/industries/garage-door-ai-receptionist", label: "Garage Door" },
   { href: "/industries/medical-spa-ai-receptionist", label: "Med Spa" },
   { href: "/industries/legal-intake-ai-receptionist", label: "Legal" },
+  { href: "/industries/real-estate-ai-receptionist", label: "Real Estate" },
 ];
 
 const COMPANY = [

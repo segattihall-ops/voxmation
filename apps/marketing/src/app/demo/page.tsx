@@ -1,8 +1,14 @@
+import { SITE_URL } from "@/lib/constants";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Calendar, Phone, ArrowRight, CheckCircle2, Clock } from "lucide-react";
 
+const PAGE_URL = `${SITE_URL}/demo`;
+
+
 export const metadata: Metadata = {
+  alternates: { canonical: PAGE_URL },
+  openGraph: { url: PAGE_URL },
   title: "Book a Demo — See VOXmatiON Live",
   description: "See VOXmatiON answer a call, qualify a lead, and route it to your CRM in real time. Book your free 20-minute demo.",
 };

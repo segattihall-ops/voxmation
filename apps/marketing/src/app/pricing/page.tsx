@@ -1,9 +1,15 @@
+import { SITE_URL } from "@/lib/constants";
 import type { Metadata } from "next";
 import PricingSection from "@/components/PricingSection";
 import FAQSection from "@/components/FAQSection";
 import DemoSection from "@/components/DemoSection";
 
+const PAGE_URL = `${SITE_URL}/pricing`;
+
+
 export const metadata: Metadata = {
+  alternates: { canonical: PAGE_URL },
+  openGraph: { url: PAGE_URL },
   title: "Pricing — Plans That Pay for Themselves",
   description: "VOXmatiON pricing plans for service businesses. Starter, Growth, Pro, and White Label. One recovered job covers the monthly cost.",
 };

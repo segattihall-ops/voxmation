@@ -1,9 +1,15 @@
+import { SITE_URL } from "@/lib/constants";
 import type { Metadata } from "next";
 import HowItWorksSection from "@/components/HowItWorksSection";
 import DemoSection from "@/components/DemoSection";
 import FAQSection from "@/components/FAQSection";
 
+const PAGE_URL = `${SITE_URL}/how-it-works`;
+
+
 export const metadata: Metadata = {
+  alternates: { canonical: PAGE_URL },
+  openGraph: { url: PAGE_URL },
   title: "How It Works — Call → Qualify → Route",
   description: "See exactly how VOXmatiON answers calls, qualifies leads, and routes them to the right place automatically.",
 };
