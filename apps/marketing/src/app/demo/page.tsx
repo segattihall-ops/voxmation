@@ -56,7 +56,7 @@ export default function DemoPage() {
                 </a>
               </div>
 
-              <div className="mt-8 flex items-center gap-2 text-sm text-gray-500">
+              <div className="mt-8 flex items-center gap-2 text-sm text-gray-300">
                 <Clock className="w-4 h-4" />
                 <span>20-minute session · No commitment required</span>
               </div>
@@ -75,28 +75,28 @@ export default function DemoPage() {
                   <div>
                     <label className="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">First Name</label>
                     <input name="FirstName" type="text" required placeholder="John"
-                      className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-[#FF8A1F] transition-colors text-sm" />
+                      className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-400 focus:outline-none focus:border-[#FF8A1F] transition-colors text-sm" />
                   </div>
                   <div>
                     <label className="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Last Name</label>
                     <input name="LastName" type="text" required placeholder="Smith"
-                      className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-[#FF8A1F] transition-colors text-sm" />
+                      className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-400 focus:outline-none focus:border-[#FF8A1F] transition-colors text-sm" />
                   </div>
                 </div>
                 <div>
                   <label className="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Business Email</label>
                   <input name="Email" type="email" required placeholder="john@yourcompany.com"
-                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-[#FF8A1F] transition-colors text-sm" />
+                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-400 focus:outline-none focus:border-[#FF8A1F] transition-colors text-sm" />
                 </div>
                 <div>
                   <label className="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Phone Number</label>
                   <input name="Phone" type="tel" required placeholder="+1 (555) 000-0000"
-                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-[#FF8A1F] transition-colors text-sm" />
+                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-400 focus:outline-none focus:border-[#FF8A1F] transition-colors text-sm" />
                 </div>
                 <div>
                   <label className="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Business Name</label>
                   <input name="Company" type="text" required placeholder="Your Company LLC"
-                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-[#FF8A1F] transition-colors text-sm" />
+                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-400 focus:outline-none focus:border-[#FF8A1F] transition-colors text-sm" />
                 </div>
                 <div>
                   <label className="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Industry</label>
@@ -122,7 +122,7 @@ export default function DemoPage() {
                   <Calendar className="w-5 h-5" />
                   Book My Free Demo
                 </button>
-                <p className="text-xs text-gray-500 text-center">No commitment. 20-minute session. 100% free.</p>
+                <p className="text-xs text-gray-300 text-center">No commitment. 20-minute session. 100% free.</p>
               </form>
             </div>
           </div>

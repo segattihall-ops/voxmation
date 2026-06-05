@@ -356,7 +356,7 @@ export default function DemoWidget({ slugData }: { slugData: DemoSlug }) {
               ) : (
                 <button
                   onClick={startVoiceDemo}
-                  className="w-full py-3.5 rounded-xl bg-[#FF8A1F] text-white font-bold text-sm font-body hover:bg-[#FFB347] transition-colors glow-orange-sm flex items-center justify-center gap-2"
+                  className="w-full py-3.5 rounded-xl bg-[#FF8A1F] text-[#0D0D0D] font-bold text-sm font-body hover:bg-[#FFB347] transition-colors glow-orange-sm flex items-center justify-center gap-2"
                 >
                   <Mic className="w-4 h-4" />
                   {micStatus === "error" ? "Try again" : "Start talking"}
@@ -445,7 +445,7 @@ export default function DemoWidget({ slugData }: { slugData: DemoSlug }) {
                       <button
                         type="submit"
                         disabled={callStatus === "calling"}
-                        className="w-full py-3.5 rounded-xl bg-[#FF8A1F] text-white font-bold text-sm font-body hover:bg-[#FFB347] transition-colors glow-orange-sm flex items-center justify-center gap-2 disabled:opacity-70"
+                        className="w-full py-3.5 rounded-xl bg-[#FF8A1F] text-[#0D0D0D] font-bold text-sm font-body hover:bg-[#FFB347] transition-colors glow-orange-sm flex items-center justify-center gap-2 disabled:opacity-70"
                       >
                         {callStatus === "calling" ? (
                           <>
@@ -605,7 +605,7 @@ export default function DemoWidget({ slugData }: { slugData: DemoSlug }) {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
                 href={PHONE_HREF}
-                className="inline-flex items-center justify-center gap-2 px-10 py-5 rounded-2xl bg-[#FF8A1F] text-white font-bold font-body text-base hover:bg-[#FFB347] transition-colors glow-orange shadow-[0_0_60px_rgba(255,138,31,0.3)]"
+                className="inline-flex items-center justify-center gap-2 px-10 py-5 rounded-2xl bg-[#FF8A1F] text-[#0D0D0D] font-bold font-body text-base hover:bg-[#FFB347] transition-colors glow-orange shadow-[0_0_60px_rgba(255,138,31,0.3)]"
               >
                 <Phone className="w-5 h-5" />
                 Call {PHONE_NUMBER}

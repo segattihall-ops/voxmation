@@ -121,7 +121,7 @@ function AgentWidget({ onClose }: { onClose: () => void }) {
 
         {/* Action button */}
         {!isConnected && !isConnecting ? (
-          <button onClick={start} className="w-full py-3 rounded-xl bg-[#FF8A1F] text-white font-bold font-body text-sm hover:bg-[#FFB347] transition-colors flex items-center justify-center gap-2 glow-orange-sm">
+          <button onClick={start} className="w-full py-3 rounded-xl bg-[#FF8A1F] text-[#0D0D0D] font-bold font-body text-sm hover:bg-[#FFB347] transition-colors flex items-center justify-center gap-2 glow-orange-sm">
             <Mic className="w-4 h-4" /> Start Conversation
           </button>
         ) : isConnecting ? (

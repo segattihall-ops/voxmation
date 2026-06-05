@@ -273,7 +273,7 @@ export default function IndustryPage({ params }: { params: { slug: string } }) {
             <div className="absolute top-1/2 -translate-y-1/2 right-6 sm:right-14 z-10 flex flex-col gap-3">
               <Link
                 href="/demo"
-                className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-[#FF8A1F] text-white font-bold font-body text-sm hover:bg-[#FFB347] transition-all shadow-[0_8px_30px_rgba(255,138,31,0.5)]"
+                className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-[#FF8A1F] text-[#0D0D0D] font-bold font-body text-sm hover:bg-[#FFB347] transition-all shadow-[0_8px_30px_rgba(255,138,31,0.5)]"
               >
                 Book {industry.name} Demo <ArrowRight className="w-4 h-4" />
               </Link>
@@ -300,7 +300,7 @@ export default function IndustryPage({ params }: { params: { slug: string } }) {
               <p className="text-xl text-[#8A99B3] max-w-2xl mx-auto mb-10 font-body">{industry.subheadline}</p>
               <Link
                 href="/demo"
-                className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-[#FF8A1F] text-white font-bold font-body text-lg hover:bg-[#FFB347] transition-all shadow-[0_8px_30px_rgba(255,138,31,0.4)]"
+                className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-[#FF8A1F] text-[#0D0D0D] font-bold font-body text-lg hover:bg-[#FFB347] transition-all shadow-[0_8px_30px_rgba(255,138,31,0.4)]"
               >
                 Book {industry.name} Demo <ArrowRight className="w-5 h-5" />
               </Link>
@@ -398,7 +398,7 @@ export default function IndustryPage({ params }: { params: { slug: string } }) {
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Link
                 href="/demo"
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-[#FF8A1F] text-white font-bold font-body hover:bg-[#FFB347] transition-all shadow-[0_8px_30px_rgba(255,138,31,0.4)]"
+                className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-[#FF8A1F] text-[#0D0D0D] font-bold font-body hover:bg-[#FFB347] transition-all shadow-[0_8px_30px_rgba(255,138,31,0.4)]"
               >
                 Book Your Demo <ArrowRight className="w-4 h-4" />
               </Link>

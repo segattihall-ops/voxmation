@@ -81,7 +81,7 @@ export default function ROICalculator() {
               >
                 {formattedRisk}
               </motion.p>
-              <p className="text-xs text-gray-500 mt-1">per month</p>
+              <p className="text-xs text-gray-300 mt-1">per month</p>
             </div>
 
             <div className="flex flex-col items-center gap-3">

@@ -55,7 +55,7 @@ export default function MissedCallRecoveryPage() {
                   <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: `${step.color}15`, border: `1px solid ${step.color}30` }}>
                     <step.icon className="w-5 h-5" style={{ color: step.color }} />
                   </div>
-                  <span className="text-xs font-bold uppercase tracking-widest text-gray-500">Step {i + 1}</span>
+                  <span className="text-xs font-bold uppercase tracking-widest text-gray-300">Step {i + 1}</span>
                 </div>
                 <h3 className="text-base font-bold text-white mb-2">{step.title}</h3>
                 <p className="text-sm text-gray-400 leading-relaxed">{step.desc}</p>
