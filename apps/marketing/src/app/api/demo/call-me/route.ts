@@ -52,8 +52,13 @@ export async function POST(req: NextRequest) {
     if (!res.ok) {
       const detail = await res.text().catch(() => "");
       console.error("ElevenLabs outbound call failed:", res.status, detail);
+      // Surface the upstream reason so the cause is visible while configuring
+      // the ElevenLabs/Twilio integration (these are private sales pages).
       return NextResponse.json(
-        { error: "Call could not be placed." },
+        {
+          error: `Call could not be placed (ElevenLabs ${res.status}).`,
+          reason: detail.slice(0, 400) || null,
+        },
         { status: 502 }
       );
     }

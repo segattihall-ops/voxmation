@@ -199,8 +199,13 @@ export default function DemoWidget({ slugData }: { slugData: DemoSlug }) {
           body: JSON.stringify({ phone, slug: slugData.slug }),
         });
         if (!res.ok) {
-          const { error } = await res.json().catch(() => ({ error: "" }));
-          throw new Error(error || "We couldn't place the call.");
+          const { error, reason } = await res
+            .json()
+            .catch(() => ({ error: "", reason: "" }));
+          throw new Error(
+            [error, reason].filter(Boolean).join(" — ") ||
+              "We couldn't place the call."
+          );
         }
         setCallStatus("sent");
       } catch (err) {
