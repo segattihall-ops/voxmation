@@ -6,11 +6,8 @@
 export const POSITION_SLUG = "assistente-remoto-xrmg";
 
 // ── Remuneração ───────────────────────────────────────────────────────────────
-// Faixa recomendada com base no mercado BR (2026) para um(a) assistente de
-// operações/admin com automações, PJ full-time. Ajuste livremente.
-export const REMUNERACAO = "R$ 3.000 a R$ 4.500 / mês (PJ)";
-export const REMUNERACAO_MIN_BRL = 3000;
-export const REMUNERACAO_MAX_BRL = 4500;
+// Exibida na página. "A negociar" mantém o valor aberto para a entrevista.
+export const REMUNERACAO = "A negociar (PJ)";
 
 export const VAGA = {
   titulo: "Assistente Remoto(a) — Operações & Automações",
