@@ -116,11 +116,11 @@ export default function Footer() {
         </div>
 
         <div className="mt-12 pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-gray-500">© {new Date().getFullYear()} VOXmatiON. All rights reserved.</p>
+          <p className="text-sm text-gray-300">© {new Date().getFullYear()} VOXmatiON. All rights reserved.</p>
           <div className="flex gap-6">
-            <Link href="/privacy-policy" className="text-sm text-gray-500 hover:text-gray-300 transition-colors">Privacy</Link>
-            <Link href="/terms-of-service" className="text-sm text-gray-500 hover:text-gray-300 transition-colors">Terms</Link>
-            <Link href="/contact" className="text-sm text-gray-500 hover:text-gray-300 transition-colors">Contact</Link>
+            <Link href="/privacy-policy" className="text-sm text-gray-300 hover:text-gray-300 transition-colors">Privacy</Link>
+            <Link href="/terms-of-service" className="text-sm text-gray-300 hover:text-gray-300 transition-colors">Terms</Link>
+            <Link href="/contact" className="text-sm text-gray-300 hover:text-gray-300 transition-colors">Contact</Link>
           </div>
         </div>
       </div>

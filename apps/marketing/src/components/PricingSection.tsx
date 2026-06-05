@@ -156,7 +156,7 @@ export default function PricingSection() {
             >
               {plan.highlight && (
                 <div className="absolute -top-3.5 left-1/2 -translate-x-1/2">
-                  <span className="px-4 py-1.5 rounded-full bg-[#FF8A1F] text-white text-xs font-bold shadow-[0_4px_15px_rgba(255,138,31,0.4)] font-body whitespace-nowrap">
+                  <span className="px-4 py-1.5 rounded-full bg-[#FF8A1F] text-[#0D0D0D] text-xs font-bold shadow-[0_4px_15px_rgba(255,138,31,0.4)] font-body whitespace-nowrap">
                     Most Popular
                   </span>
                 </div>
@@ -202,7 +202,7 @@ export default function PricingSection() {
                 href={plan.ctaHref}
                 className={`block text-center py-3.5 rounded-xl font-bold text-sm font-body transition-all hover:scale-105 ${
                   plan.highlight
-                    ? "bg-[#FF8A1F] text-white glow-orange-sm hover:bg-[#FFB347]"
+                    ? "bg-[#FF8A1F] text-[#0D0D0D] glow-orange-sm hover:bg-[#FFB347]"
                     : "border border-[rgba(255,138,31,0.35)] text-[#FF8A1F] hover:bg-[rgba(255,138,31,0.08)]"
                 }`}
               >

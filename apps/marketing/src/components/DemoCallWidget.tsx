@@ -123,7 +123,7 @@ function DemoCallWidgetInner() {
             <div className="flex flex-col sm:flex-row gap-4">
               <Link
                 href="/demo"
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl bg-[#FF8A1F] text-white font-bold font-body text-sm hover:bg-[#FFB347] transition-colors glow-orange-sm"
+                className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl bg-[#FF8A1F] text-[#0D0D0D] font-bold font-body text-sm hover:bg-[#FFB347] transition-colors glow-orange-sm"
               >
                 <Phone className="w-4 h-4" />
                 Book Real Demo
@@ -232,7 +232,7 @@ function DemoCallWidgetInner() {
                     <div className="space-y-2.5">
                       <button
                         onClick={startVoiceDemo}
-                        className="w-full py-3 rounded-xl bg-[#FF8A1F] text-white font-bold text-sm font-body hover:bg-[#FFB347] transition-colors glow-orange-sm flex items-center justify-center gap-2"
+                        className="w-full py-3 rounded-xl bg-[#FF8A1F] text-[#0D0D0D] font-bold text-sm font-body hover:bg-[#FFB347] transition-colors glow-orange-sm flex items-center justify-center gap-2"
                       >
                         <Mic className="w-4 h-4" />
                         {voiceError ? "Try the live AI again" : "Talk to our AI"}
