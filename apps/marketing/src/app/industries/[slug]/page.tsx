@@ -278,7 +278,7 @@ export default function IndustryPage({ params }: { params: { slug: string } }) {
                 fill
                 className={`object-cover object-center ${industry.mobileHero ? "hidden sm:block" : ""}`}
                 priority
-                unoptimized
+                sizes="100vw"
               />
             )}
             {industry.mobileHero && (
@@ -288,7 +288,7 @@ export default function IndustryPage({ params }: { params: { slug: string } }) {
                 fill
                 className="block sm:hidden object-cover object-top"
                 priority
-                unoptimized
+                sizes="100vw"
               />
             )}
             <div className="absolute inset-0 bg-[#060A10]/20 pointer-events-none" />

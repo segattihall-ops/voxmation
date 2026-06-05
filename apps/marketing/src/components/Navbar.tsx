@@ -80,7 +80,7 @@ export default function Navbar() {
             className="h-12 w-auto object-contain"
             style={{ mixBlendMode: "screen", maxWidth: "220px" }}
             priority
-            unoptimized
+            sizes="220px"
           />
         </Link>
 
