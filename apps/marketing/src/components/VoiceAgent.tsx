@@ -9,8 +9,9 @@ import {
 import { useCallback, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Mic, MicOff, X, Volume2, PhoneCall } from "lucide-react";
+import { VOICE_AGENT_ID } from "@/lib/constants";
 
-const AGENT_ID = "agent_1401kj43s7b2fnhrt42zvq0qeshf";
+const AGENT_ID = VOICE_AGENT_ID;
 
 function SpeakingWave({ active }: { active: boolean }) {
   return (
