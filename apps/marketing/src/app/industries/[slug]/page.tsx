@@ -7,6 +7,8 @@ import {
   Clock, Users, Zap, Calendar, Shield, PhoneCall,
 } from "lucide-react";
 import DemoSection from "@/components/DemoSection";
+import JsonLd from "@/components/JsonLd";
+import { SITE_URL } from "@/lib/constants";
 
 const INDUSTRIES: Record<string, {
   name: string; headline: string; subheadline: string;
@@ -240,8 +242,31 @@ export default function IndustryPage({ params }: { params: { slug: string } }) {
 
   const hasHero = !!(industry.desktopHero || industry.mobileHero);
 
+  const pageUrl = `${SITE_URL}/industries/${params.slug}`;
+  const serviceSchema = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: `${industry.name} AI Receptionist`,
+    serviceType: "AI receptionist and call answering",
+    description: industry.subheadline,
+    url: pageUrl,
+    provider: { "@type": "Organization", name: "VOXmatiON", url: SITE_URL },
+    areaServed: ["Dallas", "Fort Worth", "Houston", "Austin", "Texas"],
+  };
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+      { "@type": "ListItem", position: 2, name: "Industries", item: `${SITE_URL}/industries` },
+      { "@type": "ListItem", position: 3, name: `${industry.name} AI Receptionist`, item: pageUrl },
+    ],
+  };
+
   return (
     <>
+      <JsonLd data={serviceSchema} />
+      <JsonLd data={breadcrumbSchema} />
       {/* ─── Hero ─── */}
       <section className="relative overflow-hidden" style={{ height: hasHero ? "calc(82vh - 64px)" : "auto", minHeight: hasHero ? "480px" : "0", marginTop: hasHero ? "64px" : "0" }}>
         {hasHero ? (
