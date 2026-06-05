@@ -5,15 +5,20 @@ import Image from "next/image";
 import Link from "next/link";
 import { ChevronDown } from "lucide-react";
 
+const NAV_H = 64; // px — matches Navbar h-16
+
 export default function HeroSection() {
   return (
-    <section className="relative w-full overflow-hidden" style={{ height: "90vh", minHeight: "560px" }}>
+    <section
+      className="relative w-full overflow-hidden"
+      style={{ height: `calc(90vh - ${NAV_H}px)`, minHeight: "500px", marginTop: `${NAV_H}px` }}
+    >
       {/* Desktop banner */}
       <Image
         src="https://2ywrmvccumupilj7.public.blob.vercel-storage.com/Header.png"
         alt="VOXmatiON AI Receptionist"
         fill
-        className="hidden sm:block object-cover object-center"
+        className="hidden sm:block object-cover object-top"
         priority
         unoptimized
       />
@@ -27,15 +32,15 @@ export default function HeroSection() {
         unoptimized
       />
 
-      {/* Bottom fade into site background */}
+      {/* Bottom fade */}
       <div className="absolute bottom-0 inset-x-0 h-52 bg-gradient-to-t from-[#060A10] to-transparent pointer-events-none" />
 
-      {/* CTA buttons — bottom-left */}
+      {/* CTAs — right center */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
+        initial={{ opacity: 0, x: 20 }}
+        animate={{ opacity: 1, x: 0 }}
         transition={{ delay: 0.4, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        className="absolute bottom-24 left-6 sm:left-16 flex flex-col sm:flex-row gap-3 z-10"
+        className="absolute top-1/2 -translate-y-1/2 right-6 sm:right-14 flex flex-col gap-3 z-10"
       >
         <Link
           href="/demo"
