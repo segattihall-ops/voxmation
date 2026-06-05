@@ -38,10 +38,45 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 };
 
+const JSON_LD = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": `${SITE_URL}/#organization`,
+      name: "VOXmatiON",
+      url: SITE_URL,
+      logo: `${SITE_URL}/Logo.PNG`,
+      description:
+        "AI voice automation that answers missed calls, qualifies leads, and books jobs 24/7 for HVAC, plumbing, electrical, and roofing companies.",
+      areaServed: ["Dallas", "Fort Worth", "Houston", "Austin", "Texas"],
+      contactPoint: {
+        "@type": "ContactPoint",
+        telephone: "+1-844-687-7999",
+        contactType: "sales",
+        areaServed: "US",
+        availableLanguage: ["English"],
+      },
+      sameAs: ["https://twitter.com/voxmation"],
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${SITE_URL}/#website`,
+      url: SITE_URL,
+      name: "VOXmatiON",
+      publisher: { "@id": `${SITE_URL}/#organization` },
+    },
+  ],
+};
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${plusJakarta.variable} ${dmSans.variable}`}>
       <body className="font-body antialiased bg-[#060A10] text-[#F7F5F0]">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }}
+        />
         <ZohoSalesIQWidget />
         <Navbar />
         <main>{children}</main>
