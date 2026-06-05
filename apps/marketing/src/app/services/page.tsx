@@ -9,8 +9,8 @@ const PAGE_URL = `${SITE_URL}/services`;
 export const metadata: Metadata = {
   alternates: { canonical: PAGE_URL },
   openGraph: { url: PAGE_URL },
-  title: "Services — AI Voice Automation for Service Businesses",
-  description: "Explore all VOXmatiON services: AI Receptionist, Missed Call Recovery, Lead Qualification, CRM Automation, and more.",
+  title: "Services — AI Voice Automation for Home-Service Businesses",
+  description: "Explore VOXmatiON services for HVAC, plumbing, electrical & roofing companies in Texas: AI Receptionist, Missed Call Recovery, lead qualification, and CRM automation.",
 };
 
 export default function ServicesPage() {

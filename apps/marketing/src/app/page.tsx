@@ -14,12 +14,29 @@ import FAQSection from "@/components/FAQSection";
 import { SITE_URL, DEFAULT_OG_IMAGE } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: "VOXmatiON — AI Receptionist & Missed Call Recovery",
-  description: "VOXmatiON answers calls, qualifies leads, follows up instantly, and routes every opportunity to the right place — automatically, 24/7.",
+  title: {
+    absolute:
+      "AI Receptionist for HVAC, Plumbing & Roofing in DFW | VOXmatiON",
+  },
+  description:
+    "VOXmatiON is the 24/7 AI receptionist for HVAC, plumbing, electrical & roofing companies in Dallas–Fort Worth, Houston & Austin. Answer every call, recover missed calls, qualify leads, and book jobs automatically.",
+  keywords: [
+    "AI receptionist",
+    "AI receptionist for HVAC",
+    "missed call recovery",
+    "answering service Dallas",
+    "answering service Fort Worth",
+    "answering service Houston",
+    "answering service Austin",
+    "HVAC answering service",
+    "plumbing answering service",
+    "roofing answering service",
+  ],
   alternates: { canonical: SITE_URL },
   openGraph: {
-    title: "VOXmatiON — Never Miss Another Customer Call",
-    description: "AI-powered voice automation that recovers missed calls, qualifies leads, and books jobs automatically.",
+    title: "Never Miss Another Customer Call — VOXmatiON AI Receptionist",
+    description:
+      "24/7 AI voice automation that answers calls, recovers missed calls, qualifies leads, and books jobs for home-service companies across Texas.",
     url: SITE_URL,
     images: [{ url: DEFAULT_OG_IMAGE, width: 1200, height: 630 }],
   },

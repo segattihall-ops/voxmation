@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   alternates: { canonical: PAGE_URL },
   openGraph: { url: PAGE_URL },
   title: "Pricing — Plans That Pay for Themselves",
-  description: "VOXmatiON pricing plans for service businesses. Starter, Growth, Pro, and White Label. One recovered job covers the monthly cost.",
+  description: "VOXmatiON AI receptionist pricing for HVAC, plumbing & roofing businesses. Starter, Growth, Pro, and White Label plans — one recovered job covers the monthly cost.",
 };
 
 export default function PricingPage() {
