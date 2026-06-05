@@ -22,8 +22,14 @@ import SEOHead from "../components/SEOHead";
 import {
   VAGA,
   SCREENING,
+  LOGIC_TEST,
+  TOOLS_TEST,
+  PRACTICAL_TASKS,
+  scoreTest,
+  HORAS_SEMANAIS,
   POSITION_SLUG,
-  type ScreeningQuestion
+  type ScreeningQuestion,
+  type LogicQuestion
 } from "../careers/vagaAssistente";
 
 const MAX_RESUME_BYTES = 5 * 1024 * 1024; // 5MB
@@ -114,9 +120,19 @@ export default function CareersAssistantPage() {
     if (current === 0) {
       if (form.fullName.trim().length < 2) return "Informe seu nome completo.";
       if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(form.email)) return "Informe um e-mail válido.";
+      const sal = answers.pretensao;
+      if (!sal || (typeof sal === "string" && !sal.trim()))
+        return "Informe sua pretensão salarial.";
     }
     if (current === 2) {
-      for (const q of SCREENING) {
+      // Áreas pontuadas: todas as alternativas devem ser respondidas.
+      for (const q of [...LOGIC_TEST, ...TOOLS_TEST]) {
+        const v = answers[q.id];
+        if (!v || (typeof v === "string" && !v.trim()))
+          return "Responda todas as questões de múltipla escolha do teste.";
+      }
+      // Teste prático + perguntas situacionais obrigatórias.
+      for (const q of [...PRACTICAL_TASKS, ...SCREENING]) {
         if (!q.required) continue;
         const v = answers[q.id];
         if (q.type === "checkbox") {
@@ -164,6 +180,17 @@ export default function CareersAssistantPage() {
         };
       }
 
+      // Calcula a nota do teste de múltipla escolha e anexa às respostas,
+      // para a triagem ver a pontuação sem precisar corrigir manualmente.
+      const score = scoreTest(answers);
+      const answersWithScore: Record<string, AnswerValue> = {
+        ...answers,
+        _nota_teste: `${score.correct}/${score.total}`,
+        ...Object.fromEntries(
+          score.porArea.map((a) => [`_nota_${a.titulo}`, `${a.correct}/${a.total}`])
+        )
+      };
+
       const res = await fetch("/v1/careers/applications", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -171,7 +198,7 @@ export default function CareersAssistantPage() {
           position: POSITION_SLUG,
           ...form,
           resume,
-          answers,
+          answers: answersWithScore,
           consentLgpd: consent,
           confirmBaseUrl: window.location.origin
         })
@@ -208,7 +235,7 @@ export default function CareersAssistantPage() {
     <>
       <SEOHead
         title="Vaga: Assistente Remoto(a) — Operações & Automações (xrmg)"
-        description="Vaga 100% remota no Brasil para assistente de operações e automações. Contrato PJ, 40h semanais. Para quem pensa rápido, fora da caixa e aprende rápido. Candidate-se com currículo e teste."
+        description={`Vaga 100% remota no Brasil para assistente de operações e automações. Contrato PJ, ${HORAS_SEMANAIS}h semanais para início. Para quem pensa rápido, fora da caixa e aprende rápido. Candidate-se com currículo e teste de lógica.`}
         canonical="/carreiras/assistente-remoto"
         jsonLd={jobLd}
       />
@@ -418,6 +445,19 @@ export default function CareersAssistantPage() {
                         />
                       </Field>
                     </div>
+                    <Field label="Pretensão salarial (PJ, por mês) *">
+                      <input
+                        className={inputCls}
+                        value={(answers.pretensao as string) || ""}
+                        onChange={(e) => setAnswer("pretensao", e.target.value)}
+                        placeholder="Ex.: R$ 2.500 / mês"
+                        inputMode="numeric"
+                      />
+                      <span className="block text-xs text-gray-500 mt-2">
+                        Início com {HORAS_SEMANAIS}h semanais (PJ). Pode informar um valor ou uma
+                        faixa — a remuneração é a combinar.
+                      </span>
+                    </Field>
                   </div>
                 )}
 
@@ -464,19 +504,79 @@ export default function CareersAssistantPage() {
                 )}
 
                 {step === 2 && (
-                  <div className="space-y-7">
+                  <div className="space-y-10">
                     <p className="text-sm text-gray-500 -mt-1">
-                      Sem respostas certas ou erradas — queremos ver como você pensa. Seja direto(a).
+                      O teste é dividido por áreas. As de múltipla escolha têm resposta certa; as
+                      demais não — queremos ver como você pensa. Leva uns 10 minutos.
                     </p>
-                    {SCREENING.map((q) => (
-                      <QuestionField
-                        key={q.id}
-                        q={q}
-                        value={answers[q.id]}
-                        onText={(v) => setAnswer(q.id, v)}
-                        onToggle={(opt) => toggleCheckbox(q.id, opt)}
-                      />
-                    ))}
+
+                    <TestArea
+                      n={1}
+                      titulo="Raciocínio lógico"
+                      descricao="Múltipla escolha. Escolha a melhor alternativa."
+                      icon={<Brain className="w-4 h-4" />}
+                    >
+                      {LOGIC_TEST.map((q, i) => (
+                        <ChoiceField
+                          key={q.id}
+                          n={i + 1}
+                          q={q}
+                          value={answers[q.id] as string | undefined}
+                          onPick={(v) => setAnswer(q.id, v)}
+                        />
+                      ))}
+                    </TestArea>
+
+                    <TestArea
+                      n={2}
+                      titulo="Ferramentas & IA"
+                      descricao="Planilhas (Sheets/Excel), documentos (Docs/Word) e IA."
+                      icon={<Zap className="w-4 h-4" />}
+                    >
+                      {TOOLS_TEST.map((q, i) => (
+                        <ChoiceField
+                          key={q.id}
+                          n={i + 1}
+                          q={q}
+                          value={answers[q.id] as string | undefined}
+                          onPick={(v) => setAnswer(q.id, v)}
+                        />
+                      ))}
+                    </TestArea>
+
+                    <TestArea
+                      n={3}
+                      titulo="Teste prático"
+                      descricao="Mão na massa — responda como faria de verdade."
+                      icon={<FileText className="w-4 h-4" />}
+                    >
+                      {PRACTICAL_TASKS.map((q) => (
+                        <QuestionField
+                          key={q.id}
+                          q={q}
+                          value={answers[q.id]}
+                          onText={(v) => setAnswer(q.id, v)}
+                          onToggle={(opt) => toggleCheckbox(q.id, opt)}
+                        />
+                      ))}
+                    </TestArea>
+
+                    <TestArea
+                      n={4}
+                      titulo="Sobre você (situacional)"
+                      descricao="Sem certo ou errado. Seja direto(a)."
+                      icon={<Sparkles className="w-4 h-4" />}
+                    >
+                      {SCREENING.map((q) => (
+                        <QuestionField
+                          key={q.id}
+                          q={q}
+                          value={answers[q.id]}
+                          onText={(v) => setAnswer(q.id, v)}
+                          onToggle={(opt) => toggleCheckbox(q.id, opt)}
+                        />
+                      ))}
+                    </TestArea>
                   </div>
                 )}
 
@@ -491,10 +591,17 @@ export default function CareersAssistantPage() {
                         label="Local"
                         value={[form.city, form.state].filter(Boolean).join(" / ") || "—"}
                       />
+                      <Review
+                        label="Pretensão salarial"
+                        value={(answers.pretensao as string) || "—"}
+                      />
                       <Review label="Currículo" value={resumeFile?.name || "Não anexado"} />
                       <Review
-                        label="Respostas do teste"
-                        value={`${Object.keys(answers).length} preenchidas`}
+                        label="Teste (múltipla escolha)"
+                        value={(() => {
+                          const s = scoreTest(answers);
+                          return `${s.correct}/${s.total} corretas`;
+                        })()}
                       />
                     </div>
 
@@ -637,6 +744,83 @@ function Review({ label, value }: { label: string; value: string }) {
     <div>
       <p className="text-xs text-gray-600">{label}</p>
       <p className="text-gray-200">{value}</p>
+    </div>
+  );
+}
+
+function TestArea({
+  n,
+  titulo,
+  descricao,
+  icon,
+  children
+}: {
+  n: number;
+  titulo: string;
+  descricao: string;
+  icon: React.ReactNode;
+  children: React.ReactNode;
+}) {
+  return (
+    <section className="space-y-6">
+      <div className="flex items-center gap-3 pb-3 border-b border-gray-800/60">
+        <span className="w-8 h-8 rounded-lg bg-violet-500/10 text-violet-400 flex items-center justify-center flex-shrink-0">
+          {icon}
+        </span>
+        <div>
+          <h3 className="text-white font-semibold leading-tight">
+            Área {n} — {titulo}
+          </h3>
+          <p className="text-xs text-gray-500">{descricao}</p>
+        </div>
+      </div>
+      {children}
+    </section>
+  );
+}
+
+function ChoiceField({
+  n,
+  q,
+  value,
+  onPick
+}: {
+  n: number;
+  q: LogicQuestion;
+  value: string | undefined;
+  onPick: (v: string) => void;
+}) {
+  return (
+    <div>
+      <p className="text-sm font-medium text-gray-200 mb-2">
+        {n}. {q.prompt}
+        <span className="text-violet-400"> *</span>
+      </p>
+      <div className="space-y-2">
+        {q.options.map((o) => {
+          const checked = value === o;
+          return (
+            <label
+              key={o}
+              className={clsx(
+                "flex items-center gap-2.5 px-3 py-2.5 rounded-lg border cursor-pointer text-sm transition-colors",
+                checked
+                  ? "border-violet-500/50 bg-violet-500/10 text-gray-100"
+                  : "border-gray-700 bg-gray-900/40 text-gray-400 hover:border-gray-600"
+              )}
+            >
+              <input
+                type="radio"
+                name={q.id}
+                checked={checked}
+                onChange={() => onPick(o)}
+                className="w-4 h-4 accent-violet-600"
+              />
+              {o}
+            </label>
+          );
+        })}
+      </div>
     </div>
   );
 }

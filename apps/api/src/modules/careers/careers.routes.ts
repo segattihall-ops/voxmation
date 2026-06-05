@@ -91,6 +91,9 @@ export const careersRoutes: FastifyPluginAsync = async (app) => {
 
       // Optional internal notification.
       if (config.careers.notifyEmail) {
+        const ans = (body.answers || {}) as Record<string, unknown>;
+        const pretensao = typeof ans.pretensao === "string" ? ans.pretensao : "—";
+        const notaTeste = typeof ans._nota_teste === "string" ? ans._nota_teste : "—";
         await sendEmail(
           {
             to: config.careers.notifyEmail,
@@ -101,6 +104,8 @@ export const careersRoutes: FastifyPluginAsync = async (app) => {
   <li><strong>E-mail:</strong> ${application.email}</li>
   <li><strong>Telefone:</strong> ${application.phone || "—"}</li>
   <li><strong>Cidade/UF:</strong> ${[application.city, application.state].filter(Boolean).join(" / ") || "—"}</li>
+  <li><strong>Pretensão salarial:</strong> ${pretensao}</li>
+  <li><strong>Nota do teste (múltipla escolha):</strong> ${notaTeste}</li>
   <li><strong>Status:</strong> aguardando confirmação de e-mail</li>
 </ul>`
           },
