@@ -1,9 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getSlugData } from "@/lib/demo-data";
+import { getSlugData, buildAgentVariables } from "@/lib/demo-data";
 
-// Mints a signed ElevenLabs Conversational AI URL. The per-slug persona
-// (agentScript) and companyName are returned so the client can inject them as
-// dynamic variables when it opens the browser-mic session.
+// Mints a signed ElevenLabs Conversational AI URL and returns the per-business
+// dynamic variables so the client can inject them into the browser-mic session.
 export async function POST(req: NextRequest) {
   const { slug } = await req.json();
   const data = getSlugData(slug ?? "");
@@ -19,7 +18,9 @@ export async function POST(req: NextRequest) {
   }
 
   const res = await fetch(
-    `https://api.elevenlabs.io/v1/convai/conversation/get_signed_url?agent_id=${agentId}`,
+    `https://api.elevenlabs.io/v1/convai/conversation/get_signed_url?agent_id=${encodeURIComponent(
+      agentId
+    )}`,
     {
       headers: { "xi-api-key": apiKey },
       cache: "no-store",
@@ -33,7 +34,7 @@ export async function POST(req: NextRequest) {
   const { signed_url } = await res.json();
   return NextResponse.json({
     signed_url,
-    agentScript: data.agentScript,
     companyName: data.companyName,
+    dynamicVariables: buildAgentVariables(data),
   });
 }

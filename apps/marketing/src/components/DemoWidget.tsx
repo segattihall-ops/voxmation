@@ -138,16 +138,13 @@ export default function DemoWidget({ slugData }: { slugData: DemoSlug }) {
         const { error } = await tokenRes.json().catch(() => ({ error: "" }));
         throw new Error(error || "Could not start the demo.");
       }
-      const { signed_url, agentScript, companyName: cn } = await tokenRes.json();
+      const { signed_url, dynamicVariables } = await tokenRes.json();
 
       // Lazy-load the browser SDK so it never runs during SSR.
       const { Conversation } = await import("@elevenlabs/client");
       const conversation = await Conversation.startSession({
         signedUrl: signed_url,
-        dynamicVariables: {
-          agent_script: agentScript,
-          company_name: cn,
-        },
+        dynamicVariables,
         onModeChange: ({ mode }: { mode: string }) =>
           setAgentSpeaking(mode === "speaking"),
         onStatusChange: ({ status }: { status: string }) => {

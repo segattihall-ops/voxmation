@@ -118,12 +118,12 @@ export default function DemoCallWidget() {
         const { error } = await tokenRes.json().catch(() => ({ error: "" }));
         throw new Error(error || "Could not start the live demo.");
       }
-      const { signed_url, agentScript, companyName } = await tokenRes.json();
+      const { signed_url, dynamicVariables } = await tokenRes.json();
 
       const { Conversation } = await import("@elevenlabs/client");
       const conversation = await Conversation.startSession({
         signedUrl: signed_url,
-        dynamicVariables: { agent_script: agentScript, company_name: companyName },
+        dynamicVariables,
         onModeChange: ({ mode }: { mode: string }) => setAgentSpeaking(mode === "speaking"),
         onStatusChange: ({ status }: { status: string }) => {
           if (status === "connected") {
