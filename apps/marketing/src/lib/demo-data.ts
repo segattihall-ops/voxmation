@@ -9,6 +9,16 @@ export type DemoSlug = {
 };
 
 export const demoSlugs: Record<string, DemoSlug> = {
+  // Public homepage demo — a sample brand so the agent has a natural name to
+  // speak (rather than "your business"). Used by the homepage live-demo widget.
+  home: {
+    slug: "home",
+    companyName: "Apex Home Services",
+    vertical: "hvac",
+    city: "Dallas",
+    agentScript:
+      "You are the AI receptionist for Apex Home Services, a home-services company (HVAC, plumbing, and electrical) in the Dallas–Fort Worth area. This is a live product demo for a business owner evaluating VOXmatiON, so make a great impression: greet warmly, qualify the service need, collect the address and best callback number, and book a technician visit window. Keep replies short and natural, one question at a time.",
+  },
   "rescue-air": {
     slug: "rescue-air",
     companyName: "Rescue Air",

@@ -1,16 +1,14 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useCallback, useEffect, useState } from "react";
-import {
-  ConversationProvider,
-  useConversationControls,
-  useConversationStatus,
-  useConversationMode,
-} from "@elevenlabs/react";
-import { Phone, PhoneIncoming, Mic, MicOff, CheckCircle2 } from "lucide-react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { Phone, PhoneIncoming, Mic, MicOff, Loader2, CheckCircle2 } from "lucide-react";
 import Link from "next/link";
-import { VOICE_AGENT_ID } from "@/lib/constants";
+
+// Persona used for the public homepage demo (see lib/demo-data.ts).
+const HOME_SLUG = "home";
+// If the agent doesn't connect within this window, fall back to the sample.
+const CONNECT_TIMEOUT_MS = 12000;
 
 const CALL_STEPS = [
   { id: 0, label: "Incoming Call", sub: "From: (214) 555-0192", icon: PhoneIncoming, duration: 1800 },
@@ -43,15 +41,15 @@ function SoundWave({ active, speaking }: { active: boolean; speaking?: boolean }
   );
 }
 
-function DemoCallWidgetInner() {
-  // --- Real ElevenLabs browser-mic session (same agent as the floating VoiceAgent) ---
-  const { startSession, endSession } = useConversationControls();
-  const { status } = useConversationStatus();
-  const { isSpeaking } = useConversationMode();
-  const [voiceError, setVoiceError] = useState<string | null>(null);
+type MicStatus = "idle" | "connecting" | "active" | "error";
 
-  const isLive = status === "connected";
-  const isConnecting = status === "connecting";
+export default function DemoCallWidget() {
+  // --- Real ElevenLabs browser-mic session (signed-URL method, same as /demo/[slug]) ---
+  const [micStatus, setMicStatus] = useState<MicStatus>("idle");
+  const [agentSpeaking, setAgentSpeaking] = useState(false);
+  const [voiceError, setVoiceError] = useState<string | null>(null);
+  const conversationRef = useRef<{ endSession: () => Promise<void> } | null>(null);
+  const connectTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // --- Simulated sample call (fallback / "watch a sample") ---
   const [step, setStep] = useState(-1);
@@ -77,21 +75,88 @@ function DemoCallWidgetInner() {
 
   const resetSimulation = () => { setStep(-1); setRunning(false); setDone(false); };
 
+  const clearConnectTimer = () => {
+    if (connectTimer.current) {
+      clearTimeout(connectTimer.current);
+      connectTimer.current = null;
+    }
+  };
+
+  const stopVoiceDemo = useCallback(async () => {
+    clearConnectTimer();
+    try {
+      await conversationRef.current?.endSession();
+    } finally {
+      conversationRef.current = null;
+      setMicStatus("idle");
+      setAgentSpeaking(false);
+    }
+  }, []);
+
   const startVoiceDemo = useCallback(async () => {
     setVoiceError(null);
+    setMicStatus("connecting");
+
+    // Safety net: never let the widget hang on "connecting" — fall back to the
+    // sample so the section is always usable.
+    clearConnectTimer();
+    connectTimer.current = setTimeout(() => {
+      void conversationRef.current?.endSession().catch(() => {});
+      conversationRef.current = null;
+      setMicStatus("error");
+      setVoiceError("The live agent didn't answer");
+      startSimulation();
+    }, CONNECT_TIMEOUT_MS);
+
     try {
-      await navigator.mediaDevices.getUserMedia({ audio: true });
-      await startSession({ agentId: VOICE_AGENT_ID, connectionType: "webrtc" });
-    } catch (err: unknown) {
-      // Fall back to the scripted sample call so the homepage never looks broken.
-      const denied = err instanceof Error && err.name === "NotAllowedError";
-      setVoiceError(denied ? "Microphone access denied" : "Couldn't reach the live agent");
+      const tokenRes = await fetch("/api/demo/conversation-token", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ slug: HOME_SLUG }),
+      });
+      if (!tokenRes.ok) {
+        const { error } = await tokenRes.json().catch(() => ({ error: "" }));
+        throw new Error(error || "Could not start the live demo.");
+      }
+      const { signed_url, agentScript, companyName } = await tokenRes.json();
+
+      const { Conversation } = await import("@elevenlabs/client");
+      const conversation = await Conversation.startSession({
+        signedUrl: signed_url,
+        dynamicVariables: { agent_script: agentScript, company_name: companyName },
+        onModeChange: ({ mode }: { mode: string }) => setAgentSpeaking(mode === "speaking"),
+        onStatusChange: ({ status }: { status: string }) => {
+          if (status === "connected") {
+            clearConnectTimer();
+            setMicStatus("active");
+          }
+          if (status === "disconnected") {
+            clearConnectTimer();
+            setMicStatus("idle");
+            setAgentSpeaking(false);
+            conversationRef.current = null;
+          }
+        },
+        onError: (message: string) => {
+          clearConnectTimer();
+          setVoiceError(typeof message === "string" ? message : "Connection error");
+          setMicStatus("error");
+          startSimulation();
+        },
+      });
+      conversationRef.current = conversation;
+    } catch (err) {
+      clearConnectTimer();
+      setVoiceError(err instanceof Error ? err.message : "Microphone unavailable");
+      setMicStatus("error");
       startSimulation();
     }
-  }, [startSession, startSimulation]);
+  }, [startSimulation]);
 
-  const stopVoiceDemo = useCallback(async () => { await endSession(); }, [endSession]);
+  useEffect(() => () => clearConnectTimer(), []);
 
+  const isLive = micStatus === "active";
+  const isConnecting = micStatus === "connecting";
   const phoneActive = running || isLive || isConnecting;
 
   return (
@@ -158,21 +223,19 @@ function DemoCallWidgetInner() {
                 <div className="flex flex-col items-center justify-center py-10 min-h-[280px]">
                   <div className={`w-24 h-24 rounded-full flex items-center justify-center mb-6 ${isLive ? "bg-[rgba(255,138,31,0.12)] border border-[rgba(255,138,31,0.35)] glow-orange-sm" : "bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.08)]"}`}>
                     {isConnecting ? (
-                      <motion.div animate={{ opacity: [0.4, 1, 0.4] }} transition={{ duration: 1.2, repeat: Infinity }}>
-                        <Mic className="w-8 h-8 text-[#FF8A1F]" />
-                      </motion.div>
+                      <Loader2 className="w-8 h-8 text-[#FF8A1F] animate-spin" />
                     ) : (
-                      <SoundWave active speaking={isSpeaking} />
+                      <SoundWave active speaking={agentSpeaking} />
                     )}
                   </div>
                   <p className="text-sm text-[#8A99B3] font-body text-center mb-6">
-                    {isConnecting ? "Connecting to the agent…" : isSpeaking ? "AI is speaking…" : "Listening — go ahead."}
+                    {isConnecting ? "Connecting to the agent…" : agentSpeaking ? "AI is speaking…" : "Listening — go ahead."}
                   </p>
                   <button
                     onClick={stopVoiceDemo}
                     className="w-full py-3 rounded-xl border border-[rgba(255,138,31,0.3)] text-[#FF8A1F] font-bold text-sm font-body hover:bg-[rgba(255,138,31,0.08)] transition-colors flex items-center justify-center gap-2"
                   >
-                    <MicOff className="w-4 h-4" /> End conversation
+                    <MicOff className="w-4 h-4" /> {isConnecting ? "Cancel" : "End conversation"}
                   </button>
                 </div>
               ) : (
@@ -257,13 +320,5 @@ function DemoCallWidgetInner() {
         </div>
       </div>
     </section>
-  );
-}
-
-export default function DemoCallWidget() {
-  return (
-    <ConversationProvider>
-      <DemoCallWidgetInner />
-    </ConversationProvider>
   );
 }
