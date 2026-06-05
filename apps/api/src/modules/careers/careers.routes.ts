@@ -2,7 +2,7 @@ import type { FastifyPluginAsync } from "fastify";
 import { z } from "zod";
 import crypto from "crypto";
 import { config } from "../../config";
-import { sendEmail, confirmationEmailHtml } from "../../lib/email";
+import { sendEmail, confirmationEmailHtml, applicationDetailsHtml } from "../../lib/email";
 
 const MAX_RESUME_BASE64 = 7_000_000; // ~5MB raw after base64 inflation
 
@@ -89,25 +89,14 @@ export const careersRoutes: FastifyPluginAsync = async (app) => {
         app.log
       );
 
-      // Optional internal notification.
+      // Copy of every application to the hiring inbox (the "cópia para mim").
       if (config.careers.notifyEmail) {
-        const ans = (body.answers || {}) as Record<string, unknown>;
-        const pretensao = typeof ans.pretensao === "string" ? ans.pretensao : "—";
-        const notaTeste = typeof ans._nota_teste === "string" ? ans._nota_teste : "—";
         await sendEmail(
           {
             to: config.careers.notifyEmail,
+            replyTo: application.email,
             subject: `Nova candidatura: ${application.fullName} — ${application.position}`,
-            html: `<p>Nova candidatura recebida.</p>
-<ul>
-  <li><strong>Nome:</strong> ${application.fullName}</li>
-  <li><strong>E-mail:</strong> ${application.email}</li>
-  <li><strong>Telefone:</strong> ${application.phone || "—"}</li>
-  <li><strong>Cidade/UF:</strong> ${[application.city, application.state].filter(Boolean).join(" / ") || "—"}</li>
-  <li><strong>Pretensão salarial:</strong> ${pretensao}</li>
-  <li><strong>Nota do teste (múltipla escolha):</strong> ${notaTeste}</li>
-  <li><strong>Status:</strong> aguardando confirmação de e-mail</li>
-</ul>`
+            html: applicationDetailsHtml({ ...application, confirmed: false })
           },
           app.log
         );
@@ -151,6 +140,19 @@ export const careersRoutes: FastifyPluginAsync = async (app) => {
         where: { id: application.id },
         data: { confirmedAt: new Date(), status: "CONFIRMED" }
       });
+
+      // Send the hiring inbox a full copy now that the lead is validated.
+      if (config.careers.notifyEmail) {
+        await sendEmail(
+          {
+            to: config.careers.notifyEmail,
+            replyTo: updated.email,
+            subject: `✅ Candidatura confirmada: ${updated.fullName} — ${updated.position}`,
+            html: applicationDetailsHtml({ ...updated, confirmed: true })
+          },
+          app.log
+        );
+      }
 
       return { ok: true, alreadyConfirmed: false, fullName: updated.fullName };
     }
