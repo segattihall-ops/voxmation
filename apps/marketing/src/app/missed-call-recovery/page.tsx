@@ -1,9 +1,15 @@
+import { SITE_URL } from "@/lib/constants";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { AlertCircle, MessageSquare, Bot, CheckCircle, Calendar, Database, ArrowRight } from "lucide-react";
 import DemoSection from "@/components/DemoSection";
 
+const PAGE_URL = `${SITE_URL}/missed-call-recovery`;
+
+
 export const metadata: Metadata = {
+  alternates: { canonical: PAGE_URL },
+  openGraph: { url: PAGE_URL },
   title: "Missed Call Recovery — Never Lose a Lead Again",
   description: "When your team misses a call, VOXmatiON responds in seconds, captures the lead, qualifies the request, and helps book the job automatically.",
 };

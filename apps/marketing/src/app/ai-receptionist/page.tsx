@@ -1,10 +1,16 @@
+import { SITE_URL } from "@/lib/constants";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { CheckCircle2, Phone, Clock, Shield, TrendingUp, Users, Zap, ArrowRight } from "lucide-react";
 import DemoSection from "@/components/DemoSection";
 import FAQSection from "@/components/FAQSection";
 
+const PAGE_URL = `${SITE_URL}/ai-receptionist`;
+
+
 export const metadata: Metadata = {
+  alternates: { canonical: PAGE_URL },
+  openGraph: { url: PAGE_URL },
   title: "AI Receptionist — Answer Every Call 24/7",
   description: "VOXmatiON's AI Receptionist answers calls instantly, qualifies leads, and routes every opportunity automatically. Never miss another customer call.",
 };

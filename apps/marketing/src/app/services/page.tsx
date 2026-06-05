@@ -1,8 +1,14 @@
+import { SITE_URL } from "@/lib/constants";
 import type { Metadata } from "next";
 import ServicesSection from "@/components/ServicesSection";
 import DemoSection from "@/components/DemoSection";
 
+const PAGE_URL = `${SITE_URL}/services`;
+
+
 export const metadata: Metadata = {
+  alternates: { canonical: PAGE_URL },
+  openGraph: { url: PAGE_URL },
   title: "Services — AI Voice Automation for Service Businesses",
   description: "Explore all VOXmatiON services: AI Receptionist, Missed Call Recovery, Lead Qualification, CRM Automation, and more.",
 };

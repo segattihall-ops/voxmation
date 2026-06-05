@@ -1,8 +1,14 @@
+import { SITE_URL } from "@/lib/constants";
 import type { Metadata } from "next";
 import { Mail, Phone, MessageSquare, CreditCard, Scale } from "lucide-react";
 import Link from "next/link";
 
+const PAGE_URL = `${SITE_URL}/contact`;
+
+
 export const metadata: Metadata = {
+  alternates: { canonical: PAGE_URL },
+  openGraph: { url: PAGE_URL },
   title: "Contact VOXmatiON",
   description: "Get in touch with VOXmatiON. Sales, support, billing, and partnership inquiries.",
 };

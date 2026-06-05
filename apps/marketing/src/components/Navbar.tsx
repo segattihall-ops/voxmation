@@ -12,6 +12,7 @@ const NAV = [
   { href: "/how-it-works", label: "How It Works" },
   {
     label: "Industries",
+    href: "/industries",
     children: [
       { href: "/industries/hvac-ai-receptionist", label: "HVAC" },
       { href: "/industries/plumbing-ai-receptionist", label: "Plumbing" },
@@ -88,9 +89,9 @@ export default function Navbar() {
           {NAV.map((item) =>
             item.children ? (
               <div key={item.label} className="relative" onMouseEnter={() => setDropdown(item.label)} onMouseLeave={() => setDropdown(null)}>
-                <button className="flex items-center gap-1 px-3.5 py-2 text-sm text-[#8A99B3] hover:text-[#F7F5F0] transition-colors duration-200 rounded-lg hover:bg-white/4">
+                <Link href={item.href ?? "#"} className="flex items-center gap-1 px-3.5 py-2 text-sm text-[#8A99B3] hover:text-[#F7F5F0] transition-colors duration-200 rounded-lg hover:bg-white/4">
                   {item.label}<ChevronDown className={clsx("w-3.5 h-3.5 transition-transform duration-200", dropdown === item.label && "rotate-180")}/>
-                </button>
+                </Link>
                 <AnimatePresence>
                   {dropdown === item.label && (
                     <motion.div initial={{ opacity: 0, y: 6, scale: 0.97 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 6, scale: 0.97 }}
