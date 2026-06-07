@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   env: {
-    SITE_URL: "https://voxmation.com",
+    SITE_URL: "https://www.voxmation.com",
   },
   images: {
     formats: ["image/avif", "image/webp"],
