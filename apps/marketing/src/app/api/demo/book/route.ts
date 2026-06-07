@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 
-// Receives a demo-booking submission, emails the lead to the sales inbox, and
-// sends the prospect a confirmation. Email is delivered through Resend's HTTP
-// API (https://resend.com) so no SMTP/SDK dependency is required.
+// Receives a demo-booking submission and forwards it to a Zapier "Catch Hook"
+// webhook. Zapier then handles delivery (e.g. email confirmation, CRM, sheet),
+// which avoids domain-level email verification. Configure the webhook URL via
+// the DEMO_ZAPIER_WEBHOOK_URL environment variable.
 
 type BookingPayload = {
   firstName?: string;
@@ -13,43 +14,6 @@ type BookingPayload = {
   industry?: string;
   missedCalls?: string;
 };
-
-function escapeHtml(value: string): string {
-  return value
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
-}
-
-async function sendEmail(payload: {
-  apiKey: string;
-  from: string;
-  to: string;
-  replyTo?: string;
-  subject: string;
-  html: string;
-}) {
-  const res = await fetch("https://api.resend.com/emails", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${payload.apiKey}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      from: payload.from,
-      to: payload.to,
-      reply_to: payload.replyTo,
-      subject: payload.subject,
-      html: payload.html,
-    }),
-  });
-  if (!res.ok) {
-    const detail = await res.text().catch(() => "");
-    throw new Error(`Resend ${res.status}: ${detail.slice(0, 300)}`);
-  }
-}
 
 export async function POST(req: NextRequest) {
   let body: BookingPayload;
@@ -80,84 +44,45 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const { RESEND_API_KEY } = process.env;
-  // Sender must be on a Resend-verified domain (voxmation.com). Override with
-  // DEMO_FROM_EMAIL if needed.
-  const fromEmail = process.env.DEMO_FROM_EMAIL || "VOXmatiON <admin@voxmation.com>";
-  // Where leads are delivered. Falls back to a default inbox so the only
-  // required secret is RESEND_API_KEY; override with DEMO_NOTIFICATION_EMAIL.
-  const salesInbox = process.env.DEMO_NOTIFICATION_EMAIL || "admin@voxmation.com";
-
-  if (!RESEND_API_KEY) {
-    console.error("Demo booking email is not configured: RESEND_API_KEY is missing.");
+  const webhookUrl = process.env.DEMO_ZAPIER_WEBHOOK_URL;
+  if (!webhookUrl) {
+    console.error("Demo booking is not configured: DEMO_ZAPIER_WEBHOOK_URL is missing.");
     return NextResponse.json(
       { error: "Demo booking is not configured." },
       { status: 503 }
     );
   }
 
-  const fullName = `${firstName} ${lastName}`;
-  const rows: [string, string][] = [
-    ["Name", fullName],
-    ["Email", email],
-    ["Phone", phone],
-    ["Business", company],
-    ["Industry", industry || "—"],
-    ["Monthly missed calls", missedCalls || "—"],
-  ];
-  const leadHtml = `
-    <h2 style="font-family:sans-serif;margin:0 0 16px">New demo request</h2>
-    <table style="font-family:sans-serif;font-size:14px;border-collapse:collapse">
-      ${rows
-        .map(
-          ([label, value]) =>
-            `<tr><td style="padding:6px 16px 6px 0;color:#64748b">${label}</td>` +
-            `<td style="padding:6px 0;font-weight:600">${escapeHtml(value)}</td></tr>`
-        )
-        .join("")}
-    </table>`;
-
-  const confirmationHtml = `
-    <div style="font-family:sans-serif;font-size:15px;line-height:1.6;color:#0f172a">
-      <h2 style="margin:0 0 12px">Thanks, ${escapeHtml(firstName)} — we got your request 🎉</h2>
-      <p style="margin:0 0 12px">
-        A VOXmatiON specialist will reach out shortly to schedule your free
-        20-minute demo for <strong>${escapeHtml(company)}</strong>.
-      </p>
-      <p style="margin:0 0 12px">
-        In the meantime, if anything comes up you can just reply to this email.
-      </p>
-      <p style="margin:0;color:#64748b">— The VOXmatiON team</p>
-    </div>`;
+  const payload = {
+    firstName,
+    lastName,
+    fullName: `${firstName} ${lastName}`,
+    email,
+    phone,
+    company,
+    industry: industry || null,
+    missedCalls: missedCalls || null,
+    source: "voxmation-demo-form",
+    submittedAt: new Date().toISOString(),
+  };
 
   try {
-    // Lead notification to the sales inbox (reply goes straight to the prospect).
-    await sendEmail({
-      apiKey: RESEND_API_KEY,
-      from: fromEmail,
-      to: salesInbox,
-      replyTo: email,
-      subject: `New demo request — ${company}`,
-      html: leadHtml,
+    const res = await fetch(webhookUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
     });
-
-    // Confirmation to the prospect. Don't fail the request if only this errors.
-    try {
-      await sendEmail({
-        apiKey: RESEND_API_KEY,
-        from: fromEmail,
-        to: email,
-        replyTo: salesInbox,
-        subject: "We received your demo request — VOXmatiON",
-        html: confirmationHtml,
-      });
-    } catch (err) {
-      console.error("Demo confirmation email failed:", err);
+    if (!res.ok) {
+      const detail = await res.text().catch(() => "");
+      console.error("Zapier webhook failed:", res.status, detail.slice(0, 300));
+      return NextResponse.json(
+        { error: "We couldn't submit your request. Please try again or call us." },
+        { status: 502 }
+      );
     }
-
     return NextResponse.json({ ok: true });
   } catch (err) {
-    console.error("Demo booking email failed:", err);
+    console.error("Demo booking webhook error:", err);
     return NextResponse.json(
       { error: "We couldn't submit your request. Please try again or call us." },
       { status: 502 }
