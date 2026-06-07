@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { Calendar, CheckCircle2, Loader2 } from "lucide-react";
 
 type Status = "idle" | "submitting" | "sent" | "error";
@@ -108,6 +109,31 @@ export default function DemoBookingForm() {
           </select>
         </div>
 
+        <label className="flex items-start gap-3 pt-1 cursor-pointer">
+          <input
+            name="consent"
+            type="checkbox"
+            required
+            className="mt-1 h-4 w-4 flex-shrink-0 rounded border-white/20 bg-white/5 text-[#FF8A1F] accent-[#FF8A1F] focus:outline-none focus:ring-2 focus:ring-[#FF8A1F]"
+          />
+          <span className="text-xs text-gray-400 leading-relaxed">
+            By checking this box and submitting this form, I agree to the VOXmatiON{" "}
+            <Link href="/demo-terms" className="text-[#FF8A1F] hover:underline">
+              Demo Offer Sign Up Terms and Conditions
+            </Link>{" "}
+            and{" "}
+            <Link href="/privacy-policy" className="text-[#FF8A1F] hover:underline">
+              Privacy Policy
+            </Link>
+            . I authorize VOXmatiON to contact me by phone, email, SMS, and other
+            communication methods about my demo request, offers, and related
+            services. I understand that calls or texts may use automated technology
+            or artificial or prerecorded voice where permitted by law. Consent is
+            not required to purchase. Message and data rates may apply. Reply STOP
+            to opt out of SMS or HELP for help.
+          </span>
+        </label>
+
         {status === "error" && error && (
           <p className="text-sm text-red-400">{error}</p>
         )}
@@ -123,7 +149,7 @@ export default function DemoBookingForm() {
             </>
           ) : (
             <>
-              <Calendar className="w-5 h-5" /> Book My Free Demo
+              <Calendar className="w-5 h-5" /> Request My Demo
             </>
           )}
         </button>
