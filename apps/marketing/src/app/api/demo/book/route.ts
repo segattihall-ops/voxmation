@@ -81,10 +81,12 @@ export async function POST(req: NextRequest) {
   }
 
   const { RESEND_API_KEY } = process.env;
-  const fromEmail = process.env.DEMO_FROM_EMAIL || "VOXmatiON <onboarding@resend.dev>";
+  // Sender must be on a Resend-verified domain (voxmation.com). Override with
+  // DEMO_FROM_EMAIL if needed.
+  const fromEmail = process.env.DEMO_FROM_EMAIL || "VOXmatiON <admin@voxmation.com>";
   // Where leads are delivered. Falls back to a default inbox so the only
   // required secret is RESEND_API_KEY; override with DEMO_NOTIFICATION_EMAIL.
-  const salesInbox = process.env.DEMO_NOTIFICATION_EMAIL || "sales@voxmation.com";
+  const salesInbox = process.env.DEMO_NOTIFICATION_EMAIL || "admin@voxmation.com";
 
   if (!RESEND_API_KEY) {
     console.error("Demo booking email is not configured: RESEND_API_KEY is missing.");
