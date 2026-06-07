@@ -19,7 +19,7 @@ export default function PrivacyPolicy() {
         <p className="text-gray-400 mb-10 font-body">Last updated: June 1, 2026</p>
         <div className="prose prose-invert prose-sm max-w-none text-gray-300 space-y-8 font-body">
 
-          <p>VOXmatiON, operated by <strong className="text-white">VOXmatiON LLC</strong> ("Company," "we," "us," or "our"), respects your privacy. This Privacy Policy describes how we collect, use, disclose, and protect information about you when you use our website and AI voice automation services.</p>
+          <p>VOXmatiON, operated by <strong className="text-white">XrankFlow Media Group LLC</strong>, Dover, Delaware, United States ("Company," "we," "us," or "our"), respects your privacy. This Privacy Policy describes how we collect, use, disclose, and protect information about you when you use our website and AI voice automation services.</p>
 
           <h2 className="text-xl font-bold text-white font-display">1. Information We Collect</h2>
           <p>We collect information you provide directly to us, including:</p>
@@ -82,10 +82,14 @@ export default function PrivacyPolicy() {
           <h2 className="text-xl font-bold text-white font-display">10. Changes to This Policy</h2>
           <p>We may update this Privacy Policy from time to time. We will notify you of material changes by posting the updated policy on this page with a revised date. Continued use of our services after changes constitutes acceptance.</p>
 
-          <h2 className="text-xl font-bold text-white font-display">11. Contact & Legal Entity</h2>
+          <h2 className="text-xl font-bold text-white font-display">11. Text Messaging (SMS)</h2>
+          <p>If you provide your phone number and consent, we may send you SMS or text messages related to your demo request, account, scheduling, support, offers, and related communications. Message frequency may vary and message and data rates may apply. You can opt out of marketing text messages at any time by replying <strong className="text-white">STOP</strong>, and request help by replying <strong className="text-white">HELP</strong> or contacting <a href="mailto:support@voxmation.com" className="text-[#FF8A1F]">support@voxmation.com</a>.</p>
+          <p><strong className="text-white">We do not sell, rent, or share mobile phone numbers or SMS consent with third parties or affiliates for their own marketing purposes.</strong> Phone numbers and SMS consent information are used only to deliver the communications you requested and to operate and support our services. Opting out of marketing messages does not prevent transactional or administrative messages where permitted by law.</p>
+
+          <h2 className="text-xl font-bold text-white font-display">12. Contact & Legal Entity</h2>
           <p>
-            <strong className="text-white">VOXmatiON LLC</strong><br />
-            United States<br />
+            <strong className="text-white">XrankFlow Media Group LLC</strong> (operator of VOXmatiON)<br />
+            Dover, Delaware, United States<br />
             Email: <a href="mailto:legal@voxmation.com" className="text-[#FF8A1F]">legal@voxmation.com</a><br />
             Phone: <a href="tel:+18446877999" className="text-[#FF8A1F]">1-844-687-7999</a>
           </p>

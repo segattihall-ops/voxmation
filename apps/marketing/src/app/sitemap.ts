@@ -36,6 +36,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: at("/contact"), lastModified: now, changeFrequency: "yearly", priority: 0.5 },
     { url: at("/privacy-policy"), lastModified: now, changeFrequency: "yearly", priority: 0.3 },
     { url: at("/terms-of-service"), lastModified: now, changeFrequency: "yearly", priority: 0.3 },
+    { url: at("/demo-terms"), lastModified: now, changeFrequency: "yearly", priority: 0.3 },
   ];
 
   const industryPages: MetadataRoute.Sitemap = INDUSTRY_SLUGS.map((slug) => ({
