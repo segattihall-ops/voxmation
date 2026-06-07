@@ -1,7 +1,7 @@
 import { SITE_URL } from "@/lib/constants";
 import type { Metadata } from "next";
-import Link from "next/link";
-import { Calendar, Phone, ArrowRight, CheckCircle2, Clock } from "lucide-react";
+import { Phone, CheckCircle2, Clock } from "lucide-react";
+import DemoBookingForm from "@/components/DemoBookingForm";
 
 const PAGE_URL = `${SITE_URL}/demo`;
 
@@ -69,68 +69,7 @@ export default function DemoPage() {
             </div>
 
             {/* Right — Form */}
-            <div className="glass-dark rounded-4xl p-8 border border-white/5">
-              <h2 className="text-2xl font-bold text-white mb-6">Book Your Free Demo</h2>
-              <form
-                action="https://forms.zohopublic.com/voxmation/form/DemoRequest/formperma/demo"
-                method="POST"
-                target="_blank"
-                className="space-y-4"
-              >
-                <div className="grid sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">First Name</label>
-                    <input name="FirstName" type="text" required placeholder="John"
-                      className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-400 focus:outline-none focus:border-[#FF8A1F] transition-colors text-sm" />
-                  </div>
-                  <div>
-                    <label className="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Last Name</label>
-                    <input name="LastName" type="text" required placeholder="Smith"
-                      className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-400 focus:outline-none focus:border-[#FF8A1F] transition-colors text-sm" />
-                  </div>
-                </div>
-                <div>
-                  <label className="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Business Email</label>
-                  <input name="Email" type="email" required placeholder="john@yourcompany.com"
-                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-400 focus:outline-none focus:border-[#FF8A1F] transition-colors text-sm" />
-                </div>
-                <div>
-                  <label className="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Phone Number</label>
-                  <input name="Phone" type="tel" required placeholder="+1 (555) 000-0000"
-                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-400 focus:outline-none focus:border-[#FF8A1F] transition-colors text-sm" />
-                </div>
-                <div>
-                  <label className="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Business Name</label>
-                  <input name="Company" type="text" required placeholder="Your Company LLC"
-                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-400 focus:outline-none focus:border-[#FF8A1F] transition-colors text-sm" />
-                </div>
-                <div>
-                  <label className="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Industry</label>
-                  <select name="Industry"
-                    className="w-full px-4 py-3 rounded-xl bg-[#0B1F3A] border border-white/10 text-gray-300 focus:outline-none focus:border-[#FF8A1F] transition-colors text-sm appearance-none">
-                    <option value="">Select your industry</option>
-                    <option>HVAC</option><option>Plumbing</option><option>Roofing</option>
-                    <option>Electrical</option><option>Garage Door</option><option>Landscaping</option>
-                    <option>Cleaning</option><option>Med Spa</option><option>Legal</option>
-                    <option>Real Estate</option><option>Other</option>
-                  </select>
-                </div>
-                <div>
-                  <label className="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Monthly Missed Calls (approx.)</label>
-                  <select name="MissedCalls"
-                    className="w-full px-4 py-3 rounded-xl bg-[#0B1F3A] border border-white/10 text-gray-300 focus:outline-none focus:border-[#FF8A1F] transition-colors text-sm appearance-none">
-                    <option value="">Select range</option>
-                    <option>1–10</option><option>10–30</option><option>30–60</option><option>60+</option>
-                  </select>
-                </div>
-                <button type="submit"
-                  className="w-full py-4 rounded-xl bg-orange-gradient text-white font-bold text-base glow-orange hover:opacity-90 transition-all hover:scale-[1.02] flex items-center justify-center gap-2 mt-2">
-                  <Calendar className="w-5 h-5" />
-                  Book My Free Demo
-                </button>
-                <p className="text-xs text-gray-300 text-center">No commitment. 20-minute session. 100% free.</p>
-              </form>
-            </div>
+            <DemoBookingForm />
           </div>
         </div>
       </section>
