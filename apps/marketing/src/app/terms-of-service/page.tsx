@@ -21,7 +21,7 @@ export default function TermsOfService() {
 
           <p>These Terms of Service ("Terms") govern your access to and use of VOXmatiON's website and AI voice automation services. By accessing or using our services, you agree to be bound by these Terms. If you do not agree, do not use our services.</p>
 
-          <p><strong className="text-white">Operating Entity:</strong> VOXmatiON LLC, United States</p>
+          <p><strong className="text-white">Operating Entity:</strong> XrankFlow Media Group LLC (operator of VOXmatiON), Dover, Delaware, United States</p>
 
           <h2 className="text-xl font-bold text-white font-display">1. Services</h2>
           <p>VOXmatiON provides AI-powered voice automation, missed-call recovery, lead qualification, and CRM integration services for service businesses. We assist with call answering and routing; however, the client is solely responsible for the accuracy of business information, customer communication compliance, and final approval of all commercial processes.</p>
@@ -48,24 +48,24 @@ export default function TermsOfService() {
           <p>VOXmatiON and its licensors retain all intellectual property rights in the platform, software, and content. You retain ownership of your business data and call recordings. You grant us a limited license to process your data solely to provide the services.</p>
 
           <h2 className="text-xl font-bold text-white font-display">7. Limitation of Liability</h2>
-          <p>To the maximum extent permitted by law, VOXmatiON LLC shall not be liable for any indirect, incidental, special, consequential, or punitive damages, including lost profits, arising from your use of our services. Our total liability shall not exceed the fees paid by you in the 3 months preceding the claim.</p>
+          <p>To the maximum extent permitted by law, XrankFlow Media Group LLC shall not be liable for any indirect, incidental, special, consequential, or punitive damages, including lost profits, arising from your use of our services. Our total liability shall not exceed the fees paid by you in the 3 months preceding the claim.</p>
 
           <h2 className="text-xl font-bold text-white font-display">8. Indemnification</h2>
-          <p>You agree to indemnify, defend, and hold harmless VOXmatiON LLC and its officers, employees, and agents from any claims, damages, or expenses (including attorneys&apos; fees) arising from your use of the services, violation of these Terms, or infringement of any third-party rights.</p>
+          <p>You agree to indemnify, defend, and hold harmless XrankFlow Media Group LLC and its officers, employees, and agents from any claims, damages, or expenses (including attorneys&apos; fees) arising from your use of the services, violation of these Terms, or infringement of any third-party rights.</p>
 
           <h2 className="text-xl font-bold text-white font-display">9. Termination</h2>
           <p>Either party may terminate service with 30 days written notice. We may suspend or terminate your account immediately for material breach of these Terms, non-payment, or conduct that poses legal or reputational risk to VOXmatiON.</p>
 
           <h2 className="text-xl font-bold text-white font-display">10. Governing Law & Dispute Resolution</h2>
-          <p>These Terms are governed by the laws of the <strong className="text-white">State of Florida, United States</strong>, without regard to conflict-of-law principles. Any disputes shall be resolved by binding arbitration under the AAA Commercial Arbitration Rules, conducted in English in the State of Florida. You waive any right to a jury trial or class action.</p>
+          <p>These Terms are governed by the laws of the <strong className="text-white">State of Delaware, United States</strong>, without regard to conflict-of-law principles. Any disputes shall be resolved by binding arbitration under the AAA Commercial Arbitration Rules, conducted in English in the State of Delaware. You waive any right to a jury trial or class action.</p>
 
           <h2 className="text-xl font-bold text-white font-display">11. Changes to Terms</h2>
           <p>We may update these Terms from time to time. We will provide 30 days&apos; notice of material changes via email or in-app notification. Continued use after the effective date constitutes acceptance of the revised Terms.</p>
 
           <h2 className="text-xl font-bold text-white font-display">12. Contact</h2>
           <p>
-            <strong className="text-white">VOXmatiON LLC</strong><br />
-            United States<br />
+            <strong className="text-white">XrankFlow Media Group LLC</strong> (operator of VOXmatiON)<br />
+            Dover, Delaware, United States<br />
             Email: <a href="mailto:legal@voxmation.com" className="text-[#FF8A1F]">legal@voxmation.com</a><br />
             Phone: <a href="tel:+18446877999" className="text-[#FF8A1F]">1-844-687-7999</a>
           </p>

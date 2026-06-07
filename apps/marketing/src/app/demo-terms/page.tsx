@@ -21,7 +21,7 @@ export default function DemoTerms() {
         </h1>
         <p className="text-gray-400 mb-2 font-body">Effective Date: June 1, 2026</p>
         <p className="text-gray-400 mb-10 font-body">
-          Company: VOXmatiON, operated by VOXmatiON LLC · Website:{" "}
+          Company: VOXmatiON, operated by XrankFlow Media Group LLC, Dover, Delaware, United States · Website:{" "}
           <a href="https://voxmation.com" className="text-[#FF8A1F]">https://voxmation.com</a>
         </p>
 
@@ -139,7 +139,7 @@ export default function DemoTerms() {
           <p>You are responsible for complying with all laws and regulations that apply to your business, industry, customer communications, data collection, marketing, advertising, privacy, call recording, SMS messaging, AI use, and automation workflows. VOXmatiON may refuse to provide or demonstrate services that appear unlawful, deceptive, abusive, harmful, or outside our acceptable use standards.</p>
 
           <h2 className="text-xl font-bold text-white font-display">25. Governing Law</h2>
-          <p>These Terms will be governed by the laws of the State of Florida, United States, without regard to conflict of law principles. Any dispute arising from or related to these Terms, your demo request, or related communications will be handled in the courts located in the State of Florida, unless otherwise required by applicable law.</p>
+          <p>These Terms will be governed by the laws of the State of Delaware, United States, without regard to conflict of law principles. Any dispute arising from or related to these Terms, your demo request, or related communications will be handled in the courts located in Kent County, Delaware, unless otherwise required by applicable law.</p>
 
           <h2 className="text-xl font-bold text-white font-display">26. Severability</h2>
           <p>If any provision of these Terms is found invalid, unlawful, or unenforceable, the remaining provisions will remain in full force and effect.</p>
@@ -149,7 +149,8 @@ export default function DemoTerms() {
 
           <h2 className="text-xl font-bold text-white font-display">28. Contact</h2>
           <p>
-            <strong className="text-white">VOXmatiON LLC</strong><br />
+            <strong className="text-white">XrankFlow Media Group LLC</strong> (operator of VOXmatiON)<br />
+            Dover, Delaware, United States<br />
             General questions: <a href="mailto:support@voxmation.com" className="text-[#FF8A1F]">support@voxmation.com</a><br />
             Billing questions: <a href="mailto:billing@voxmation.com" className="text-[#FF8A1F]">billing@voxmation.com</a><br />
             Legal notices: <a href="mailto:legal@voxmation.com" className="text-[#FF8A1F]">legal@voxmation.com</a><br />
