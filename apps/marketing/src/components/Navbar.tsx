@@ -77,10 +77,10 @@ export default function Navbar() {
             alt="VOXmatiON"
             width={220}
             height={60}
-            className="h-12 w-auto object-contain"
-            style={{ mixBlendMode: "screen", maxWidth: "220px" }}
+            className="h-16 w-auto object-contain"
+            style={{ mixBlendMode: "screen", maxWidth: "260px" }}
             priority
-            sizes="220px"
+            sizes="260px"
           />
         </Link>
 

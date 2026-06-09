@@ -12,7 +12,7 @@ const CONNECT_TIMEOUT_MS = 12000;
 
 const CALL_STEPS = [
   { id: 0, label: "Incoming Call", sub: "From: (214) 555-0192", icon: PhoneIncoming, duration: 1800 },
-  { id: 1, label: "AI Answers in 1.8s", sub: "\"Thank you for calling! How can I help?\"", icon: Mic, duration: 2200 },
+  { id: 1, label: "AI Answers in 1.8s", sub: '"Thank you for calling! How can I help?"', icon: Mic, duration: 2200 },
   { id: 2, label: "Lead Qualified", sub: "Service: HVAC Repair · Urgency: High", icon: CheckCircle2, duration: 2000 },
   { id: 3, label: "Appointment Booked", sub: "Tomorrow 9AM · Notification sent to team", icon: CheckCircle2, duration: 2000 },
 ];
@@ -301,7 +301,7 @@ export default function DemoCallWidget() {
                         {voiceError ? "Try the live AI again" : "Talk to our AI"}
                       </button>
                       <button
-                        onClick={done ? resetSimulation : startSimulation}
+                        onClick={startSimulation}
                         className="w-full py-2.5 rounded-xl border border-[rgba(255,255,255,0.1)] text-[#8A99B3] text-xs font-semibold font-body hover:bg-[rgba(255,255,255,0.04)] transition-colors"
                       >
                         {done ? "Replay sample call" : "Or watch a sample call"}
