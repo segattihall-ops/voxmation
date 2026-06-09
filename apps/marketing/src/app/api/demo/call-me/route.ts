@@ -1,6 +1,31 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSlugData, buildAgentVariables } from "@/lib/demo-data";
 
+// Converts a user-entered phone number to E.164 format (+12125551234).
+// ElevenLabs / Twilio require E.164 — without it the call is silently dropped.
+function toE164(raw: string): string | null {
+  const trimmed = raw.trim();
+  const hasCountryCode = trimmed.startsWith("+");
+  const digits = trimmed.replace(/\D/g, "");
+
+  if (!digits) return null;
+
+  if (hasCountryCode) {
+    // Already has a country code — just strip non-digits and re-add +
+    return "+" + digits;
+  }
+  if (digits.length === 10) {
+    // US/Canada 10-digit number, e.g. 2125551234 → +12125551234
+    return "+1" + digits;
+  }
+  if (digits.length === 11 && digits.startsWith("1")) {
+    // US/Canada 11-digit starting with 1, e.g. 12125551234 → +12125551234
+    return "+" + digits;
+  }
+  // Unknown length — prepend + and hope for the best
+  return "+" + digits;
+}
+
 // Places an outbound demo call via ElevenLabs' native Twilio integration.
 // ElevenLabs owns the Twilio number (imported under Conversational AI → Phone
 // Numbers) and runs the agent on the call. The per-slug persona is passed as
@@ -12,6 +37,14 @@ export async function POST(req: NextRequest) {
   if (!phone || typeof phone !== "string") {
     return NextResponse.json(
       { error: "A phone number is required." },
+      { status: 400 }
+    );
+  }
+
+  const e164Phone = toE164(phone);
+  if (!e164Phone) {
+    return NextResponse.json(
+      { error: "Invalid phone number — please include your area code." },
       { status: 400 }
     );
   }
@@ -38,7 +71,7 @@ export async function POST(req: NextRequest) {
         body: JSON.stringify({
           agent_id: ELEVENLABS_AGENT_ID,
           agent_phone_number_id: ELEVENLABS_AGENT_PHONE_NUMBER_ID,
-          to_number: phone,
+          to_number: e164Phone,
           conversation_initiation_client_data: {
             dynamic_variables: buildAgentVariables(data),
           },
