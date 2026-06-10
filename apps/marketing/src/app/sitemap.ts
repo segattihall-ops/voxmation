@@ -33,6 +33,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: at("/how-it-works"), lastModified: now, changeFrequency: "monthly", priority: 0.8 },
     { url: at("/pricing"), lastModified: now, changeFrequency: "monthly", priority: 0.8 },
     { url: at("/compare"), lastModified: now, changeFrequency: "monthly", priority: 0.7 },
+    { url: at("/roi-calculator"), lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     { url: at("/demo"), lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     { url: at("/blog"), lastModified: now, changeFrequency: "weekly", priority: 0.6 },
     { url: at("/contact"), lastModified: now, changeFrequency: "yearly", priority: 0.5 },

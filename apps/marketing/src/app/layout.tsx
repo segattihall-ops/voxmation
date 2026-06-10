@@ -59,7 +59,12 @@ const JSON_LD = {
         areaServed: "US",
         availableLanguage: ["English"],
       },
-      sameAs: ["https://twitter.com/voxmation"],
+      sameAs: [
+        "https://twitter.com/voxmation",
+        "https://www.linkedin.com/company/voxmation",
+        "https://www.facebook.com/voxmation",
+        "https://www.instagram.com/voxmation",
+      ],
     },
     {
       "@type": "WebSite",

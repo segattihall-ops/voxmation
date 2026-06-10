@@ -27,6 +27,7 @@ const INDUSTRIES = [
 const COMPANY = [
   { href: "/how-it-works", label: "How It Works" },
   { href: "/pricing", label: "Pricing" },
+  { href: "/roi-calculator", label: "ROI Calculator" },
   { href: "/compare", label: "Compare" },
   { href: "/demo", label: "Book a Demo" },
   { href: "/contact", label: "Contact" },
