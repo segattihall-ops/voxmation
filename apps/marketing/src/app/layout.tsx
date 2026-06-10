@@ -49,10 +49,12 @@ const JSON_LD = {
       logo: `${SITE_URL}/Logo.PNG`,
       description:
         "AI voice automation that answers missed calls, qualifies leads, and books jobs 24/7 for HVAC, plumbing, electrical, and roofing companies.",
+      email: "sales@voxmation.com",
       areaServed: ["Dallas", "Fort Worth", "Houston", "Austin", "Texas"],
       contactPoint: {
         "@type": "ContactPoint",
         telephone: "+1-844-687-7999",
+        email: "sales@voxmation.com",
         contactType: "sales",
         areaServed: "US",
         availableLanguage: ["English"],

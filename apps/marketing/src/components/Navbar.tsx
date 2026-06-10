@@ -25,6 +25,7 @@ const NAV = [
     ],
   },
   { href: "/pricing", label: "Pricing" },
+  { href: "/compare", label: "Compare" },
 ];
 
 function MagneticButton({ children, href }: { children: React.ReactNode; href: string }) {
