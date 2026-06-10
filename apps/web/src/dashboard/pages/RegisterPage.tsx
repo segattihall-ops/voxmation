@@ -33,7 +33,7 @@ export default function RegisterPage() {
     <div className="min-h-screen bg-gray-950 flex items-center justify-center px-4">
       <div className="w-full max-w-sm">
         <div className="text-center mb-8">
-          <span className="text-indigo-400 font-bold text-2xl tracking-tight">Voxmation OS</span>
+          <span className="text-indigo-400 font-bold text-2xl tracking-tight">Voxmation</span>
           <p className="text-gray-500 text-sm mt-2">Create a new account</p>
         </div>
 

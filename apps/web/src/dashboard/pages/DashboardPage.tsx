@@ -51,7 +51,7 @@ export default function DashboardPage() {
 
   return (
     <div>
-      <PageHeader title="Dashboard" subtitle="Overview of your Voxmation OS workspace" />
+      <PageHeader title="Dashboard" subtitle="Overview of your Voxmation workspace" />
       <div className="px-8 py-6">
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
           <StatCard label="Accounts" value={stats.accounts} loading={loading} />

@@ -4,10 +4,91 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Voxmation OS — Self-Hosted CRM with Built-In Telephony</title>
+    <title>Voxmation — AI Receptionist & Missed Call Recovery for Service Businesses</title>
+    <meta
+      name="description"
+      content="Voxmation is a 24/7 AI receptionist and missed-call recovery service for HVAC, plumbing, and electrical businesses. We answer, qualify, and route every call — and text back missed calls in seconds so you never lose a lead."
+    />
+    <link rel="canonical" href="https://voxmation.com/" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Voxmation" />
+    <meta property="og:title" content="Voxmation — AI Receptionist & Missed Call Recovery" />
+    <meta
+      property="og:description"
+      content="24/7 AI receptionist that answers, qualifies, and routes calls — plus instant SMS textback for missed calls. Built for home-service businesses."
+    />
+    <meta property="og:url" content="https://voxmation.com/" />
+    <meta property="og:image" content="https://voxmation.com/og-image.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- Static structured data so non-JS crawlers and AI answer engines (Perplexity,
+         ChatGPT Search, Bing) can read the entity and service without executing JS. -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Voxmation",
+        "legalName": "Voxmation",
+        "url": "https://voxmation.com",
+        "logo": "https://voxmation.com/logo.svg",
+        "description": "Voxmation is an AI receptionist and missed-call recovery platform for home-service businesses. It answers, qualifies, and routes every call 24/7 and texts back missed calls in seconds.",
+        "email": "sales@voxmation.com",
+        "telephone": "+18446877999",
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "telephone": "+18446877999",
+          "email": "sales@voxmation.com",
+          "contactType": "sales",
+          "areaServed": "US",
+          "availableLanguage": ["English"]
+        },
+        "sameAs": [
+          "https://twitter.com/voxmation",
+          "https://www.linkedin.com/company/voxmation",
+          "https://www.facebook.com/voxmation"
+        ]
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        "serviceType": "AI receptionist and missed call recovery",
+        "provider": { "@type": "Organization", "name": "Voxmation", "url": "https://voxmation.com" },
+        "areaServed": "US",
+        "audience": {
+          "@type": "Audience",
+          "audienceType": "Home service businesses (HVAC, plumbing, electrical)"
+        },
+        "description": "24/7 AI receptionist that answers, qualifies, and routes inbound calls, plus instant SMS textback to recover missed calls.",
+        "url": "https://voxmation.com"
+      }
+    </script>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <!-- Crawlable fallback content. Replaced by the React app on load, but visible
+           to crawlers and AI engines that do not run JavaScript. -->
+      <noscript>
+        <h1>Voxmation — AI Receptionist &amp; Missed Call Recovery</h1>
+        <p>
+          Voxmation answers, qualifies, and routes every inbound call 24/7, and
+          instantly texts back missed calls so service businesses never lose a lead.
+          Built for HVAC, plumbing, electrical, and other home-service companies.
+        </p>
+        <ul>
+          <li>AI receptionist answering in under 2 seconds, day or night</li>
+          <li>Missed call textback (SMS) to recover lost leads automatically</li>
+          <li>Lead qualification and call routing to the right person</li>
+          <li>Appointment booking and CRM sync (HubSpot, Zoho)</li>
+        </ul>
+        <p>
+          Call <a href="tel:+18446877999">1-844-687-7999</a> or email
+          <a href="mailto:sales@voxmation.com">sales@voxmation.com</a>.
+        </p>
+      </noscript>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

@@ -5,52 +5,48 @@ import clsx from "clsx";
 
 const FAQS = [
   {
-    q: "Is there a free self-hosted CRM with telephony?",
-    a: "Yes — Voxmation OS is a completely free, open-source CRM with built-in telephony. It integrates natively with Asterisk and FreeSWITCH over SIP, and supports Twilio as a PSTN fallback. You self-host it on any Linux server at no cost. The MIT license means no hidden fees, no expiry, and no feature gates.",
+    q: "What is an AI receptionist?",
+    a: "An AI receptionist is software that answers your business phone, talks to callers in a natural voice, and handles the same tasks a human receptionist would — greeting callers, qualifying leads, answering common questions, booking appointments, and routing or escalating calls. Voxmation does this 24/7 and answers in under two seconds, so you never miss a customer.",
   },
   {
-    q: "Can I use my own Asterisk server with a CRM?",
-    a: "Yes. Voxmation OS is designed specifically for this use case. It connects to your existing Asterisk or FreeSWITCH PBX via SIP trunk configuration. Incoming and outgoing calls are automatically logged to the CRM, recordings are stored per your retention policy, and transcriptions can be generated via Whisper or Deepgram.",
+    q: "How does missed call textback work?",
+    a: "When a call comes in that isn't answered — because you're on a job, it's after hours, or all lines are busy — Voxmation automatically sends the caller a text message within seconds. The caller can reply by text to ask questions or book, keeping the lead warm instead of calling your competitor. This is one of the fastest ways for a service business to recover lost revenue.",
   },
   {
-    q: "What is the best open-source CRM for small businesses?",
-    a: "Voxmation OS is a strong choice for small businesses that want to own their data. Unlike SaaS CRMs that charge per user, Voxmation OS has no per-seat fees. You get CRM, telephony, project management, billing, and integrations in a single deployable stack — all open source under the MIT license.",
+    q: "Which businesses is Voxmation built for?",
+    a: "Voxmation is built for home-service and field-service businesses — HVAC, plumbing, electrical, roofing, garage door, pest control, landscaping, and similar trades. These businesses live and die by inbound calls, often miss them while on a job, and lose real money every time a call goes to voicemail.",
   },
   {
-    q: "How does Voxmation OS compare to HubSpot?",
-    a: "The core difference is self-hosting and cost. HubSpot is a SaaS platform with per-user pricing that can reach thousands of dollars per month for larger teams. Voxmation OS is free to self-host with unlimited users. HubSpot does not support native Asterisk/SIP telephony — you need third-party dialers. Voxmation OS includes telephony natively.",
+    q: "How fast does Voxmation answer a call?",
+    a: "Voxmation answers in under two seconds. Speed matters: studies consistently show that callers hire the first business that responds, and most won't leave a voicemail. Answering instantly — and texting back anything you miss — puts you ahead of slower competitors.",
   },
   {
-    q: "Does Voxmation OS support Twilio?",
-    a: "Yes. Twilio is supported as a PSTN gateway for teams that don't have an on-premises PBX. You can configure a Twilio account SID and auth token in the environment variables, and Voxmation OS will route outbound calls through Twilio and capture inbound Twilio webhooks for call logging.",
+    q: "Can the AI qualify leads and route calls?",
+    a: "Yes. Voxmation asks intake questions to understand the service needed, location, urgency, and timeline, then routes the caller based on your rules — escalating emergencies to on-call staff, sending callers to the right location, or warm-transferring to a person when needed.",
   },
   {
-    q: "What database does Voxmation OS use?",
-    a: "Voxmation OS uses PostgreSQL as its primary database, accessed via the Prisma ORM. You can connect it to any PostgreSQL-compatible database — self-hosted PostgreSQL, Amazon RDS, DigitalOcean Managed Databases, Supabase, or Neon.",
+    q: "Does Voxmation integrate with my CRM?",
+    a: "Yes. Voxmation syncs calls, leads, and bookings to CRMs like HubSpot and Zoho, attaches transcripts and outcomes to each contact, and can trigger your follow-up automations, review requests, and lead-reactivation campaigns.",
   },
   {
-    q: "Is Voxmation OS suitable for enterprise use?",
-    a: "Yes. It includes JWT-based authentication, role-based access control (RBAC), immutable audit logging, and webhook signature verification — features typically reserved for enterprise SaaS products. Because you self-host it, you control the security posture end-to-end.",
+    q: "How is Voxmation priced?",
+    a: "Pricing is based on call volume rather than an unpredictable per-minute meter. Plans range from Starter (missed-call textback and basic capture) to Growth and Pro (full 24/7 receptionist, qualification, routing, and booking), plus a White Label tier for agencies. Contact sales for a quote matched to your volume.",
   },
   {
-    q: "How do I deploy Voxmation OS?",
-    a: "You can deploy Voxmation OS on any Linux server. The recommended approach is Docker Compose for single-server deployments, or Kubernetes for multi-node production setups. The GitHub repository includes deployment guides, environment variable documentation, and a docker-compose.yml to get started in minutes.",
+    q: "Will there be surprise per-minute charges?",
+    a: "No. Many AI answering services bill $0.50–$0.85 per extra minute, which spikes your bill in busy season. Voxmation plans are sized to your call volume so your cost stays predictable month to month.",
   },
   {
-    q: "Can I integrate Voxmation OS with other tools?",
-    a: "Yes. Voxmation OS includes an Integration Hub with an event-driven webhook system. You can subscribe any external endpoint to any internal event (e.g., lead.created, call.ended, invoice.paid). The full REST API follows the OpenAPI 3.0 spec, and you can generate typed client SDKs from it.",
+    q: "How is Voxmation different from a human answering service?",
+    a: "Human answering services like Smith.ai charge per call or per minute, which gets expensive and unpredictable at high volume, and they can't always answer instantly. Voxmation answers every call in under two seconds, qualifies and routes automatically, recovers missed calls by SMS, and keeps pricing predictable.",
   },
   {
-    q: "Is there a cloud-hosted version of Voxmation OS?",
-    a: "A cloud-managed tier is in development for teams that want all the benefits of Voxmation OS without managing infrastructure. It will include managed PostgreSQL, automatic backups, one-click upgrades, and priority support. You can join the waitlist on GitHub Discussions.",
+    q: "How long does setup take?",
+    a: "Most businesses are live within a few days. We configure your greeting, qualification questions, routing rules, and CRM integrations, then test against live calls before going live.",
   },
   {
-    q: "What programming language is Voxmation OS built with?",
-    a: "The backend is built with Node.js and TypeScript using the Fastify 5 framework. The frontend is React + Vite with TypeScript and Tailwind CSS. The database layer uses Prisma ORM. The entire stack is TypeScript end-to-end, making it straightforward to extend if you know JavaScript.",
-  },
-  {
-    q: "Can I customize the CRM to fit my workflow?",
-    a: "Yes. Custom fields are supported on all core entities. For deeper customization, the codebase is MIT licensed — you can fork it, add new modules, modify the schema, and deploy your own version. There's no vendor to ask permission from.",
+    q: "Can agencies resell Voxmation?",
+    a: "Yes. The White Label plan gives marketing agencies and technology resellers a branded AI receptionist, rapid setup templates, partner pricing, and a dedicated dashboard to manage multiple clients.",
   },
 ];
 
@@ -96,8 +92,8 @@ export default function FaqPage() {
   return (
     <>
       <SEOHead
-        title="FAQ — Self-Hosted CRM with Telephony Questions Answered"
-        description="Common questions about Voxmation OS: self-hosted CRM, Asterisk integration, Twilio, pricing, deployment, and how it compares to HubSpot, Salesforce, and Zoho."
+        title="FAQ — AI Receptionist & Missed Call Recovery Questions"
+        description="Common questions about Voxmation: how the AI receptionist works, missed-call textback, lead qualification, call routing, CRM integration, pricing, and setup for service businesses."
         canonical="/faq"
         jsonLd={[faqSchema, breadcrumb]}
       />
@@ -108,7 +104,7 @@ export default function FaqPage() {
             Frequently asked questions
           </h1>
           <p className="text-xl text-gray-400">
-            Everything you need to know about Voxmation OS — self-hosted CRM, telephony, pricing, and deployment.
+            Everything you need to know about Voxmation — the AI receptionist and missed-call recovery service for service businesses.
           </p>
         </div>
       </section>
