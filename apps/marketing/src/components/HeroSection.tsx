@@ -3,7 +3,8 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Phone } from "lucide-react";
+import { PHONE_NUMBER, PHONE_HREF } from "@/lib/constants";
 
 const NAV_H = 64; // px — matches Navbar h-16
 
@@ -13,6 +14,12 @@ export default function HeroSection() {
       className="relative w-full overflow-hidden"
       style={{ height: `calc(90vh - ${NAV_H}px)`, minHeight: "500px", marginTop: `${NAV_H}px` }}
     >
+      {/* Accessible/SEO headline — the visual headline lives in the banner image. */}
+      <h1 className="sr-only">
+        VOXmatiON — 24/7 AI receptionist that answers every call, recovers missed
+        calls, qualifies leads, and books jobs for home-service companies across Texas.
+      </h1>
+
       {/* Desktop banner */}
       <Image
         src="https://2ywrmvccumupilj7.public.blob.vercel-storage.com/Header.png"
@@ -48,9 +55,15 @@ export default function HeroSection() {
         >
           Book a Demo →
         </Link>
+        <a
+          href={PHONE_HREF}
+          className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 text-white font-semibold font-body text-sm hover:bg-white/20 transition-all"
+        >
+          <Phone className="w-4 h-4 text-[#FF8A1F]" /> Call {PHONE_NUMBER}
+        </a>
         <Link
           href="/how-it-works"
-          className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 text-white font-semibold font-body text-sm hover:bg-white/20 transition-all"
+          className="inline-flex items-center justify-center gap-2 px-7 py-2.5 text-white/80 font-medium font-body text-xs hover:text-white transition-all"
         >
           See How It Works
         </Link>
