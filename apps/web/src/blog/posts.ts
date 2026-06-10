@@ -9,374 +9,182 @@ export interface BlogPost {
 
 export const BLOG_POSTS: BlogPost[] = [
   {
-    slug: "what-is-a-self-hosted-crm",
-    title: "What Is a Self-Hosted CRM? A Complete Guide for 2025",
+    slug: "how-much-missed-calls-cost-service-business",
+    title: "How Much Do Missed Calls Really Cost a Service Business?",
     description:
-      "Self-hosted CRMs give businesses full control over their customer data. Learn what self-hosted CRM means, why companies choose it over SaaS, and how to get started.",
-    date: "2025-03-15",
+      "Service businesses miss roughly 1 in 4 inbound calls — and most callers never leave a voicemail. Here's how to calculate what those missed calls cost you, and how to win them back.",
+    date: "2026-01-12",
+    readTime: "7 min read",
+    content: `
+## The hidden leak in every service business
+
+Most HVAC, plumbing, and electrical businesses spend heavily to make the phone ring — Google Ads, Local Services Ads, trucks wrapped in branding, Nextdoor reviews. Then, on the busiest days, that phone rings while the crew is elbow-deep in a job, and nobody picks up.
+
+Industry data consistently shows that service businesses miss **20–30% of inbound calls**, and the busier you are, the more you miss. Worse: studies of caller behavior find that **most people who reach a voicemail simply hang up and call the next business** on the search results page.
+
+A missed call isn't a "we'll call them back later" problem. It's a lead you already paid for, walking straight to your competitor.
+
+## The simple math of a missed call
+
+You can estimate the revenue you lose to missed calls with four numbers:
+
+- **Missed calls per month** — how many inbound calls go unanswered
+- **Average job value** — your average ticket for a closed job
+- **Close rate** — the share of qualified callers who become customers
+- **Recovery rate** — how many missed callers you could win back if you responded fast
+
+The formula is straightforward:
+
+> **Lost revenue = Missed calls × Average job value × Close rate**
+
+### A worked example
+
+Take a refrigeration and HVAC business in peak season:
+
+- Missed calls per month: **20**
+- Average job value: **$450**
+- Close rate: **35%**
+
+That's 20 × $450 × 0.35 = **$3,150 in lost revenue every month** — over **$37,000 a year** — from calls that never got answered.
+
+## Why "call them back" doesn't work
+
+By the time you finish the job, drive to the next one, and remember to return calls, the customer has already booked someone else. Speed-to-lead research is brutally consistent: **the business that responds first usually wins the job.** Returning a call two hours later puts you in second or third place — if you place at all.
+
+## How to actually recover missed-call revenue
+
+There are three levers:
+
+1. **Answer more calls in the first place.** An AI receptionist answers every call in under two seconds, 24/7, so the call is never missed even when your team is busy or it's after hours.
+2. **Text back the ones you still miss.** Missed-call textback sends an instant SMS to any unanswered caller, so the conversation continues even if no one could pick up.
+3. **Qualify and book automatically.** Capturing the caller's name, service, and urgency — and booking the appointment on the spot — turns a recovered call into revenue, not just a callback.
+
+Applying even a conservative **60% recovery rate** to that $3,150/month example brings back roughly **$1,890 every month** — far more than the cost of the system doing the recovering.
+
+## The takeaway
+
+Missed calls are the most expensive, least visible leak in a service business. You can't manage what you don't measure — so start by calculating your own number, then close the gap with instant answering and missed-call textback.
+    `.trim(),
+  },
+  {
+    slug: "missed-call-textback-how-it-works",
+    title: "Missed Call Textback: How It Works and Why It Recovers Leads",
+    description:
+      "Missed call textback automatically sends an SMS to callers you couldn't answer. Here's how it works, why it converts, and how to set it up for a service business.",
+    date: "2026-01-20",
+    readTime: "6 min read",
+    content: `
+## What is missed call textback?
+
+**Missed call textback** is exactly what it sounds like: when someone calls your business and the call isn't answered, the system automatically sends them a text message within seconds. Instead of hitting a dead-end voicemail, the caller gets something like:
+
+> "Hi, this is Voxmation for ACME Plumbing — sorry we missed you! How can we help? Reply here and we'll get you taken care of."
+
+The caller can reply by text, and the conversation continues — no second phone call required.
+
+## Why it works so well
+
+Three reasons missed-call textback consistently outperforms voicemail:
+
+### 1. People prefer texting
+
+Most customers would rather text than leave a voicemail or wait on hold. A text feels low-effort and immediate. Open rates for SMS are far higher than email, and most texts are read within minutes.
+
+### 2. It's instant
+
+Speed-to-lead is everything. An automatic text fires in seconds — long before you'd realistically call the person back. That speed is often the difference between booking the job and losing it to the next business the customer calls.
+
+### 3. It keeps the lead warm
+
+Even if you can't fully handle the request by text, the lead now knows you exist, you're responsive, and you'll follow up. That dramatically increases the odds they wait for you instead of moving on.
+
+## Where textback fits in the bigger picture
+
+Textback is a safety net, not the whole system. The ideal flow looks like this:
+
+1. **Answer first.** An AI receptionist answers every call in under two seconds, so most calls are handled live and never need a textback at all.
+2. **Textback the rest.** For the genuinely missed calls — simultaneous calls, dropped calls, edge cases — textback catches them.
+3. **Qualify and route.** The text conversation captures what the customer needs and books or routes them appropriately.
+4. **Sync and follow up.** Everything lands in your CRM so nothing falls through the cracks.
+
+## Setting it up the right way
+
+A few things separate a textback setup that converts from one that annoys customers:
+
+- **Respond in seconds, not minutes.** The whole value is speed.
+- **Personalize the message.** Use your business name and a warm, human tone.
+- **Make it two-way.** Customers should be able to reply and get a real response, not a no-reply blast.
+- **Connect it to booking.** The goal is a booked job, so make it easy to schedule from the text.
+- **Log every conversation.** Sync to your CRM so follow-ups and reporting actually happen.
+
+## Bottom line
+
+Missed-call textback is one of the highest-ROI tools a service business can add. It costs far less than the revenue from a single recovered job, and it works around the clock — turning the calls you can't answer into customers instead of lost leads.
+    `.trim(),
+  },
+  {
+    slug: "ai-receptionist-vs-answering-service",
+    title: "AI Receptionist vs Answering Service: Which Is Right for Your Trade?",
+    description:
+      "Human answering services and AI receptionists both pick up your phone — but the cost, speed, and consistency are very different. Here's how to choose for a home-service business.",
+    date: "2026-01-28",
     readTime: "8 min read",
     content: `
-## What Is a Self-Hosted CRM?
+## Two ways to stop missing calls
 
-A **self-hosted CRM** is customer relationship management software that you install and run on your own infrastructure — your servers, your cloud account, your data center. Unlike SaaS CRMs (HubSpot, Salesforce, Zoho), the application and its data live on hardware you control.
+If your team can't always answer the phone, you have two main options: a **human answering service** or an **AI receptionist**. Both pick up calls you'd otherwise miss, but they work very differently — and the right choice depends on your call volume, budget, and how predictable you need your costs to be.
 
-The CRM vendor provides the software (often open source), and you provide the compute. You're responsible for deployment, backups, and uptime — but you're also the only party with access to your data.
+## Human answering services
 
-## Why Do Companies Choose Self-Hosted CRM?
+Traditional answering services (and hybrid services like Smith.ai) route your calls to live agents who take messages, qualify leads, and sometimes book appointments.
 
-### 1. Full data ownership
+**Strengths:**
+- A real human voice, which some callers prefer for sensitive or complex situations
+- Good judgment on unusual or emotional calls
+- Established for industries like legal and medical
 
-When you use a SaaS CRM, your customer data lives on the vendor's servers. You're subject to their data retention policies, their breach liability, and their decisions about data sharing with third parties. With a self-hosted CRM, your customer records never leave your infrastructure.
+**Weaknesses:**
+- **Cost.** Pricing is usually per call or per minute. AI calls might run a few dollars each; live-agent calls can run $8+ each. In a busy month, the bill is unpredictable and can balloon.
+- **Speed.** Even good services have a ring delay before an agent picks up, and agents juggle multiple clients.
+- **Consistency.** Different agents, different scripts, variable quality.
 
-This matters enormously for:
-- **Regulated industries** (healthcare, finance, legal) where data residency rules apply
-- **B2B companies** with enterprise customers who require data sovereignty clauses
-- **European companies** navigating GDPR's data transfer restrictions
-- **Any business** that considers customer data a competitive asset
+## AI receptionists
 
-### 2. No per-user pricing
+An AI receptionist answers with a natural-sounding voice, follows your script exactly, qualifies the lead, and routes or books it — all automatically.
 
-SaaS CRM pricing scales with your headcount. HubSpot's Sales Hub Pro runs over $90/user/month. For a 25-person team, that's $27,000/year — before add-ons. Salesforce is similar.
+**Strengths:**
+- **Speed.** Answers in under two seconds, every time, 24/7.
+- **Predictable pricing.** Plans scale with call volume instead of charging unpredictable per-minute fees.
+- **Consistency.** The same high-quality greeting and qualification on every single call.
+- **Missed-call textback.** Good AI systems text back anything they can't answer, recovering even more leads.
+- **Integrations.** Calls, leads, and bookings sync straight to your CRM.
 
-Self-hosted CRMs like Voxmation OS are free to deploy. Your cost is compute: a $20/month VPS is enough for most small teams. Unlimited users, unlimited records, no overage charges.
+**Weaknesses:**
+- Very unusual or highly emotional calls may still benefit from a human — though most AI systems can warm-transfer those to a person.
 
-### 3. No vendor lock-in
+## Cost: the deciding factor for most trades
 
-SaaS vendors can change pricing, deprecate features, or be acquired. When your CRM is a cloud service, you're betting your business processes on the vendor's roadmap.
+For high-volume home-service businesses, cost is usually what settles it. Consider a business taking 300 calls a month:
 
-With a self-hosted CRM, you can freeze the version you depend on, fork the code for custom requirements, and migrate to a different system on your own timeline.
+- **Human answering service** at, say, $5–$8 per handled call = **$1,500–$2,400/month**, and rising with volume.
+- **AI receptionist** on a flat, volume-based plan = a predictable monthly fee that doesn't spike in your busy season.
 
-### 4. Customization without limits
+For HVAC, plumbing, electrical, and similar trades — where call volume surges with weather and seasons — predictable pricing and instant answering usually win.
 
-Open-source self-hosted CRMs can be modified at the code level. Need a custom field type, an integration with an internal system, or a workflow that doesn't exist in the UI? Fork the repository, write the code, deploy the change.
+## How to choose
 
-SaaS CRMs offer configuration within guardrails. Self-hosted CRMs offer full source access.
+Pick a **human or hybrid service** if:
+- Your calls are low-volume but high-stakes and emotionally complex
+- A human voice is core to your brand and you'll pay a premium for it
 
-## What Does Self-Hosting Require?
+Pick an **AI receptionist** if:
+- You have meaningful call volume and want predictable costs
+- Speed-to-lead matters (it does — the fastest responder usually wins)
+- You want missed-call textback, automatic booking, and CRM sync built in
 
-Self-hosting isn't free in time. You'll need:
+## The hybrid reality
 
-- **A Linux server** (VPS, bare metal, or cloud VM) — typically $10–$50/month
-- **A database** — PostgreSQL is standard; managed offerings like Amazon RDS or Supabase reduce ops overhead
-- **Basic DevOps knowledge** — Docker Compose makes deployment approachable; Kubernetes for multi-node setups
-- **Backup and monitoring discipline** — you're responsible for data safety
-
-For many businesses, this tradeoff is clear: the savings from eliminating per-seat SaaS fees far exceed the ops cost, and the data control benefit is non-negotiable.
-
-## What Should a Self-Hosted CRM Include?
-
-At a minimum, a production-grade self-hosted CRM should include:
-
-- **Core CRM entities**: Leads, Contacts, Accounts, Opportunities
-- **Pipeline management**: Customizable stages, weighted forecasting
-- **Activity tracking**: Calls, emails, notes, tasks
-- **REST API**: For integrations and automation
-- **Authentication and RBAC**: JWT auth, role-based permissions
-- **Audit logging**: Immutable record of who changed what
-
-Voxmation OS goes further by including **built-in telephony** (Asterisk/FreeSWITCH/Twilio), **delivery ops** (projects and tasks), **billing**, and a **webhook integration hub** — all in a single deployable stack.
-
-## Getting Started with a Self-Hosted CRM
-
-The fastest path to a self-hosted CRM in 2025:
-
-1. **Choose your stack** — Voxmation OS (Node.js/TypeScript/Postgres) is a strong starting point. It's MIT licensed and actively maintained.
-2. **Pick a deployment target** — A $20 DigitalOcean or Hetzner VPS is enough for most small teams.
-3. **Deploy with Docker Compose** — Clone the repository, configure your environment variables, and run \`docker compose up\`.
-4. **Connect your telephony** — Configure your Asterisk SIP trunk or Twilio credentials.
-5. **Import your existing data** — Most CRMs export to CSV; Voxmation OS supports bulk import with field mapping.
-
-Self-hosting your CRM isn't as complex as it once was. With modern tooling and a well-documented open-source stack, you can go from zero to a fully operational CRM in under an hour.
-    `.trim(),
-  },
-  {
-    slug: "hubspot-vs-open-source-crm-true-cost",
-    title: "HubSpot vs Open-Source CRM: The True Cost Comparison (2025)",
-    description:
-      "HubSpot's free tier is a starting point, not a destination. We break down the real cost of HubSpot vs self-hosting an open-source CRM like Voxmation OS — including hidden fees, telephony costs, and the cost of lock-in.",
-    date: "2025-03-20",
-    readTime: "10 min read",
-    content: `
-## HubSpot vs Open-Source CRM: What Does It Actually Cost?
-
-HubSpot markets itself as free. And it is — until it isn't. The free tier strips out most features useful for actual sales teams: no sequences, no custom reporting, no forecasting, limited integrations. Once you need those, you're looking at HubSpot Sales Hub Starter ($15/user/month) or Pro ($90/user/month).
-
-Let's do the math honestly.
-
-## HubSpot Cost Breakdown (25-user team)
-
-### Sales Hub Professional: $90/user/month
-- 25 users × $90 = **$2,250/month** ($27,000/year)
-
-### Required add-ons
-- HubSpot calling (basic): included, but limited to 500 minutes/user/month. For a team making 50+ calls/day, you'll hit this.
-- Calling minutes overage: $0.02–$0.05/minute
-- HubSpot Service Hub (for support ticketing): $90/user/month additional
-
-### Telephony is the killer
-
-HubSpot doesn't have native telephony. It has a basic calling feature that uses VoIP minutes. For real sales teams with high call volume — especially those with existing Asterisk/SIP infrastructure — HubSpot requires a third-party CTI integration (Aircall, JustCall, Dialpad), which runs **$70–$100/user/month** on top of HubSpot.
-
-That's **$160–$190/user/month** for HubSpot + telephony for a power sales team.
-
-**25 users × $175/month average = $4,375/month = $52,500/year.**
-
-### HubSpot hidden costs
-- **Onboarding fees**: HubSpot often requires paid onboarding ($3,000–$6,000)
-- **API limits**: Higher tiers required for high-volume API usage
-- **Data storage**: Extra fees for large contact databases
-- **Lock-in migration cost**: When you eventually want to leave, exporting and migrating CRM data is a project
-
-## Open-Source CRM (Voxmation OS) Cost Breakdown (25-user team)
-
-### Software: $0
-MIT licensed. No per-user fees. No feature gates.
-
-### Infrastructure: ~$40–$100/month
-- $20–$40: VPS or cloud VM (DigitalOcean Droplet, Hetzner Cloud) or managed PostgreSQL
-- $20–$60: Optional managed database (RDS, Supabase, Neon) for zero-ops DB management
-
-### Telephony: Own your PBX or use Twilio
-- **With existing Asterisk/FreeSWITCH**: Cost of existing hardware (already paid) + SIP trunk minutes ($0.005–$0.015/minute from carriers like Twilio, Telnyx, or Vonage)
-- **Twilio as PSTN gateway**: ~$0.013/minute for US calls. For 10,000 minutes/month: $130/month
-- **No per-user telephony seat fees** — your Asterisk handles any number of simultaneous calls
-
-### DevOps overhead
-The honest cost: some engineering time. For a company with any technical staff, Docker Compose deployment and basic Linux administration is a few hours initially, then negligible ongoing maintenance.
-
-If you need to hire a managed hosting service or DevOps consultant: **$200–$500/month** for fully managed self-hosted CRM is still far less than SaaS pricing at scale.
-
-## 3-Year Total Cost of Ownership
-
-| | HubSpot Pro + Telephony | Voxmation OS (self-hosted) |
-|--|--|--|
-| Software licenses | $52,500/year | $0 |
-| Infrastructure | $0 | $1,200/year |
-| Telephony (Twilio) | Included above | $1,560/year |
-| **Year 1 total** | **$52,500** | **$2,760** |
-| **3-year total** | **$157,500** | **$8,280** |
-
-**Savings at 3 years: $149,220** — for a 25-person team.
-
-## The Lock-In Cost
-
-HubSpot's most underappreciated cost is lock-in. Your contacts, deal history, call logs, custom fields, and pipeline configuration live in HubSpot's database. Migrating out requires:
-- Exporting records (limited by what HubSpot allows you to export)
-- Rebuilding custom field mappings in the new system
-- Re-importing historical data with often incomplete field coverage
-- Re-creating sequences, automations, and integrations
-
-Industry estimates put CRM migrations at **2–6 months of engineering time** for a company with mature HubSpot data. At $150/hour engineering cost, that's $50,000–$150,000 in migration cost — often not counted in TCO comparisons.
-
-With Voxmation OS, your data is in a PostgreSQL database you control. Migration out is a SQL export. No vendor permission required.
-
-## When HubSpot Still Makes Sense
-
-HubSpot wins on:
-- **Ease of use for non-technical teams**: No deployment, no ops, polished UX
-- **Ecosystem and integrations**: 1,000+ native integrations vs. Voxmation OS's webhook-based approach
-- **Marketing Hub**: Email sequences, landing pages, forms — Voxmation OS doesn't target marketing automation today
-
-If your team is non-technical and you value the full HubSpot ecosystem, the premium may be worth it. But if you have technical staff, high call volume, existing telephony infrastructure, or simply want to own your data — the math strongly favors self-hosting.
-
-## The Bottom Line
-
-HubSpot is excellent software with a real cost. For a 25-person team over 3 years, self-hosting Voxmation OS saves approximately **$149,000** compared to HubSpot Sales Hub Pro with telephony.
-
-More importantly: you own your data, you're not subject to annual price increases, and you're not a migration project away from vendor independence.
-    `.trim(),
-  },
-  {
-    slug: "integrate-telephony-with-crm",
-    title: "How to Integrate Telephony with Your CRM (Asterisk, FreeSWITCH, and Twilio)",
-    description:
-      "A technical guide to integrating voice calling with your CRM. Covers SIP trunk setup, Asterisk AGI and AMI integration, Twilio webhooks, call logging, and recording storage.",
-    date: "2025-03-25",
-    readTime: "12 min read",
-    content: `
-## How to Integrate Telephony with Your CRM
-
-Integrating telephony with a CRM is one of the highest-leverage things a sales or support team can do. When calls are logged automatically, recordings are linked to contact records, and inbound calls trigger screen-pops — agents spend less time on admin and more time talking.
-
-But most CRM telephony integrations are shallow: a third-party dialer bolted on via a Chrome extension, with limited data flowing between systems. This guide covers how to build a deep, native telephony integration — using Asterisk, FreeSWITCH, or Twilio as the telephony backend.
-
-## Architecture Overview
-
-A CRM-telephony integration has four main components:
-
-1. **PBX** (Asterisk, FreeSWITCH, or Twilio) — handles call signaling and audio
-2. **CRM** — stores contact records, call logs, and recordings
-3. **Integration layer** — the bridge between PBX events and CRM events
-4. **Client UI** — the agent's interface for seeing screen-pops and initiating click-to-call
-
-Voxmation OS implements all four natively. This guide explains the integration patterns so you can understand what's happening — or replicate it with your own CRM.
-
-## Option 1: Asterisk Integration via AMI and AGI
-
-### Asterisk Manager Interface (AMI)
-
-AMI is a TCP/IP event stream from Asterisk that reports real-time events: calls placed, answered, hung up, transferred, etc.
-
-Your integration layer connects to AMI on port 5038, authenticates, and subscribes to events:
-
-\`\`\`
-Action: Login
-Username: crm-integration
-Secret: your-ami-secret
-Events: call
-\`\`\`
-
-On each \`Hangup\` event, you get:
-- \`Channel\`: the SIP channel (e.g., SIP/1001-00000001)
-- \`CallerID\`: the calling number
-- \`Duration\`: call duration in seconds
-- \`BillableSeconds\`: connected time
-
-Your integration layer maps the CallerID to a CRM contact, creates a call log record, and attaches metadata.
-
-### Asterisk Gateway Interface (AGI)
-
-AGI lets you execute arbitrary scripts during call flow — before it rings, during the call, or after hangup. Use AGI for:
-- **CRM lookup**: Before ringing an agent, look up the caller's number in the CRM and attach the contact ID to the call
-- **IVR-to-CRM mapping**: If a caller selected menu option 2 (Support), tag the call log with "support" in the CRM
-- **Post-call disposition**: After hangup, trigger an AGI script that marks the lead as "contacted" in the CRM
-
-A minimal AGI script in Python:
-
-\`\`\`python
-#!/usr/bin/env python3
-import sys
-import requests
-
-# Read AGI environment variables
-agi_vars = {}
-while True:
-    line = sys.stdin.readline().strip()
-    if not line:
-        break
-    key, _, value = line.partition(': ')
-    agi_vars[key] = value
-
-caller_id = agi_vars.get('agi_callerid', '')
-
-# Look up caller in CRM
-response = requests.get(
-    f'https://your-crm.internal/v1/contacts/search?phone={caller_id}',
-    headers={'Authorization': 'Bearer your-api-key'}
-)
-
-if response.ok:
-    contact = response.json()
-    # Set a channel variable for later use
-    print(f'SET VARIABLE CRM_CONTACT_ID {contact["id"]}')
-    sys.stdout.flush()
-
-print('HANGUP')
-sys.stdout.flush()
-\`\`\`
-
-## Option 2: FreeSWITCH Integration via ESL
-
-FreeSWITCH uses the Event Socket Library (ESL) — similar to Asterisk AMI but with a different event format. Connect on port 8021:
-
-\`\`\`
-auth ClueCon
-events plain CHANNEL_CREATE CHANNEL_ANSWER CHANNEL_HANGUP_COMPLETE
-\`\`\`
-
-On \`CHANNEL_HANGUP_COMPLETE\` events, you get the full call record including duration, direction, and disposition. Your integration layer processes this and writes to the CRM.
-
-FreeSWITCH also supports Lua, JavaScript, and Python scripts in the call flow for real-time CRM lookups, similar to Asterisk AGI.
-
-## Option 3: Twilio Webhooks
-
-Twilio is the simplest integration path if you don't have an on-premises PBX. You configure a webhook URL in your Twilio phone number settings, and Twilio POSTs call events to your endpoint:
-
-\`\`\`
-POST /webhooks/twilio/voice
-Content-Type: application/x-www-form-urlencoded
-
-CallSid=CA...&CallStatus=completed&CallDuration=142&From=+15551234567&To=+15559876543
-\`\`\`
-
-Voxmation OS handles this with the \`/v1/voice/webhook\` endpoint. It:
-1. Validates the Twilio request signature (HMAC-SHA1 with your auth token)
-2. Looks up the \`From\` number against CRM contacts
-3. Creates a call log with duration and disposition
-4. If recording is enabled, stores the recording URL and triggers transcription
-
-### TwiML for Call Recording
-
-To capture recordings, return TwiML with \`<Record>\` in your webhook response:
-
-\`\`\`xml
-<?xml version="1.0" encoding="UTF-8"?>
-<Response>
-  <Record maxLength="3600" recordingStatusCallback="/webhooks/twilio/recording" />
-  <Dial>+15558887777</Dial>
-</Response>
-\`\`\`
-
-Twilio POSTs the recording URL to your \`recordingStatusCallback\` endpoint when the recording is ready.
-
-## Call Recording Storage
-
-Regardless of telephony backend, recordings should be stored separately from the CRM database:
-
-- **Self-hosted**: Store MP3/WAV files on a local filesystem or S3-compatible object store (MinIO, Backblaze B2)
-- **Cloud**: S3 or Google Cloud Storage, with pre-signed URLs for playback
-- **Reference in CRM**: Store only the storage URL in the call log record — not the binary
-
-For retention policy, implement a scheduled job that deletes recordings older than your configured retention window and updates the call log to reflect deletion.
-
-## Transcription Pipeline
-
-Once a recording is stored, transcription is straightforward with Whisper (local, free) or Deepgram (API, $0.0043/minute):
-
-**Whisper (local)**:
-\`\`\`bash
-whisper recording.mp3 --model medium --output_format txt
-\`\`\`
-
-**Deepgram (API)**:
-\`\`\`bash
-curl -X POST https://api.deepgram.com/v1/listen \\
-  -H "Authorization: Token your-key" \\
-  -H "Content-Type: audio/mp3" \\
-  --data-binary @recording.mp3
-\`\`\`
-
-Write the transcript to the call log record in the CRM. Index it for full-text search so agents can search "find all calls where the customer mentioned pricing."
-
-## Click-to-Call from CRM
-
-The final piece: initiating calls from the CRM UI.
-
-With Asterisk AMI:
-\`\`\`
-Action: Originate
-Channel: SIP/1001
-Exten: +15551234567
-Context: from-internal
-Priority: 1
-CallerID: "CRM Click-to-Call" <+15558887777>
-Variable: CRM_CONTACT_ID=contact-uuid
-\`\`\`
-
-With Twilio:
-\`\`\`bash
-curl -X POST https://api.twilio.com/2010-04-01/Accounts/$SID/Calls.json \\
-  -d "From=+15558887777&To=+15551234567&Url=https://your-crm.com/twiml/outbound" \\
-  -u "$SID:$AUTH_TOKEN"
-\`\`\`
-
-Voxmation OS exposes a \`POST /v1/voice/calls\` endpoint that wraps either mechanism. The CRM UI calls this endpoint when an agent clicks a phone number.
-
-## Putting It Together
-
-A complete telephony-CRM integration logs every call automatically, stores recordings with retention controls, surfaces transcriptions inline with contact records, and lets agents initiate calls without leaving the CRM.
-
-Voxmation OS ships all of this natively. If you're building your own integration on top of an existing CRM, the patterns above give you the architectural building blocks.
+The best setups aren't either/or. An AI receptionist handles the overwhelming majority of calls instantly and consistently, recovers missed calls by text, and warm-transfers the rare call that genuinely needs a human. You get speed and predictable cost without giving up the human touch where it actually matters.
     `.trim(),
   },
 ];

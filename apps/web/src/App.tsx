@@ -6,9 +6,11 @@ import PricingPage from "./pages/PricingPage";
 import FaqPage from "./pages/FaqPage";
 import BlogPage from "./pages/BlogPage";
 import BlogPostPage from "./pages/BlogPostPage";
-import VsHubspotPage from "./pages/VsHubspotPage";
-import VsSalesforcePage from "./pages/VsSalesforcePage";
-import VsZohoPage from "./pages/VsZohoPage";
+import HowItWorksPage from "./pages/HowItWorksPage";
+import MissedCallRecoveryPage from "./pages/MissedCallRecoveryPage";
+import VsSmithAiPage from "./pages/VsSmithAiPage";
+import VsGoodcallPage from "./pages/VsGoodcallPage";
+import VsNextphonePage from "./pages/VsNextphonePage";
 import CareersAssistantPage from "./pages/CareersAssistantPage";
 import CareersConfirmPage from "./pages/CareersConfirmPage";
 import NotFoundPage from "./pages/NotFoundPage";
@@ -59,13 +61,19 @@ export default function App() {
         <Route element={<Layout />}>
           <Route index element={<HomePage />} />
           <Route path="features" element={<FeaturesPage />} />
+          <Route path="how-it-works" element={<HowItWorksPage />} />
+          <Route path="missed-call-recovery" element={<MissedCallRecoveryPage />} />
           <Route path="pricing" element={<PricingPage />} />
           <Route path="faq" element={<FaqPage />} />
           <Route path="blog" element={<BlogPage />} />
           <Route path="blog/:slug" element={<BlogPostPage />} />
-          <Route path="vs-hubspot" element={<VsHubspotPage />} />
-          <Route path="vs-salesforce" element={<VsSalesforcePage />} />
-          <Route path="vs-zoho" element={<VsZohoPage />} />
+          <Route path="vs-smith-ai" element={<VsSmithAiPage />} />
+          <Route path="vs-goodcall" element={<VsGoodcallPage />} />
+          <Route path="vs-nextphone" element={<VsNextphonePage />} />
+          {/* Legacy CRM-era comparison URLs — redirect to avoid 404s */}
+          <Route path="vs-hubspot" element={<Navigate to="/vs-smith-ai" replace />} />
+          <Route path="vs-salesforce" element={<Navigate to="/vs-smith-ai" replace />} />
+          <Route path="vs-zoho" element={<Navigate to="/vs-goodcall" replace />} />
           <Route path="carreiras/assistente-remoto" element={<CareersAssistantPage />} />
           <Route path="carreiras/confirmar" element={<CareersConfirmPage />} />
           <Route path="vaga" element={<Navigate to="/carreiras/assistente-remoto" replace />} />

@@ -1,100 +1,87 @@
 import { useState } from "react";
-import { ChevronDown, Phone, Database, Truck, CreditCard, Globe, Shield } from "lucide-react";
+import { ChevronDown, Phone, MessageSquareText, CheckCircle, PhoneForwarded, CalendarCheck, Zap } from "lucide-react";
 import SEOHead from "../components/SEOHead";
 import clsx from "clsx";
 
 const MODULES = [
   {
-    icon: Database,
-    title: "CRM Core",
-    tagline: "Full-lifecycle customer relationship management",
-    features: [
-      "Leads management with qualification scoring and assignment rules",
-      "Accounts (companies) with hierarchical relationships and custom fields",
-      "Contacts linked to accounts and opportunities with activity history",
-      "Opportunities with customizable pipeline stages and weighted forecasting",
-      "Activity tracking: calls, emails, notes, tasks, and meetings",
-      "Custom field types: text, number, date, select, multi-select, file",
-      "Bulk import/export via CSV with field mapping",
-      "Role-based visibility: team-level, owner-level, or global record access",
-    ],
-    keywords: "open source CRM, self-hosted CRM, free CRM software, HubSpot alternative",
-  },
-  {
     icon: Phone,
-    title: "Voice & Telephony",
-    tagline: "Native SIP/Asterisk calling — no third-party dialer required",
+    title: "24/7 AI Receptionist",
+    tagline: "Answers every call in under 2 seconds — day, night, and weekends",
     features: [
-      "Native Asterisk and FreeSWITCH integration via SIP trunk configuration",
-      "Twilio fallback: use Twilio as a PSTN gateway when no on-prem PBX is available",
-      "Automatic call logging: direction, duration, outcome, and disposition codes",
-      "Call recording storage with per-tenant retention policies",
-      "Transcription via Whisper or Deepgram — stored alongside call records",
-      "Webhook events: call.started, call.ended, call.recorded, call.transcribed",
-      "Click-to-call from any contact or lead record in the CRM",
-      "Inbound call routing with CRM screen-pop on match",
+      "Natural-sounding AI voice that greets callers with your business name",
+      "Sub-2-second pickup so callers never hit voicemail or hold music",
+      "Handles overflow when your team is on a job or after hours",
+      "Captures caller name, number, service needed, and urgency",
+      "Spam and robocall screening so you only hear real leads",
+      "Bilingual handling for English and Spanish callers",
     ],
-    keywords: "CRM with telephony, self-hosted calling, Asterisk CRM, SIP CRM, open source telephony CRM",
+    keywords: "AI receptionist, virtual receptionist for HVAC, 24/7 call answering service",
   },
   {
-    icon: Truck,
-    title: "Delivery Ops",
-    tagline: "Service delivery and project management, inside your CRM",
+    icon: MessageSquareText,
+    title: "Missed Call Textback",
+    tagline: "Recover lost leads with an instant SMS when a call goes unanswered",
     features: [
-      "Service catalog: define deliverable types with SLA targets and pricing",
-      "Projects linked to accounts/opportunities for end-to-end deal-to-delivery",
-      "Task management with assignees, due dates, dependencies, and status tracking",
-      "Milestone tracking with automated status rollup to project level",
-      "Time logging per task with billable/non-billable classification",
-      "Delivery dashboards showing WIP, overdue tasks, and completion rates",
-      "Webhook events fire on project creation, task completion, and SLA breach",
+      "Automatic SMS to any missed or abandoned caller within seconds",
+      "Two-way texting so the conversation continues without a callback",
+      "Customizable message templates per business and per time of day",
+      "Keeps the lead warm until your team can follow up",
+      "Works alongside your existing business phone number",
     ],
-    keywords: "CRM project management, service delivery CRM, self-hosted PSA",
+    keywords: "missed call textback, missed call text back, missed call recovery SMS",
   },
   {
-    icon: CreditCard,
-    title: "Billing & Invoicing",
-    tagline: "Revenue tracking without a separate billing tool",
+    icon: CheckCircle,
+    title: "Lead Qualification",
+    tagline: "Screens and scores every caller before it reaches your team",
     features: [
-      "Subscription plans with seat-based or flat-rate pricing",
-      "Invoice generation linked to opportunities and projects",
-      "Payment gateway webhooks: Stripe, PayPal, and custom payment providers",
-      "Invoice line items auto-populated from time logs and service catalog",
-      "PDF invoice export with customizable templates",
-      "Revenue reporting: MRR, ARR, outstanding receivables by account",
-      "Tax configuration per plan or per invoice line item",
+      "Asks the right intake questions: service, location, timeline, budget",
+      "Identifies emergencies vs. routine requests automatically",
+      "Filters out tire-kickers, vendors, and spam",
+      "Tags and prioritizes high-value jobs",
+      "Passes a clean, qualified summary to your team",
     ],
-    keywords: "CRM billing, invoicing CRM, self-hosted billing software",
+    keywords: "lead qualification, call screening, AI lead intake",
   },
   {
-    icon: Globe,
-    title: "Integration Hub",
-    tagline: "Event-driven connectivity without vendor lock-in",
+    icon: PhoneForwarded,
+    title: "Smart Call Routing",
+    tagline: "Sends each caller to the right person or location, by your rules",
     features: [
-      "Pub/sub event bus: subscribe any endpoint to any internal CRM event",
-      "Webhook delivery with retry logic (exponential backoff, dead-letter queue)",
-      "HMAC signature verification on all outbound webhook payloads",
-      "Pre-built event types across CRM, Voice, Delivery, and Billing modules",
-      "Event log with delivery status, response codes, and retry history",
-      "REST API for all entities — OpenAPI 3.0 spec included",
-      "SDK-ready: typed client generation from the OpenAPI spec",
+      "Route by service type, location, time of day, or urgency",
+      "Emergency calls escalate to on-call staff immediately",
+      "After-hours and overflow routing rules you control",
+      "Warm transfer to a live person when needed",
+      "Multi-location routing for franchises and regional teams",
     ],
-    keywords: "CRM integration hub, open source webhook CRM, self-hosted integration platform",
+    keywords: "call routing, emergency call routing, multi-location call routing",
   },
   {
-    icon: Shield,
-    title: "Audit & RBAC",
-    tagline: "Enterprise-grade governance on your own terms",
+    icon: CalendarCheck,
+    title: "Appointment Booking",
+    tagline: "Turns qualified calls into booked jobs on your calendar",
     features: [
-      "JWT-based authentication with configurable token expiry",
-      "Role-based access control: define roles and map them to resource-level permissions",
-      "Fine-grained permissions: read, write, delete, admin per module",
-      "Immutable audit log: every create, update, and delete is recorded with user and timestamp",
-      "Audit log export for compliance and legal discovery",
-      "Session management with device tracking and force-logout capability",
-      "Rate limiting and brute-force protection on auth endpoints",
+      "Books directly into your calendar during the call",
+      "Automated SMS confirmations and reminders to cut no-shows",
+      "Collects job details and address up front",
+      "Reschedule and cancellation handling by text",
+      "Syncs bookings to your CRM and dispatch tools",
     ],
-    keywords: "CRM RBAC, audit log CRM, secure self-hosted CRM",
+    keywords: "appointment booking, AI scheduling, online booking for service businesses",
+  },
+  {
+    icon: Zap,
+    title: "CRM & Automation Sync",
+    tagline: "Every call, lead, and booking flows into your tools automatically",
+    features: [
+      "Two-way sync with HubSpot and Zoho CRM",
+      "Call logs, transcripts, and outcomes attached to each contact",
+      "Trigger follow-up sequences and review requests automatically",
+      "Lead reactivation campaigns for old or cold contacts",
+      "Webhooks and Zapier-style automations for everything else",
+    ],
+    keywords: "AI receptionist CRM integration, HubSpot call sync, Zoho integration",
   },
 ];
 
@@ -155,8 +142,8 @@ export default function FeaturesPage() {
   return (
     <>
       <SEOHead
-        title="Features — Open-Source CRM with Telephony, Delivery Ops & Billing"
-        description="Explore every module in Voxmation OS: CRM, built-in Asterisk/SIP telephony, project delivery ops, billing, integration hub, and enterprise RBAC. All self-hosted, all open source."
+        title="Features — AI Receptionist, Missed Call Textback & Lead Routing"
+        description="Explore everything Voxmation does: a 24/7 AI receptionist, missed-call SMS textback, lead qualification, smart call routing, appointment booking, and CRM sync — built for service businesses."
         canonical="/features"
         jsonLd={breadcrumb}
       />
@@ -164,14 +151,14 @@ export default function FeaturesPage() {
       <section className="pt-16 pb-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-gray-950 to-gray-950/50">
         <div className="max-w-4xl mx-auto text-center">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-violet-500/10 border border-violet-500/20 text-violet-400 text-sm font-medium mb-6">
-            All Modules
+            What Voxmation does
           </div>
           <h1 className="text-4xl sm:text-5xl font-extrabold text-white mb-5 tracking-tight">
-            Every feature your business needs, self-hosted
+            A complete front desk for your phone line
           </h1>
           <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-            Voxmation OS is modular. Deploy what you need, leave what you don't.
-            Every module is open source and runs on your infrastructure.
+            Voxmation answers, qualifies, routes, books, and follows up on every call —
+            so your team never has to choose between the job in front of them and the phone.
           </p>
         </div>
       </section>

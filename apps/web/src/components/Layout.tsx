@@ -1,19 +1,21 @@
 import { useState, useEffect } from "react";
 import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
-import { Menu, X, Phone, Github, Twitter, Linkedin } from "lucide-react";
+import { Menu, X, Phone, Twitter, Linkedin, Facebook } from "lucide-react";
 import clsx from "clsx";
+import { CONTACT, SOCIAL } from "../config/business";
 
 const NAV_LINKS = [
+  { to: "/how-it-works", label: "How It Works" },
   { to: "/features", label: "Features" },
+  { to: "/missed-call-recovery", label: "Missed Calls" },
   { to: "/pricing", label: "Pricing" },
-  { to: "/blog", label: "Blog" },
   { to: "/faq", label: "FAQ" },
 ];
 
 const COMPARE_LINKS = [
-  { to: "/vs-hubspot", label: "vs HubSpot" },
-  { to: "/vs-salesforce", label: "vs Salesforce" },
-  { to: "/vs-zoho", label: "vs Zoho" },
+  { to: "/vs-smith-ai", label: "vs Smith.ai" },
+  { to: "/vs-goodcall", label: "vs Goodcall" },
+  { to: "/vs-nextphone", label: "vs NextPhone" },
 ];
 
 export default function Layout() {
@@ -48,7 +50,7 @@ export default function Layout() {
                 <Phone className="w-4 h-4 text-white" strokeWidth={2.5} />
               </div>
               <span className="font-bold text-lg tracking-tight text-white">
-                Voxmation<span className="text-violet-400"> OS</span>
+                Voxmation
               </span>
             </Link>
 
@@ -92,19 +94,17 @@ export default function Layout() {
 
             <div className="hidden md:flex items-center gap-3">
               <a
-                href="https://github.com/voxmation/voxmation-os"
-                target="_blank"
-                rel="noopener noreferrer"
+                href={CONTACT.phoneHref}
                 className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-gray-400 hover:text-gray-100 transition-colors"
               >
-                <Github className="w-4 h-4" />
-                <span>GitHub</span>
+                <Phone className="w-4 h-4" />
+                <span>{CONTACT.phone}</span>
               </a>
               <a
-                href="https://github.com/voxmation/voxmation-os"
+                href={CONTACT.phoneHref}
                 className="px-4 py-2 bg-violet-600 hover:bg-violet-500 text-white text-sm font-semibold rounded-lg transition-colors shadow-lg shadow-violet-900/30"
               >
-                Get Started Free
+                Get a Quote
               </a>
             </div>
 
@@ -151,10 +151,10 @@ export default function Layout() {
               </div>
               <div className="pt-3 border-t border-gray-800 mt-2">
                 <a
-                  href="https://github.com/voxmation/voxmation-os"
+                  href={CONTACT.phoneHref}
                   className="block w-full text-center px-4 py-2.5 bg-violet-600 hover:bg-violet-500 text-white text-sm font-semibold rounded-lg transition-colors"
                 >
-                  Get Started Free
+                  Get a Quote — {CONTACT.phone}
                 </a>
               </div>
             </nav>
@@ -174,19 +174,20 @@ export default function Layout() {
                 <div className="w-7 h-7 rounded-md bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center">
                   <Phone className="w-3.5 h-3.5 text-white" />
                 </div>
-                <span className="font-bold text-white">Voxmation OS</span>
+                <span className="font-bold text-white">Voxmation</span>
               </Link>
               <p className="text-sm text-gray-500 leading-relaxed">
-                Open-source, self-hosted CRM with built-in telephony. Own your data, own your stack.
+                The AI receptionist and missed-call recovery service for home-service businesses.
+                Answer, qualify, and route every call — 24/7.
               </p>
               <div className="flex items-center gap-3 mt-4">
-                <a href="https://github.com/voxmation" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-300 transition-colors">
-                  <Github className="w-4 h-4" />
+                <a href={SOCIAL.facebook} target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-300 transition-colors" aria-label="Facebook">
+                  <Facebook className="w-4 h-4" />
                 </a>
-                <a href="https://twitter.com/voxmation" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-300 transition-colors">
+                <a href={SOCIAL.twitter} target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-300 transition-colors" aria-label="Twitter">
                   <Twitter className="w-4 h-4" />
                 </a>
-                <a href="https://linkedin.com/company/voxmation" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-300 transition-colors">
+                <a href={SOCIAL.linkedin} target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-300 transition-colors" aria-label="LinkedIn">
                   <Linkedin className="w-4 h-4" />
                 </a>
               </div>
@@ -196,11 +197,11 @@ export default function Layout() {
               <h3 className="text-sm font-semibold text-gray-300 uppercase tracking-wider mb-4">Product</h3>
               <ul className="space-y-2">
                 {[
+                  { to: "/how-it-works", label: "How It Works" },
                   { to: "/features", label: "Features" },
+                  { to: "/missed-call-recovery", label: "Missed Call Recovery" },
                   { to: "/pricing", label: "Pricing" },
-                  { to: "/blog", label: "Blog" },
                   { to: "/faq", label: "FAQ" },
-                  { to: "/carreiras/assistente-remoto", label: "Carreiras" },
                 ].map((l) => (
                   <li key={l.to}>
                     <Link to={l.to} className="text-sm text-gray-500 hover:text-gray-300 transition-colors">{l.label}</Link>
@@ -212,11 +213,7 @@ export default function Layout() {
             <div>
               <h3 className="text-sm font-semibold text-gray-300 uppercase tracking-wider mb-4">Compare</h3>
               <ul className="space-y-2">
-                {[
-                  { to: "/vs-hubspot", label: "vs HubSpot" },
-                  { to: "/vs-salesforce", label: "vs Salesforce" },
-                  { to: "/vs-zoho", label: "vs Zoho" },
-                ].map((l) => (
+                {COMPARE_LINKS.map((l) => (
                   <li key={l.to}>
                     <Link to={l.to} className="text-sm text-gray-500 hover:text-gray-300 transition-colors">{l.label}</Link>
                   </li>
@@ -225,28 +222,33 @@ export default function Layout() {
             </div>
 
             <div>
-              <h3 className="text-sm font-semibold text-gray-300 uppercase tracking-wider mb-4">Open Source</h3>
+              <h3 className="text-sm font-semibold text-gray-300 uppercase tracking-wider mb-4">Contact</h3>
               <ul className="space-y-2">
-                {[
-                  { href: "https://github.com/voxmation/voxmation-os", label: "GitHub" },
-                  { href: "https://github.com/voxmation/voxmation-os/blob/main/LICENSE", label: "MIT License" },
-                  { href: "https://github.com/voxmation/voxmation-os/issues", label: "Issues" },
-                  { href: "https://github.com/voxmation/voxmation-os/discussions", label: "Community" },
-                ].map((l) => (
-                  <li key={l.href}>
-                    <a href={l.href} target="_blank" rel="noopener noreferrer" className="text-sm text-gray-500 hover:text-gray-300 transition-colors">{l.label}</a>
-                  </li>
-                ))}
+                <li>
+                  <a href={CONTACT.phoneHref} className="text-sm text-gray-500 hover:text-gray-300 transition-colors">
+                    {CONTACT.phone}
+                  </a>
+                </li>
+                <li>
+                  <a href={CONTACT.emailHref} className="text-sm text-gray-500 hover:text-gray-300 transition-colors">
+                    {CONTACT.email}
+                  </a>
+                </li>
+                <li>
+                  <Link to="/carreiras/assistente-remoto" className="text-sm text-gray-500 hover:text-gray-300 transition-colors">
+                    Careers
+                  </Link>
+                </li>
               </ul>
             </div>
           </div>
 
           <div className="pt-8 border-t border-gray-800/60 flex flex-col sm:flex-row items-center justify-between gap-4">
             <p className="text-sm text-gray-600">
-              © {new Date().getFullYear()} Voxmation OS. Released under the MIT License.
+              © {new Date().getFullYear()} Voxmation. All rights reserved.
             </p>
             <p className="text-sm text-gray-600">
-              Built for teams who own their stack.
+              Never miss another customer call.
             </p>
           </div>
         </div>
