@@ -200,6 +200,135 @@ export const COMPETITORS: Competitor[] = [
       },
     ],
   },
+  {
+    slug: "ruby-receptionists",
+    name: "Ruby Receptionists",
+    shortName: "Ruby",
+    category: "Live virtual receptionist service",
+    summary:
+      "Ruby provides polished live human receptionists, which feels premium but is billed by the receptionist minute — costs that add up quickly for high call volume.",
+    weakness:
+      "Per-minute human billing gets expensive at scale, business-hours coverage costs more, and there's no instant AI answering or missed-call textback.",
+    pricingModel:
+      "Advertised from ~$235/mo for a small block of receptionist minutes, with per-minute overage beyond the plan.",
+    rows: [
+      { feature: "Answers in under 2 seconds, every call", vox: true, them: false, note: "Ruby uses a human queue" },
+      { feature: "Unlimited calls without per-minute fees", vox: true, them: false, note: "Ruby bills receptionist minutes" },
+      { feature: "Missed-call SMS textback", vox: true, them: false },
+      { feature: "Predictable, volume-based pricing", vox: true, them: false },
+      { feature: "Lead qualification & routing", vox: true, them: true },
+      { feature: "Appointment booking", vox: true, them: true },
+      { feature: "24/7 coverage at one price", vox: true, them: false, note: "Ruby charges more for after-hours" },
+      { feature: "Live human receptionists", vox: false, them: true, note: "Ruby's core strength" },
+    ],
+    voxWins: [
+      "Sub-2-second answering on every call — no hold queue",
+      "Flat, volume-based pricing instead of metered receptionist minutes",
+      "True 24/7 coverage without premium after-hours rates",
+      "Missed-call textback recovers leads automatically",
+    ],
+    theirStrengths: [
+      "Polished, professional live human receptionists",
+      "Strong brand reputation among professional services",
+      "Friendly human touch on every interaction",
+    ],
+    faq: [
+      {
+        q: "Is VOXmatiON cheaper than Ruby Receptionists?",
+        a: "For most businesses, yes. Ruby bills by the receptionist minute and charges more for after-hours coverage, so costs climb with volume. VOXmatiON uses flat, volume-based pricing with 24/7 coverage included.",
+      },
+      {
+        q: "Can AI replace a Ruby live receptionist?",
+        a: "For answering, qualifying, routing, and booking calls, VOXmatiON's AI handles it instantly 24/7 and can warm-transfer to your team when a human is truly needed — without per-minute human fees.",
+      },
+    ],
+  },
+  {
+    slug: "answerconnect",
+    name: "AnswerConnect",
+    shortName: "AnswerConnect",
+    category: "24/7 live answering service",
+    summary:
+      "AnswerConnect offers 24/7 live human answering with a large agent team, but bills per minute and adds answer delay through a shared agent pool.",
+    weakness:
+      "Per-minute billing, shared agents who don't know your business deeply, and no instant AI answering or automatic missed-call textback.",
+    pricingModel:
+      "Advertised per-minute plans starting around ~$325/mo for a block of live-answer minutes, with overage per minute.",
+    rows: [
+      { feature: "Answers in under 2 seconds, every call", vox: true, them: false, note: "Shared human agent pool" },
+      { feature: "No per-minute billing", vox: true, them: false },
+      { feature: "Missed-call SMS textback", vox: true, them: false },
+      { feature: "Consistent script on every call", vox: true, them: false, note: "Different agent each time" },
+      { feature: "Lead qualification & routing", vox: true, them: true },
+      { feature: "CRM sync (HubSpot, Zoho)", vox: true, them: true },
+      { feature: "Appointment booking", vox: true, them: true },
+      { feature: "Live human agents", vox: false, them: true, note: "AnswerConnect's core model" },
+    ],
+    voxWins: [
+      "Instant answering with the exact same script every time",
+      "No per-minute meter — predictable monthly cost",
+      "Missed-call textback to recover unanswered leads",
+      "Tuned for home-service call patterns, not generic reception",
+    ],
+    theirStrengths: [
+      "Large 24/7 team of live human agents",
+      "Established answering-service operations",
+      "Handles complex or unusual conversations a script can't",
+    ],
+    faq: [
+      {
+        q: "How does VOXmatiON compare to AnswerConnect?",
+        a: "AnswerConnect routes calls to a shared pool of live agents billed per minute. VOXmatiON answers instantly with a consistent AI that knows your business, adds missed-call textback, and uses predictable volume-based pricing.",
+      },
+      {
+        q: "Is an AI answering service as reliable as live agents?",
+        a: "VOXmatiON answers every call in under two seconds with no hold time or staffing gaps, qualifies and books the job, and escalates to your team when needed — without the per-minute cost of a live-agent service.",
+      },
+    ],
+  },
+  {
+    slug: "patlive",
+    name: "PATLive",
+    shortName: "PATLive",
+    category: "Live answering & call center service",
+    summary:
+      "PATLive is a long-running live answering service with friendly US-based agents, billed by the minute above a base plan.",
+    weakness:
+      "Per-minute pricing, answer delay from a live queue, and no AI automation or missed-call textback built in.",
+    pricingModel:
+      "Advertised from a base plan (~$39/mo) plus per-minute charges, with most businesses landing on higher minute tiers.",
+    rows: [
+      { feature: "Answers in under 2 seconds, every call", vox: true, them: false, note: "Live answer queue" },
+      { feature: "No per-minute billing", vox: true, them: false, note: "PATLive bills per minute" },
+      { feature: "Missed-call SMS textback", vox: true, them: false },
+      { feature: "Predictable monthly cost", vox: true, them: false },
+      { feature: "Lead qualification & routing", vox: true, them: true },
+      { feature: "Appointment booking", vox: true, them: true },
+      { feature: "24/7 coverage", vox: true, them: true },
+      { feature: "Friendly US-based live agents", vox: false, them: true, note: "PATLive's core strength" },
+    ],
+    voxWins: [
+      "Instant AI answering with no per-minute meter",
+      "Missed-call textback recovers leads that hit voicemail",
+      "Consistent, trade-specific qualification on every call",
+      "Predictable pricing that doesn't punish a busy month",
+    ],
+    theirStrengths: [
+      "Friendly, experienced US-based live agents",
+      "Decades of answering-service experience",
+      "Good fit when a human voice is a hard requirement",
+    ],
+    faq: [
+      {
+        q: "Is VOXmatiON a good PATLive alternative?",
+        a: "Yes, especially if per-minute bills are unpredictable. VOXmatiON answers instantly 24/7 with volume-based pricing, qualifies and books the job, and adds missed-call textback PATLive doesn't include.",
+      },
+      {
+        q: "Will I lose the human touch switching from PATLive to AI?",
+        a: "VOXmatiON's AI voice is natural and on-brand, answers faster than any live queue, and warm-transfers to your team for the calls that genuinely need a person.",
+      },
+    ],
+  },
 ];
 
 export function getCompetitor(slug: string): Competitor | undefined {

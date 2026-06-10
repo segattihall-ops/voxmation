@@ -3,9 +3,10 @@ import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X, ChevronDown, Phone } from "lucide-react";
 import { motion, AnimatePresence, useMotionValue, useTransform } from "framer-motion";
 import clsx from "clsx";
+import { PHONE_NUMBER, PHONE_HREF } from "@/lib/constants";
 
 const NAV = [
   { href: "/services", label: "Services" },
@@ -26,6 +27,7 @@ const NAV = [
   },
   { href: "/pricing", label: "Pricing" },
   { href: "/compare", label: "Compare" },
+  { href: "/locations", label: "Locations" },
 ];
 
 function MagneticButton({ children, href }: { children: React.ReactNode; href: string }) {
@@ -78,7 +80,7 @@ export default function Navbar() {
             alt="VOXmatiON"
             width={300}
             height={82}
-            className="h-16 lg:h-24 lg:-my-4 w-auto object-contain"
+            className="h-16 lg:h-20 lg:-my-2 xl:h-24 xl:-my-4 w-auto object-contain"
             style={{ mixBlendMode: "screen", maxWidth: "340px" }}
             priority
             sizes="340px"
@@ -117,13 +119,21 @@ export default function Navbar() {
 
         {/* Right CTA */}
         <div className="hidden lg:flex items-center gap-4 flex-shrink-0">
-          <Link href="/contact" className="text-sm text-[#8A99B3] hover:text-[#F7F5F0] transition-colors">Contact</Link>
+          <a href={PHONE_HREF} className="flex items-center gap-1.5 text-sm font-semibold text-[#F7F5F0] hover:text-[#FF8A1F] transition-colors">
+            <Phone className="w-4 h-4 text-[#FF8A1F]" />{PHONE_NUMBER}
+          </a>
           <MagneticButton href="/demo">Get Demo →</MagneticButton>
         </div>
 
-        <button onClick={() => setOpen(!open)} className="lg:hidden p-2 text-[#8A99B3] hover:text-[#F7F5F0] rounded-lg hover:bg-white/8 transition-colors">
-          {open ? <X className="w-5 h-5"/> : <Menu className="w-5 h-5"/>}
-        </button>
+        {/* Mobile: tap-to-call + menu */}
+        <div className="flex items-center gap-1 lg:hidden">
+          <a href={PHONE_HREF} aria-label={`Call ${PHONE_NUMBER}`} className="p-2 text-[#FF8A1F] rounded-lg hover:bg-white/8 transition-colors">
+            <Phone className="w-5 h-5" />
+          </a>
+          <button onClick={() => setOpen(!open)} aria-label="Toggle menu" className="p-2 text-[#8A99B3] hover:text-[#F7F5F0] rounded-lg hover:bg-white/8 transition-colors">
+            {open ? <X className="w-5 h-5"/> : <Menu className="w-5 h-5"/>}
+          </button>
+        </div>
       </div>
 
       <AnimatePresence>
@@ -143,7 +153,10 @@ export default function Navbar() {
                   <Link key={item.href} href={item.href!} className="block px-3 py-2.5 text-sm text-[#8A99B3] hover:text-[#F7F5F0] rounded-lg hover:bg-white/5 transition-colors">{item.label}</Link>
                 )
               )}
-              <div className="pt-3 border-t border-subtle">
+              <div className="pt-3 border-t border-subtle space-y-2">
+                <a href={PHONE_HREF} className="flex items-center justify-center gap-2 py-3.5 rounded-xl border border-[rgba(255,138,31,0.35)] text-[#FF8A1F] font-semibold text-sm">
+                  <Phone className="w-4 h-4" />Call {PHONE_NUMBER}
+                </a>
                 <Link href="/demo" className="flex items-center justify-center py-3.5 rounded-xl bg-orange-grad text-[#060A10] font-semibold text-sm">Get Demo →</Link>
               </div>
             </div>

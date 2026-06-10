@@ -26,9 +26,11 @@ const INDUSTRIES = [
 
 const COMPANY = [
   { href: "/how-it-works", label: "How It Works" },
+  { href: "/what-is-an-ai-receptionist", label: "What Is an AI Receptionist?" },
   { href: "/pricing", label: "Pricing" },
   { href: "/roi-calculator", label: "ROI Calculator" },
   { href: "/compare", label: "Compare" },
+  { href: "/locations", label: "Locations" },
   { href: "/demo", label: "Book a Demo" },
   { href: "/contact", label: "Contact" },
   { href: "/privacy-policy", label: "Privacy Policy" },
