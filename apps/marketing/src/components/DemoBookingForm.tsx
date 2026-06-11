@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Calendar, CheckCircle2, Loader2 } from "lucide-react";
+import { track, EVENTS } from "@/lib/analytics";
 
 type Status = "idle" | "submitting" | "sent" | "error";
 
@@ -17,6 +18,7 @@ export default function DemoBookingForm() {
     e.preventDefault();
     setError(null);
     setStatus("submitting");
+    track(EVENTS.formSubmitted);
 
     const form = e.currentTarget;
     const data = new FormData(form);
@@ -44,9 +46,11 @@ export default function DemoBookingForm() {
       }
       form.reset();
       setStatus("sent");
+      track(EVENTS.formSuccess, { industry: payload.industry || null });
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong.");
       setStatus("error");
+      track(EVENTS.formError);
     }
   }
 

@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import FloatingCTA from "@/components/FloatingCTA";
 import ZohoSalesIQWidget from "@/components/ZohoSalesIQWidget";
+import Analytics from "@/components/Analytics";
 import dynamic from "next/dynamic";
 import { SITE_URL, DEFAULT_OG_IMAGE } from "@/lib/constants";
 
@@ -84,6 +85,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }}
         />
+        <Analytics />
         <ZohoSalesIQWidget />
         <Navbar />
         <main>{children}</main>

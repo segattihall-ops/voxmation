@@ -7,6 +7,7 @@ import { Menu, X, ChevronDown, Phone } from "lucide-react";
 import { motion, AnimatePresence, useMotionValue, useTransform } from "framer-motion";
 import clsx from "clsx";
 import { PHONE_NUMBER, PHONE_HREF } from "@/lib/constants";
+import { track, EVENTS } from "@/lib/analytics";
 
 const NAV = [
   { href: "/services", label: "Services" },
@@ -119,7 +120,7 @@ export default function Navbar() {
 
         {/* Right CTA */}
         <div className="hidden lg:flex items-center gap-4 flex-shrink-0">
-          <a href={PHONE_HREF} className="flex items-center gap-1.5 text-sm font-semibold text-[#F7F5F0] hover:text-[#FF8A1F] transition-colors">
+          <a href={PHONE_HREF} onClick={() => track(EVENTS.tapToCall, { source: "navbar_desktop" })} className="flex items-center gap-1.5 text-sm font-semibold text-[#F7F5F0] hover:text-[#FF8A1F] transition-colors">
             <Phone className="w-4 h-4 text-[#FF8A1F]" />{PHONE_NUMBER}
           </a>
           <MagneticButton href="/demo">Get Demo →</MagneticButton>
@@ -127,7 +128,7 @@ export default function Navbar() {
 
         {/* Mobile: tap-to-call + menu */}
         <div className="flex items-center gap-1 lg:hidden">
-          <a href={PHONE_HREF} aria-label={`Call ${PHONE_NUMBER}`} className="p-2 text-[#FF8A1F] rounded-lg hover:bg-white/8 transition-colors">
+          <a href={PHONE_HREF} onClick={() => track(EVENTS.tapToCall, { source: "navbar_mobile" })} aria-label={`Call ${PHONE_NUMBER}`} className="p-2 text-[#FF8A1F] rounded-lg hover:bg-white/8 transition-colors">
             <Phone className="w-5 h-5" />
           </a>
           <button onClick={() => setOpen(!open)} aria-label="Toggle menu" className="p-2 text-[#8A99B3] hover:text-[#F7F5F0] rounded-lg hover:bg-white/8 transition-colors">
@@ -154,7 +155,7 @@ export default function Navbar() {
                 )
               )}
               <div className="pt-3 border-t border-subtle space-y-2">
-                <a href={PHONE_HREF} className="flex items-center justify-center gap-2 py-3.5 rounded-xl border border-[rgba(255,138,31,0.35)] text-[#FF8A1F] font-semibold text-sm">
+                <a href={PHONE_HREF} onClick={() => track(EVENTS.tapToCall, { source: "navbar_mobile_menu" })} className="flex items-center justify-center gap-2 py-3.5 rounded-xl border border-[rgba(255,138,31,0.35)] text-[#FF8A1F] font-semibold text-sm">
                   <Phone className="w-4 h-4" />Call {PHONE_NUMBER}
                 </a>
                 <Link href="/demo" className="flex items-center justify-center py-3.5 rounded-xl bg-orange-grad text-[#060A10] font-semibold text-sm">Get Demo →</Link>
