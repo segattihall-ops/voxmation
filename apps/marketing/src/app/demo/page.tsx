@@ -2,6 +2,7 @@ import { SITE_URL } from "@/lib/constants";
 import type { Metadata } from "next";
 import { Phone, CheckCircle2, Clock } from "lucide-react";
 import DemoBookingForm from "@/components/DemoBookingForm";
+import TalkToAICard from "@/components/TalkToAICard";
 
 const PAGE_URL = `${SITE_URL}/demo`;
 
@@ -42,9 +43,18 @@ export default function DemoPage() {
                 <span className="text-gradient-orange">In Action</span>
               </h1>
               <p className="text-lg text-gray-300 mb-8 leading-relaxed">
-                Join a free 20-minute demo and watch the AI answer a real call, qualify a lead, update the CRM, and book an appointment — completely automatically.
+                Don&apos;t take our word for it — talk to the AI receptionist live right now,
+                no form required. Then book a full walkthrough whenever you&apos;re ready.
               </p>
 
+              {/* Instant, zero-friction proof — talk to the real AI before any signup */}
+              <div className="mb-8">
+                <TalkToAICard />
+              </div>
+
+              <p className="text-sm font-semibold text-[#FF8A1F] uppercase tracking-widest mb-4">
+                What you&apos;ll see in a full demo
+              </p>
               <div className="space-y-3 mb-10">
                 {WHAT_TO_EXPECT.map((item) => (
                   <div key={item} className="flex items-center gap-3">

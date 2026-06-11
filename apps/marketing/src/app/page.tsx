@@ -47,10 +47,10 @@ export default function HomePage() {
     <>
       <HeroSection />
       <ProblemStrip />
+      <DemoCallWidget />
       <VideoReel />
       <ServicesSection />
       <HowItWorksSection />
-      <DemoCallWidget />
       <ROICalculator />
       <IndustriesSection />
       <SocialProof />
