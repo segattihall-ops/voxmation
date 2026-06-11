@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Mic, MicOff, Loader2 } from "lucide-react";
+import { track, EVENTS } from "@/lib/analytics";
 
 // Public, generic browser-mic live demo card (uses the "home" demo persona).
 // Lets any visitor talk to the real AI receptionist with zero signup — the
@@ -57,12 +58,14 @@ export default function TalkToAICard() {
   const start = useCallback(async () => {
     setError(null);
     setMicStatus("connecting");
+    track(EVENTS.talkStarted, { source: "talk_card" });
     clearTimer();
     timer.current = setTimeout(() => {
       void conversationRef.current?.endSession().catch(() => {});
       conversationRef.current = null;
       setMicStatus("error");
       setError("The live agent didn't answer — try again.");
+      track(EVENTS.talkError, { source: "talk_card", reason: "timeout" });
     }, CONNECT_TIMEOUT_MS);
 
     try {
@@ -83,7 +86,7 @@ export default function TalkToAICard() {
         dynamicVariables,
         onModeChange: ({ mode }: { mode: string }) => setSpeaking(mode === "speaking"),
         onStatusChange: ({ status }: { status: string }) => {
-          if (status === "connected") { clearTimer(); setMicStatus("active"); }
+          if (status === "connected") { clearTimer(); setMicStatus("active"); track(EVENTS.talkConnected, { source: "talk_card" }); }
           if (status === "disconnected") {
             clearTimer();
             setMicStatus("idle");
@@ -95,6 +98,7 @@ export default function TalkToAICard() {
           clearTimer();
           setError(typeof message === "string" ? message : "Connection error.");
           setMicStatus("error");
+          track(EVENTS.talkError, { source: "talk_card" });
         },
       });
       conversationRef.current = conversation;

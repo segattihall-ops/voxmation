@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Phone, PhoneIncoming, Mic, MicOff, Loader2, CheckCircle2 } from "lucide-react";
 import Link from "next/link";
+import { track, EVENTS } from "@/lib/analytics";
 
 // Persona used for the public homepage demo (see lib/demo-data.ts).
 const HOME_SLUG = "home";
@@ -96,6 +97,7 @@ export default function DemoCallWidget() {
   const startVoiceDemo = useCallback(async () => {
     setVoiceError(null);
     setMicStatus("connecting");
+    track(EVENTS.talkStarted, { source: "home_widget" });
 
     // Safety net: never let the widget hang on "connecting" — fall back to the
     // sample so the section is always usable.
@@ -129,6 +131,7 @@ export default function DemoCallWidget() {
           if (status === "connected") {
             clearConnectTimer();
             setMicStatus("active");
+            track(EVENTS.talkConnected, { source: "home_widget" });
           }
           if (status === "disconnected") {
             clearConnectTimer();
@@ -141,6 +144,7 @@ export default function DemoCallWidget() {
           clearConnectTimer();
           setVoiceError(typeof message === "string" ? message : "Connection error");
           setMicStatus("error");
+          track(EVENTS.talkError, { source: "home_widget" });
           startSimulation();
         },
       });

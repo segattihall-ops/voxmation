@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ChevronDown, Phone } from "lucide-react";
 import { PHONE_NUMBER, PHONE_HREF } from "@/lib/constants";
+import { track, EVENTS } from "@/lib/analytics";
 
 const NAV_H = 64; // px — matches Navbar h-16
 
@@ -57,6 +58,7 @@ export default function HeroSection() {
         </Link>
         <a
           href={PHONE_HREF}
+          onClick={() => track(EVENTS.tapToCall, { source: "hero" })}
           className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 text-white font-semibold font-body text-sm hover:bg-white/20 transition-all"
         >
           <Phone className="w-4 h-4 text-[#FF8A1F]" /> Call {PHONE_NUMBER}

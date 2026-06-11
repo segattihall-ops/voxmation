@@ -17,6 +17,7 @@ import {
 import Link from "next/link";
 import type { DemoSlug } from "@/lib/demo-data";
 import { PHONE_HREF, PHONE_NUMBER } from "@/lib/constants";
+import { track, EVENTS } from "@/lib/analytics";
 
 /* ------------------------------------------------------------------ */
 /* Vertical-specific copy                                             */
@@ -128,6 +129,7 @@ export default function DemoWidget({ slugData }: { slugData: DemoSlug }) {
   const startVoiceDemo = useCallback(async () => {
     setMicError(null);
     setMicStatus("connecting");
+    track(EVENTS.talkStarted, { source: "demo_page", slug: slugData.slug });
     try {
       const tokenRes = await fetch("/api/demo/conversation-token", {
         method: "POST",
@@ -189,6 +191,7 @@ export default function DemoWidget({ slugData }: { slugData: DemoSlug }) {
       e.preventDefault();
       setCallError(null);
       setCallStatus("calling");
+      track(EVENTS.callRequested, { slug: slugData.slug });
       try {
         const res = await fetch("/api/demo/call-me", {
           method: "POST",
