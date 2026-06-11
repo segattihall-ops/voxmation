@@ -36,6 +36,7 @@ export default function Analytics() {
       capture_pageview: false, // captured manually above for App Router
       capture_pageleave: true,
       autocapture: true,
+      capture_exceptions: true, // surface client errors in the funnel context
       persistence: "localStorage+cookie",
       person_profiles: "identified_only",
     });
