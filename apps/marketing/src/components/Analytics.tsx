@@ -37,6 +37,7 @@ export default function Analytics() {
       capture_pageleave: true,
       autocapture: true,
       capture_exceptions: true, // surface client errors in the funnel context
+      capture_dead_clicks: true, // spot rage/dead clicks that stall conversion
       persistence: "localStorage+cookie",
       person_profiles: "identified_only",
     });
