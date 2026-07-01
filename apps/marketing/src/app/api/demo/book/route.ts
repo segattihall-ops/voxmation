@@ -57,7 +57,7 @@ export async function POST(req: NextRequest) {
   }
 
   const webhookUrl = process.env.DEMO_WEBHOOK_URL || DEFAULT_WEBHOOK_URL;
-  const ownerEmail = process.env.DEMO_NOTIFICATION_EMAIL || "admin@voxmation.com";
+  const ownerEmail = process.env.DEMO_NOTIFICATION_EMAIL || "sales@voxmation.com";
 
   const fullName = `${firstName} ${lastName}`;
   const rows: [string, string][] = [

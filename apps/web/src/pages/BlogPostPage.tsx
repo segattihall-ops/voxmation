@@ -27,11 +27,11 @@ export default function BlogPostPage() {
     datePublished: post.date,
     author: {
       "@type": "Organization",
-      name: "Voxmation OS",
+      name: "Voxmation",
     },
     publisher: {
       "@type": "Organization",
-      name: "Voxmation OS",
+      name: "Voxmation",
       logo: {
         "@type": "ImageObject",
         url: "https://voxmation.com/logo.svg",

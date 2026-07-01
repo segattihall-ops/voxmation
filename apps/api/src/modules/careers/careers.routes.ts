@@ -2,7 +2,7 @@ import type { FastifyPluginAsync } from "fastify";
 import { z } from "zod";
 import crypto from "crypto";
 import { config } from "../../config";
-import { sendEmail, confirmationEmailHtml } from "../../lib/email";
+import { sendEmail, confirmationEmailHtml, applicationDetailsHtml } from "../../lib/email";
 
 const MAX_RESUME_BASE64 = 7_000_000; // ~5MB raw after base64 inflation
 
@@ -28,6 +28,35 @@ const applicationSchema = z.object({
   // Origin the candidate is browsing from, used to build the confirmation link.
   confirmBaseUrl: z.string().url().optional()
 });
+
+type MailPayload = { email: string; subject: string; html: string };
+
+/**
+ * Fans the careers e-mails out through the Make.com scenario.
+ * Make sends the candidate confirmation and/or the owner copy based on which
+ * fields are present (each route is filtered by recipient existence).
+ */
+async function postToMake(
+  url: string,
+  body: { candidate?: MailPayload; owner?: MailPayload },
+  log: { error: (...args: any[]) => void }
+): Promise<boolean> {
+  try {
+    const res = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body)
+    });
+    if (!res.ok) {
+      log.error({ status: res.status }, "Make careers webhook returned non-2xx");
+      return false;
+    }
+    return true;
+  } catch (err) {
+    log.error({ err }, "Make careers webhook request failed");
+    return false;
+  }
+}
 
 export const careersRoutes: FastifyPluginAsync = async (app) => {
   /**
@@ -79,46 +108,58 @@ export const careersRoutes: FastifyPluginAsync = async (app) => {
       const base = (body.confirmBaseUrl || config.careers.publicUrl || "").replace(/\/+$/, "");
       const confirmUrl = `${base}/carreiras/confirmar?token=${confirmToken}`;
 
-      const emailRes = await sendEmail(
-        {
-          to: application.email,
-          subject: "Confirme sua candidatura — Assistente Remoto (xrmg)",
-          html: confirmationEmailHtml(application.fullName, confirmUrl),
-          text: `Olá ${application.fullName},\n\nRecebemos sua candidatura para Assistente Remoto (PJ). Confirme seu e-mail acessando:\n${confirmUrl}\n\nSe você não fez esta inscrição, ignore este e-mail.`
-        },
-        app.log
-      );
-
-      // Optional internal notification.
-      if (config.careers.notifyEmail) {
-        const ans = (body.answers || {}) as Record<string, unknown>;
-        const pretensao = typeof ans.pretensao === "string" ? ans.pretensao : "—";
-        const notaTeste = typeof ans._nota_teste === "string" ? ans._nota_teste : "—";
-        await sendEmail(
-          {
-            to: config.careers.notifyEmail,
+      const confirmation: MailPayload = {
+        email: application.email,
+        subject: "Confirme sua candidatura — Assistente Remoto (xrmg)",
+        html: confirmationEmailHtml(application.fullName, confirmUrl)
+      };
+      // Copy of every application to the hiring inbox (the "cópia para mim").
+      const ownerCopy: MailPayload | undefined = config.careers.notifyEmail
+        ? {
+            email: config.careers.notifyEmail,
             subject: `Nova candidatura: ${application.fullName} — ${application.position}`,
-            html: `<p>Nova candidatura recebida.</p>
-<ul>
-  <li><strong>Nome:</strong> ${application.fullName}</li>
-  <li><strong>E-mail:</strong> ${application.email}</li>
-  <li><strong>Telefone:</strong> ${application.phone || "—"}</li>
-  <li><strong>Cidade/UF:</strong> ${[application.city, application.state].filter(Boolean).join(" / ") || "—"}</li>
-  <li><strong>Pretensão salarial:</strong> ${pretensao}</li>
-  <li><strong>Nota do teste (múltipla escolha):</strong> ${notaTeste}</li>
-  <li><strong>Status:</strong> aguardando confirmação de e-mail</li>
-</ul>`
+            html: applicationDetailsHtml({ ...application, confirmed: false })
+          }
+        : undefined;
+
+      let emailDelivered = false;
+      if (config.careers.makeWebhookUrl) {
+        // Make sends both the candidate confirmation and the owner copy.
+        emailDelivered = await postToMake(
+          config.careers.makeWebhookUrl,
+          { candidate: confirmation, owner: ownerCopy },
+          app.log
+        );
+      } else {
+        const emailRes = await sendEmail(
+          {
+            to: confirmation.email,
+            subject: confirmation.subject,
+            html: confirmation.html,
+            text: `Olá ${application.fullName},\n\nRecebemos sua candidatura para Assistente Remoto (PJ). Confirme seu e-mail acessando:\n${confirmUrl}\n\nSe você não fez esta inscrição, ignore este e-mail.`
           },
           app.log
         );
+        emailDelivered = emailRes.delivered;
+        if (ownerCopy) {
+          await sendEmail(
+            {
+              to: ownerCopy.email,
+              replyTo: application.email,
+              subject: ownerCopy.subject,
+              html: ownerCopy.html
+            },
+            app.log
+          );
+        }
       }
 
       return reply.code(201).send({
         ok: true,
         applicationId: application.id,
-        emailDelivered: emailRes.delivered,
-        // When no provider is configured (dev), surface the link so the flow is testable.
-        confirmUrl: emailRes.provider === "none" ? confirmUrl : undefined
+        emailDelivered,
+        // When delivery did not happen (dev / misconfig), surface the link so the flow is testable.
+        confirmUrl: emailDelivered ? undefined : confirmUrl
       });
     }
   );
@@ -151,6 +192,21 @@ export const careersRoutes: FastifyPluginAsync = async (app) => {
         where: { id: application.id },
         data: { confirmedAt: new Date(), status: "CONFIRMED" }
       });
+
+      // Send the hiring inbox a full copy now that the lead is validated.
+      if (config.careers.notifyEmail) {
+        const ownerConfirmed: MailPayload = {
+          email: config.careers.notifyEmail,
+          subject: `✅ Candidatura confirmada: ${updated.fullName} — ${updated.position}`,
+          html: applicationDetailsHtml({ ...updated, confirmed: true })
+        };
+        if (config.careers.makeWebhookUrl) {
+          // Owner-only payload — the candidate route is filtered out in Make.
+          await postToMake(config.careers.makeWebhookUrl, { owner: ownerConfirmed }, app.log);
+        } else {
+          await sendEmail({ ...ownerConfirmed, to: ownerConfirmed.email, replyTo: updated.email }, app.log);
+        }
+      }
 
       return { ok: true, alreadyConfirmed: false, fullName: updated.fullName };
     }

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Calendar, CheckCircle2, Loader2 } from "lucide-react";
+import { track, EVENTS } from "@/lib/analytics";
 
 type Status = "idle" | "submitting" | "sent" | "error";
 
@@ -17,6 +18,7 @@ export default function DemoBookingForm() {
     e.preventDefault();
     setError(null);
     setStatus("submitting");
+    track(EVENTS.formSubmitted);
 
     const form = e.currentTarget;
     const data = new FormData(form);
@@ -44,9 +46,11 @@ export default function DemoBookingForm() {
       }
       form.reset();
       setStatus("sent");
+      track(EVENTS.formSuccess, { industry: payload.industry || null });
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong.");
       setStatus("error");
+      track(EVENTS.formError);
     }
   }
 
@@ -109,30 +113,31 @@ export default function DemoBookingForm() {
           </select>
         </div>
 
-        <label className="flex items-start gap-3 pt-1 cursor-pointer">
-          <input
-            name="consent"
-            type="checkbox"
-            required
-            className="mt-1 h-4 w-4 flex-shrink-0 rounded border-white/20 bg-white/5 text-[#FF8A1F] accent-[#FF8A1F] focus:outline-none focus:ring-2 focus:ring-[#FF8A1F]"
-          />
-          <span className="text-xs text-gray-400 leading-relaxed">
-            By checking this box and submitting this form, I agree to the VOXmatiON{" "}
-            <Link href="/demo-terms" className="text-[#FF8A1F] hover:underline">
-              Demo Offer Sign Up Terms and Conditions
-            </Link>{" "}
-            and{" "}
-            <Link href="/privacy-policy" className="text-[#FF8A1F] hover:underline">
-              Privacy Policy
-            </Link>
-            . I authorize VOXmatiON to contact me by phone, email, SMS, and other
-            communication methods about my demo request, offers, and related
-            services. I understand that calls or texts may use automated technology
-            or artificial or prerecorded voice where permitted by law. Consent is
-            not required to purchase. Message and data rates may apply. Reply STOP
-            to opt out of SMS or HELP for help.
-          </span>
-        </label>
+        <div className="pt-1 space-y-2">
+          <label className="flex items-start gap-3 cursor-pointer">
+            <input
+              name="consent"
+              type="checkbox"
+              required
+              className="mt-1 h-4 w-4 flex-shrink-0 rounded border-white/20 bg-white/5 text-[#FF8A1F] accent-[#FF8A1F] focus:outline-none focus:ring-2 focus:ring-[#FF8A1F]"
+            />
+            <span className="text-xs text-gray-400 leading-relaxed">
+              I agree to the{" "}
+              <Link href="/demo-terms" className="text-[#FF8A1F] hover:underline">Demo Terms</Link>{" "}
+              and{" "}
+              <Link href="/privacy-policy" className="text-[#FF8A1F] hover:underline">Privacy Policy</Link>, and
+              authorize VOXmatiON to contact me by phone, email, and SMS about my demo request.
+            </span>
+          </label>
+          <details className="pl-7 text-[11px] text-gray-500">
+            <summary className="cursor-pointer hover:text-gray-300 select-none">Full consent &amp; messaging terms</summary>
+            <p className="mt-2 leading-relaxed">
+              Calls or texts may use automated technology or an artificial or prerecorded voice
+              where permitted by law. Consent is not required to purchase. Message and data rates
+              may apply. Reply STOP to opt out of SMS or HELP for help.
+            </p>
+          </details>
+        </div>
 
         {status === "error" && error && (
           <p className="text-sm text-red-400">{error}</p>

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import HeroSection from "@/components/HeroSection";
+import TrustStrip from "@/components/TrustStrip";
 import ProblemStrip from "@/components/ProblemStrip";
 import VideoReel from "@/components/VideoReel";
 import ServicesSection from "@/components/ServicesSection";
@@ -46,11 +47,12 @@ export default function HomePage() {
   return (
     <>
       <HeroSection />
+      <TrustStrip />
       <ProblemStrip />
+      <DemoCallWidget />
       <VideoReel />
       <ServicesSection />
       <HowItWorksSection />
-      <DemoCallWidget />
       <ROICalculator />
       <IndustriesSection />
       <SocialProof />

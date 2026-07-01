@@ -24,8 +24,8 @@ export default function BlogPage() {
   return (
     <>
       <SEOHead
-        title="Blog — Self-Hosted CRM, Telephony, and Open Source Business Tools"
-        description="In-depth articles on self-hosted CRM, open-source telephony integration, and running your business stack on your own infrastructure."
+        title="Blog — AI Receptionists, Missed Call Recovery & Lead Capture"
+        description="Practical articles on AI receptionists, missed-call recovery, lead capture, and call handling for HVAC, plumbing, electrical, and other home-service businesses."
         canonical="/blog"
         jsonLd={breadcrumb}
       />
@@ -36,7 +36,7 @@ export default function BlogPage() {
             Blog
           </h1>
           <p className="text-xl text-gray-400">
-            Deep dives on self-hosted CRM, open-source telephony, and owning your business stack.
+            Practical guides on AI receptionists, missed-call recovery, and capturing every lead.
           </p>
         </div>
       </section>

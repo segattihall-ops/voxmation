@@ -48,7 +48,7 @@ export default function DashboardLayout() {
     <div className="flex h-screen bg-gray-950 text-gray-100 overflow-hidden">
       <aside className="w-56 flex-shrink-0 bg-gray-900 border-r border-gray-800 flex flex-col">
         <div className="px-5 py-4 border-b border-gray-800">
-          <span className="text-indigo-400 font-bold text-lg tracking-tight">Voxmation OS</span>
+          <span className="text-indigo-400 font-bold text-lg tracking-tight">Voxmation</span>
         </div>
         <nav className="flex-1 overflow-y-auto py-3 px-2">
           {NAV_SECTIONS.map((section) => (

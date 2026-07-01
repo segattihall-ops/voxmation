@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import FloatingCTA from "@/components/FloatingCTA";
 import ZohoSalesIQWidget from "@/components/ZohoSalesIQWidget";
+import Analytics from "@/components/Analytics";
 import dynamic from "next/dynamic";
 import { SITE_URL, DEFAULT_OG_IMAGE } from "@/lib/constants";
 
@@ -49,15 +50,22 @@ const JSON_LD = {
       logo: `${SITE_URL}/Logo.PNG`,
       description:
         "AI voice automation that answers missed calls, qualifies leads, and books jobs 24/7 for HVAC, plumbing, electrical, and roofing companies.",
+      email: "sales@voxmation.com",
       areaServed: ["Dallas", "Fort Worth", "Houston", "Austin", "Texas"],
       contactPoint: {
         "@type": "ContactPoint",
         telephone: "+1-844-687-7999",
+        email: "sales@voxmation.com",
         contactType: "sales",
         areaServed: "US",
         availableLanguage: ["English"],
       },
-      sameAs: ["https://twitter.com/voxmation"],
+      sameAs: [
+        "https://twitter.com/voxmation",
+        "https://www.linkedin.com/company/voxmation",
+        "https://www.facebook.com/voxmation",
+        "https://www.instagram.com/voxmation",
+      ],
     },
     {
       "@type": "WebSite",
@@ -77,6 +85,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }}
         />
+        <Analytics />
         <ZohoSalesIQWidget />
         <Navbar />
         <main>{children}</main>

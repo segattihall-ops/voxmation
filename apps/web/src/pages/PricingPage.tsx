@@ -1,58 +1,96 @@
 import { useState } from "react";
-import { CheckCircle, ArrowRight, ChevronDown } from "lucide-react";
+import { CheckCircle, ArrowRight, ChevronDown, Phone } from "lucide-react";
 import SEOHead from "../components/SEOHead";
+import { CONTACT } from "../config/business";
 import clsx from "clsx";
 
-const SELF_HOSTED_FEATURES = [
-  "Full CRM: Leads, Accounts, Contacts, Opportunities",
-  "Built-in telephony (Asterisk/FreeSWITCH/Twilio)",
-  "Delivery Ops: Projects, Tasks, Service Catalog",
-  "Billing & Invoicing module",
-  "Integration Hub with webhook pub/sub",
-  "JWT Auth + RBAC + Audit Logging",
-  "Unlimited users — no per-seat fees",
-  "Unlimited records",
-  "Full REST API with OpenAPI spec",
-  "MIT License — modify anything",
-  "Community support (GitHub Discussions)",
-];
+interface Plan {
+  name: string;
+  tagline: string;
+  audience: string;
+  highlight?: boolean;
+  features: string[];
+  reporting: string;
+}
 
-const CLOUD_FEATURES = [
-  "Everything in Self-Hosted",
-  "Managed PostgreSQL — no DB ops",
-  "Automated backups & point-in-time recovery",
-  "One-click upgrades",
-  "SLA-backed uptime (99.9%)",
-  "Priority support (email + Slack)",
-  "Custom domain + SSL provisioning",
-  "Usage dashboard & cost alerts",
-  "Compliance exports (SOC 2 ready)",
+const PLANS: Plan[] = [
+  {
+    name: "Starter",
+    tagline: "For local microbusinesses that just can't miss a call.",
+    audience: "Solo operators & new businesses",
+    features: [
+      "Instant missed-call SMS textback",
+      "Basic contact capture",
+      "Business-hours auto-responses",
+      "Email notifications for every lead",
+    ],
+    reporting: "Email notifications",
+  },
+  {
+    name: "Growth",
+    tagline: "For established service businesses ready to scale.",
+    audience: "Small & mid-sized service teams",
+    highlight: true,
+    features: [
+      "24/7 AI receptionist",
+      "Lead qualification & screening",
+      "Appointment booking",
+      "Automated SMS follow-up",
+      "Missed-call textback",
+    ],
+    reporting: "CRM sync (HubSpot, Zoho) + monthly performance report",
+  },
+  {
+    name: "Pro",
+    tagline: "For multi-location, high-volume operations.",
+    audience: "Multi-location & high call volume",
+    features: [
+      "Everything in Growth",
+      "Advanced call logic & rules",
+      "Location-based routing",
+      "AI-answered FAQs",
+      "Review & reactivation automation",
+    ],
+    reporting: "Detailed weekly reports + review automation",
+  },
+  {
+    name: "White Label",
+    tagline: "For agencies and technology resellers.",
+    audience: "Agencies & resellers",
+    features: [
+      "Branded AI receptionist",
+      "Rapid setup templates",
+      "Partner pricing tiers",
+      "Multi-client management",
+    ],
+    reporting: "Dedicated dashboard + integrated support flows",
+  },
 ];
 
 const PRICING_FAQ = [
   {
-    q: "Is the self-hosted version really free forever?",
-    a: "Yes. Voxmation OS is MIT licensed. You can deploy it, modify it, and use it commercially — no fee, no expiry, no feature gates. The only cost is your own infrastructure.",
+    q: "How much does an AI receptionist cost?",
+    a: "Voxmation pricing is based on your call volume, not a confusing per-minute meter. Plans start with a lightweight Starter tier for missed-call textback and scale up to Growth and Pro for full 24/7 answering, qualification, and routing. Contact sales for a quote matched to your volume.",
   },
   {
-    q: "What does 'unlimited users' mean?",
-    a: "No per-seat licensing. You can add as many users as your server can handle. We don't count seats or charge per user on the self-hosted tier.",
+    q: "Are there per-minute overage charges?",
+    a: "No surprise per-minute billing. Many AI answering services charge $0.50–$0.85 per extra minute, which spikes your bill in busy season. Voxmation plans are sized to your call volume so your cost stays predictable.",
   },
   {
-    q: "Is the cloud-managed tier available now?",
-    a: "We're building out cloud-managed hosting. Join the waitlist to be notified when it launches and to lock in early pricing.",
+    q: "Which plan is right for my business?",
+    a: "If you're a solo operator who just needs to stop losing missed calls, start with Starter. If you want a true 24/7 receptionist that qualifies and books leads, choose Growth. Multi-location or high-volume businesses should look at Pro. Agencies reselling to clients should ask about White Label.",
   },
   {
-    q: "What support is available for self-hosted users?",
-    a: "Community support via GitHub Discussions and Issues. The codebase is documented with setup guides, environment variable references, and API docs.",
+    q: "Does Voxmation integrate with my CRM?",
+    a: "Yes. Growth and above sync calls, leads, and bookings to CRMs like HubSpot and Zoho automatically, and can trigger your follow-up automations. No manual data entry.",
   },
   {
-    q: "Can I migrate from self-hosted to cloud-managed later?",
-    a: "Yes. The data model is identical between both tiers. We'll provide migration tooling to move your PostgreSQL data to the managed platform.",
+    q: "How fast can I get set up?",
+    a: "Most businesses are live within a few days. We configure your greeting, qualification questions, routing rules, and integrations, then test against live calls before going live.",
   },
   {
-    q: "What telephony infrastructure do I need for self-hosted?",
-    a: "You need an Asterisk or FreeSWITCH server, or a Twilio account as a fallback. Voxmation OS connects to your existing PBX via SIP. No telephony infrastructure is required for cloud-managed.",
+    q: "Can I white-label Voxmation for my agency's clients?",
+    a: "Yes. The White Label plan gives agencies a branded AI receptionist, rapid setup templates, partner pricing, and a dedicated dashboard to manage multiple clients.",
   },
 ];
 
@@ -76,18 +114,20 @@ function PricingFaqItem({ q, a }: { q: string; a: string }) {
 }
 
 export default function PricingPage() {
-  const productSchema = {
+  const offerSchema = {
     "@context": "https://schema.org",
-    "@type": "Product",
-    name: "Voxmation OS — Self-Hosted CRM",
+    "@type": "Service",
+    name: "Voxmation AI Receptionist",
     description:
-      "Open-source, self-hosted CRM with built-in telephony. Free to deploy, no per-user fees.",
-    offers: {
+      "AI receptionist and missed-call recovery with volume-based pricing. Plans: Starter, Growth, Pro, and White Label.",
+    provider: { "@type": "Organization", name: "Voxmation", url: "https://voxmation.com" },
+    offers: PLANS.map((p) => ({
       "@type": "Offer",
-      price: "0",
+      name: p.name,
+      category: p.audience,
       priceCurrency: "USD",
       availability: "https://schema.org/InStock",
-    },
+    })),
   };
 
   const breadcrumb = {
@@ -112,81 +152,92 @@ export default function PricingPage() {
   return (
     <>
       <SEOHead
-        title="Pricing — Free Self-Hosted CRM with No Per-User Fees"
-        description="Voxmation OS is free to self-host under the MIT license. Unlimited users, no per-seat pricing. Cloud-managed hosting coming soon."
+        title="Pricing — AI Receptionist Plans for Service Businesses"
+        description="Voxmation AI receptionist pricing scales with your call volume — no surprise per-minute fees. Compare Starter, Growth, Pro, and White Label plans for HVAC, plumbing, and electrical businesses."
         canonical="/pricing"
-        jsonLd={[productSchema, breadcrumb, faqSchema]}
+        jsonLd={[offerSchema, breadcrumb, faqSchema]}
       />
 
       <section className="pt-16 pb-12 px-4 sm:px-6 lg:px-8 text-center">
         <div className="max-w-3xl mx-auto">
           <h1 className="text-4xl sm:text-5xl font-extrabold text-white mb-5 tracking-tight">
-            Simple, honest pricing
+            Pricing that scales with your calls
           </h1>
           <p className="text-xl text-gray-400">
-            Self-host for free — forever. No seats, no feature gates, no surprise invoices.
+            Volume-based plans, no per-minute surprises. Pick the tier that matches how you answer.
           </p>
         </div>
       </section>
 
       <section className="py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
-          <div className="border border-gray-800/60 rounded-3xl p-8 bg-gray-900/30">
-            <div className="mb-6">
-              <span className="inline-block px-3 py-1 text-xs font-semibold text-gray-400 bg-gray-800 rounded-full mb-4">Self-Hosted</span>
-              <div className="flex items-baseline gap-1 mb-1">
-                <span className="text-5xl font-black text-white">$0</span>
-                <span className="text-gray-500 text-sm">/ forever</span>
-              </div>
-              <p className="text-gray-500 text-sm">MIT License. Deploy on your own infrastructure.</p>
-            </div>
-            <a
-              href="https://github.com/voxmation/voxmation-os"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center justify-center gap-2 w-full py-3 bg-violet-600 hover:bg-violet-500 text-white font-semibold rounded-xl transition-colors mb-8"
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-start">
+          {PLANS.map((plan) => (
+            <div
+              key={plan.name}
+              className={clsx(
+                "rounded-3xl p-7 relative flex flex-col h-full",
+                plan.highlight
+                  ? "border border-violet-500/40 bg-violet-950/20"
+                  : "border border-gray-800/60 bg-gray-900/30"
+              )}
             >
-              Deploy for Free
-              <ArrowRight className="w-4 h-4" />
-            </a>
-            <ul className="space-y-3">
-              {SELF_HOSTED_FEATURES.map((f) => (
-                <li key={f} className="flex items-start gap-3 text-sm text-gray-300">
-                  <CheckCircle className="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5" />
-                  {f}
-                </li>
-              ))}
-            </ul>
-          </div>
+              {plan.highlight && (
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+                  <span className="px-3 py-1 bg-violet-600 text-white text-xs font-semibold rounded-full">Most popular</span>
+                </div>
+              )}
+              <div className="mb-5">
+                <span className={clsx(
+                  "inline-block px-3 py-1 text-xs font-semibold rounded-full mb-4",
+                  plan.highlight ? "text-violet-400 bg-violet-500/10 border border-violet-500/20" : "text-gray-400 bg-gray-800"
+                )}>
+                  {plan.name}
+                </span>
+                <p className="text-sm text-gray-400 leading-relaxed min-h-[3rem]">{plan.tagline}</p>
+                <p className="text-xs text-gray-600 mt-2">{plan.audience}</p>
+              </div>
 
-          <div className="border border-violet-500/40 rounded-3xl p-8 bg-violet-950/20 relative">
-            <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-              <span className="px-3 py-1 bg-violet-600 text-white text-xs font-semibold rounded-full">Coming Soon</span>
+              <ul className="space-y-2.5 mb-6 flex-1">
+                {plan.features.map((f) => (
+                  <li key={f} className="flex items-start gap-2.5 text-sm text-gray-300">
+                    <CheckCircle className="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5" />
+                    {f}
+                  </li>
+                ))}
+              </ul>
+
+              <p className="text-xs text-gray-500 border-t border-gray-800/60 pt-4 mb-5">
+                <span className="font-semibold text-gray-400">Reporting:</span> {plan.reporting}
+              </p>
+
+              <a
+                href={CONTACT.phoneHref}
+                className={clsx(
+                  "flex items-center justify-center gap-2 w-full py-2.5 font-semibold rounded-xl transition-colors text-sm",
+                  plan.highlight
+                    ? "bg-violet-600 hover:bg-violet-500 text-white"
+                    : "bg-gray-800/60 hover:bg-gray-800 text-gray-200 border border-gray-700/60"
+                )}
+              >
+                Get a quote
+                <ArrowRight className="w-4 h-4" />
+              </a>
             </div>
-            <div className="mb-6">
-              <span className="inline-block px-3 py-1 text-xs font-semibold text-violet-400 bg-violet-500/10 border border-violet-500/20 rounded-full mb-4">Cloud-Managed</span>
-              <div className="flex items-baseline gap-1 mb-1">
-                <span className="text-5xl font-black text-white">TBA</span>
-              </div>
-              <p className="text-gray-500 text-sm">Managed hosting with zero infrastructure overhead.</p>
-            </div>
-            <a
-              href="https://github.com/voxmation/voxmation-os/discussions"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center justify-center gap-2 w-full py-3 bg-gray-800/60 hover:bg-gray-800 text-gray-200 font-semibold rounded-xl border border-gray-700/60 transition-colors mb-8"
-            >
-              Join the Waitlist
+          ))}
+        </div>
+
+        <div className="max-w-3xl mx-auto text-center mt-12">
+          <p className="text-gray-400">
+            Not sure which plan fits? Call{" "}
+            <a href={CONTACT.phoneHref} className="text-violet-400 hover:text-violet-300 font-semibold">
+              {CONTACT.phone}
+            </a>{" "}
+            or email{" "}
+            <a href={CONTACT.emailHref} className="text-violet-400 hover:text-violet-300 font-semibold">
+              {CONTACT.email}
             </a>
-            <ul className="space-y-3">
-              {CLOUD_FEATURES.map((f) => (
-                <li key={f} className="flex items-start gap-3 text-sm text-gray-300">
-                  <CheckCircle className="w-4 h-4 text-violet-400 flex-shrink-0 mt-0.5" />
-                  {f}
-                </li>
-              ))}
-            </ul>
-          </div>
+            .
+          </p>
         </div>
       </section>
 
@@ -198,6 +249,18 @@ export default function PricingPage() {
               <PricingFaqItem key={item.q} q={item.q} a={item.a} />
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className="pb-20 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-3xl mx-auto text-center">
+          <a
+            href={CONTACT.phoneHref}
+            className="inline-flex items-center gap-2 px-6 py-3.5 bg-violet-600 hover:bg-violet-500 text-white font-semibold rounded-xl transition-colors"
+          >
+            <Phone className="w-4 h-4" />
+            Talk to sales — {CONTACT.phone}
+          </a>
         </div>
       </section>
     </>

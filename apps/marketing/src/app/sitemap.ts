@@ -1,6 +1,8 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/constants";
 import { BLOG_POSTS } from "@/data/posts";
+import { COMPETITORS } from "@/data/competitors";
+import { LOCATIONS } from "@/data/locations";
 
 // Industry landing pages — keep in sync with the INDUSTRIES map in
 // src/app/industries/[slug]/page.tsx.
@@ -31,6 +33,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: at("/industries"), lastModified: now, changeFrequency: "monthly", priority: 0.8 },
     { url: at("/how-it-works"), lastModified: now, changeFrequency: "monthly", priority: 0.8 },
     { url: at("/pricing"), lastModified: now, changeFrequency: "monthly", priority: 0.8 },
+    { url: at("/compare"), lastModified: now, changeFrequency: "monthly", priority: 0.7 },
+    { url: at("/roi-calculator"), lastModified: now, changeFrequency: "monthly", priority: 0.7 },
+    { url: at("/locations"), lastModified: now, changeFrequency: "monthly", priority: 0.8 },
+    { url: at("/what-is-an-ai-receptionist"), lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     { url: at("/demo"), lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     { url: at("/blog"), lastModified: now, changeFrequency: "weekly", priority: 0.6 },
     { url: at("/contact"), lastModified: now, changeFrequency: "yearly", priority: 0.5 },
@@ -53,5 +59,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  return [...staticPages, ...industryPages, ...blogPages];
+  const comparePages: MetadataRoute.Sitemap = COMPETITORS.map((c) => ({
+    url: at(`/compare/${c.slug}`),
+    lastModified: now,
+    changeFrequency: "monthly",
+    priority: 0.7,
+  }));
+
+  const locationPages: MetadataRoute.Sitemap = LOCATIONS.map((l) => ({
+    url: at(`/locations/${l.slug}`),
+    lastModified: now,
+    changeFrequency: "monthly",
+    priority: 0.7,
+  }));
+
+  return [...staticPages, ...industryPages, ...comparePages, ...locationPages, ...blogPages];
 }
