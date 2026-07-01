@@ -30,7 +30,13 @@ export const config = {
     // Absolute base URL used to build the e-mail confirmation link when the
     // request does not provide one (e.g. server-to-server). Optional.
     publicUrl: process.env.PUBLIC_BASE_URL || process.env.APP_URL || "",
-    // Optional inbox that receives a notification for every new application.
-    notifyEmail: process.env.CAREERS_NOTIFY_EMAIL || ""
+    // Inbox that receives a copy of every application (submission + confirmation).
+    // Defaults to the hiring owner; override with CAREERS_NOTIFY_EMAIL.
+    notifyEmail: process.env.CAREERS_NOTIFY_EMAIL || "segatti.hall@gmail.com",
+    // Make.com webhook that fans out the confirmation + owner-copy emails.
+    // When set, e-mails are sent via Make instead of the direct Resend call.
+    makeWebhookUrl:
+      process.env.MAKE_CAREERS_WEBHOOK_URL ||
+      "https://hook.us2.make.com/kcf4i9kqzs7sqhfq4floxii1pwedlb6h"
   }
 };

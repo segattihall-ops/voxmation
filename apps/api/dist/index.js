@@ -22,6 +22,7 @@ const voice_routes_1 = require("./modules/voice/voice.routes");
 const delivery_routes_1 = require("./modules/delivery/delivery.routes");
 const billing_routes_1 = require("./modules/billing/billing.routes");
 const integrations_routes_1 = require("./modules/integrations/integrations.routes");
+const careers_routes_1 = require("./modules/careers/careers.routes");
 const app = (0, fastify_1.default)({ logger: true });
 const prisma = new client_1.PrismaClient();
 app.addContentTypeParser("application/json", { parseAs: "string" }, (req, body, done) => {
@@ -57,6 +58,7 @@ app.register(voice_routes_1.voiceRoutes, { prefix: "/v1" });
 app.register(delivery_routes_1.deliveryRoutes, { prefix: "/v1" });
 app.register(billing_routes_1.billingRoutes, { prefix: "/v1" });
 app.register(integrations_routes_1.integrationsRoutes, { prefix: "/v1" });
+app.register(careers_routes_1.careersRoutes, { prefix: "/v1" });
 const staticRoot = path_1.default.resolve(__dirname, "../../web/dist");
 const hasStaticApp = fs_1.default.existsSync(path_1.default.join(staticRoot, "index.html"));
 if (hasStaticApp) {
